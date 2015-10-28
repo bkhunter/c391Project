@@ -1,0 +1,32 @@
+.title{
+
+
+	text-align:center;
+
+
+}
+
+h1{
+
+
+}
+
+
+
+LoginForm{
+
+	border-style:solid;
+	border-width:2px;
+	border-color:blue;
+
+
+}
+
+.container {
+        width: 250px;
+        clear: both;
+}
+.container input {
+        width: 100%;
+        clear: both;
+}
