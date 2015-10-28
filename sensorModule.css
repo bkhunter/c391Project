@@ -12,18 +12,8 @@ h1{
 }
 
 
-
-LoginForm{
-
-	border-style:solid;
-	border-width:2px;
-	border-color:blue;
-
-
-}
-
 .container {
-        width: 250px;
+        width: 350px;
         clear: both;
 }
 .container input {
