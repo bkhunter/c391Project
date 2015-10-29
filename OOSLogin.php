@@ -15,18 +15,16 @@
 
 <body>
 
-	what's up 
+	<center><h1>Ocean Observation System</h1></center>
 
 	<?php
-
-	$username;
-	$password;
-	$typeOfUser;
-
+	
 	if (isset ($_POST['validate'])){
 	
 		$username = $_POST["username"];
 		$password = $_POST["password"];
+		
+		echo 'Welcome to OOS '.$username.'!';
 
 	}
 

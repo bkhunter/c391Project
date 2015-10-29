@@ -1,3 +1,5 @@
+<!DOCTYPE HTML>
+
 <html>
 	<head>
 
@@ -9,13 +11,16 @@
 
 	</head>
 
-	<link rel="stylesheet" type="text/css" href= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" 
+	integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" 
+	crossorigin="anonymous">
 	<link rel ="stylesheet" type ="text/css" href="login.css">
 	<body>
-
 		<div class ="page">
 		<div class = "page-header">
-		<h1 class ="title"> Ocean Observation System</h1>			
+		
+		<h1 class ="title"> Ocean Observation System</h1>		
 		</div>
 		
 
@@ -24,11 +29,11 @@
 
 		
 			
-		<form name = "login" method="post"  action="OOSLogin.php"> <!-- needs to be made, it will connect to database w/ login & pass -->
+		<form name = "login" method="post"  action="OOSLogin.php"> 
 					<h2 class ="loginHeader"> Login </h2>
 					Username: <input type="text" name ="username"><br>
 					Password: <input type = "password" name = "password"><br>
-					<input type="submit" value="Login">
+					<input type="submit" name="validate" value="Login">
 	
 		</form>
 		</div>
