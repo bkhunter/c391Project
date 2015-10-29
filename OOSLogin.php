@@ -29,7 +29,6 @@ include("PHPconnectionDB.php");
 		$conn=connect();
 		
 		
-		//DOES NOT LOOK IN C391WARE TABLE!!!!
 		$sql = 'select * from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
 		
 		
