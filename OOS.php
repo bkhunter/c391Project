@@ -32,7 +32,7 @@
 		<form name = "login" method="post"  action="OOSLogin.php"> 
 					<h2 class ="loginHeader"> Login </h2>
 					Username: <input type="text" name ="username"><br>
-					Password: <input type = "password" name = "password"><br>
+					Password: <input type = "password" name = "pass"><br>
 					<input type="submit" name="validate" value="Login">
 	
 		</form>
