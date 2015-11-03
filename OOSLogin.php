@@ -27,9 +27,14 @@ include("PHPconnectionDB.php");
 		$username = $_POST["username"];
 		$password = $_POST["pass"];
 		$conn=connect();
-		session_start();
-		$_SESSION['validate'] = ' ';
 		
+		session_start();
+		if($_SESSION['validate'] == 'true'){
+			header('Location: OOS.php', true, 301);
+			session_destroy();
+			exit();
+		}
+				
 		$sql = 'select * from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
 		
 		
@@ -43,9 +48,9 @@ include("PHPconnectionDB.php");
 			exit();			
 			}
 			else {
-				$_SESSION['validate'] = ' ';
-				echo 'Welcome '.$username;
-				echo '<br/>';
+				session_start();
+				$_SESSION['validate'] = 'true';
+				echo '<center>Welcome '.$username.'!</center><br/>';
 			}
 	}
 	
