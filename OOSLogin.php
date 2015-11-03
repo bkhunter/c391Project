@@ -43,12 +43,8 @@ include("PHPconnectionDB.php");
 				echo 'Welcome '.$username;
 				echo '<br/>';
 			}
-		
-
 	}
-
-
-
+	
 	?>
 
 	
