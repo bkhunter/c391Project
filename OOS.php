@@ -25,7 +25,9 @@
 		
 		<?php
 		session_start();
-		echo $_SESSION['validate']; 
+		if($_SESSION['validate'] != 'true') {
+			echo $_SESSION['validate']; 
+		}
 		session_destroy();
 		?>
 

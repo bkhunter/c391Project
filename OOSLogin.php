@@ -30,8 +30,8 @@ include("PHPconnectionDB.php");
 		
 		session_start();
 		if($_SESSION['validate'] == 'true'){
-			header('Location: OOS.php', true, 301);
 			session_destroy();
+			header('Location: OOS.php', true, 301);
 			exit();
 		}
 				
