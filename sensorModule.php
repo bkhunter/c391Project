@@ -31,7 +31,7 @@
 		
 		<div class="LoginForm container">
 
-		<form name = "remove sensors" method="post"  action="sensorAdd.php"> 
+		<form name = "remove sensors" method="post"  action="sensorRemove.php"> 
 					<input type="submit" value="Remove Sensors">
 	
 		</form>

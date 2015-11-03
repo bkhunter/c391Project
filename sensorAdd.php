@@ -13,7 +13,7 @@
 	<body>
 	
 		<h1>Create a Sensor</h1>
-		<form name= "Create Sensor" method="post" action="sensorSubmit.php"> 
+		<form name= "Create Sensor" method="post" action="sensorAddSubmit.php"> 
 			Location--------<input type="text" name="location"/> <br/>
 			Sensor Type--<input type="text" name="sensor_type"/> <br/>
 			Description---<input type="text" name="description"/> <br/>
