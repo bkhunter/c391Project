@@ -27,7 +27,8 @@ include("PHPconnectionDB.php");
 		$username = $_POST["username"];
 		$password = $_POST["pass"];
 		$conn=connect();
-		
+		session_start();
+		$_SESSION['validate'] = ' ';
 		
 		$sql = 'select * from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
 		
@@ -36,10 +37,13 @@ include("PHPconnectionDB.php");
 		$res = oci_execute($stid);
 		
 		if ( !oci_fetch_array($stid, OCI_ASSOC) ) {
-			echo 'Wrong username or password!';
-			echo '<br/>';
+			session_start();
+			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
+			header('Location: OOS.php', true, 301);
+			exit();			
 			}
 			else {
+				$_SESSION['validate'] = ' ';
 				echo 'Welcome '.$username;
 				echo '<br/>';
 			}
