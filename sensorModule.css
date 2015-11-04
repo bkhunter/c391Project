@@ -1,0 +1,25 @@
+.sidebar{
+
+  border-style:solid;
+  border-color:black;
+  border-width:2px;
+  float:left;
+  height:95%;
+	width: 25%;
+
+}
+
+
+.dataDisplay{
+  
+  margin:10px;
+  
+  
+  
+}
+
+em{
+
+	margin:10px
+
+}
