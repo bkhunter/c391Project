@@ -57,7 +57,6 @@ include("PHPconnectionDB.php");
 	
 	echo '<center>Welcome '.$_SESSION[username].'!</center><br/>';
 	
-	
 	?>
 	
 	<form name = "logout" method="post"  action="logout.php"> 
@@ -66,7 +65,7 @@ include("PHPconnectionDB.php");
 	</form>
 	
 	<form name = "editInfo" method="post"  action="accountupdate.php"> 
-					<h2 class ="editHeader"> </h2>
+					<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
 					<center>Change password: <input type = "password" name = "newpass">
 					<input type="submit" name="validate" value="confirm"></center>
 	</form>
