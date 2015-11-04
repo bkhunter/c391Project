@@ -29,28 +29,40 @@ include("PHPconnectionDB.php");
 		
 		
 		<?php
+		
+		session_start();
+		if($_SESSION['login'] != 'true') {
+			header('Location: OOS.php', true, 301);
+			exit();	
+		}
+		
+		if (isset ($_POST['validate'])){
 			$conn=connect();
 			$password = $_POST["newpass"];
-			session_start();
+			$_SESSION['login'] = 'true';
 			$username = $_SESSION['username'];
 			$sql = 'update users set password=\''.$password.'\' where user_name=\''.$username.'\'';
 			$stid = oci_parse($conn, $sql);
-			$res = oci_execute($stid);
+			@oci_execute($stid);
 			
 			$sql = 'select * from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
 			$stid = oci_parse($conn, $sql);
-			$res = oci_execute($stid);
+			@oci_execute($stid);
 			if ( !oci_fetch_array($stid, OCI_ASSOC) ) {
 				$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as password!</font></center>';
-				header('Location: OOSLogin.php', true, 301);
-				exit();	
 			}
 			else {
 				$_SESSION['validatePass'] = '<center><font color="#FF88FF">password changed!</font></center>';
-				header('Location: OOSLogin.php', true, 301);
-				exit();
 			}
+			
+			echo $_SESSION['validatePass'];
+		}
 		?>
+		
+		<form name = "continue" method="post"  action="OOSLogin.php"> 
+					<h2 class ="continue"> </h2>
+					<center><input type="submit" name="validate" value="continue"></center>
+		</form>
 		
 	</body>
 

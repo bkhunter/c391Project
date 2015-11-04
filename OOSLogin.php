@@ -19,16 +19,10 @@ include("PHPconnectionDB.php");
 <body>
 
 	<center><h1>Ocean Observation System</h1></center>
-	
-	<?php
-		session_start();
-		if($_SESSION['validatePass'] ) {
-			echo $_SESSION['validatePass']; 
-		}
-		session_destroy();
-	?>
 
 	<?php
+	
+	session_start();
 	
 	if (isset ($_POST['validate'])){
 	
@@ -42,21 +36,34 @@ include("PHPconnectionDB.php");
 		$stid = oci_parse($conn, $sql);
 		$res = oci_execute($stid);
 		
-		if ( !oci_fetch_array($stid, OCI_ASSOC) ) {
-			session_start();
+		if ( !oci_fetch_array($stid, OCI_ASSOC) && $_SESSION['login'] != 'true' ) {
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
 			header('Location: OOS.php', true, 301);
 			exit();			
 			}
 			else {
-				session_start();
-				$_SESSION['validate'] = 'true';
-				$_SESSION['username'] = $username;
-				echo '<center>Welcome '.$username.'!</center><br/>';
-			}
+				if($_SESSION['login'] != 'true'){
+					$_SESSION['login']    = 'true';
+					$_SESSION['validate'] = 'true';
+					$_SESSION['username'] = $username;
+				} 
+			}	
+				
+	}
+	if($_SESSION['login'] != 'true') {
+		header('Location: OOS.php', true, 301);
+		exit();	
 	}
 	
+	echo '<center>Welcome '.$_SESSION[username].'!</center><br/>';
+	
+	
 	?>
+	
+	<form name = "logout" method="post"  action="logout.php"> 
+					<h2 class ="logout"> </h2>
+					<center><input type="submit" name="validate" value="log out"></center>
+	</form>
 	
 	<form name = "editInfo" method="post"  action="accountupdate.php"> 
 					<h2 class ="editHeader"> </h2>
