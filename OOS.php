@@ -23,6 +23,13 @@
 		<h1 class ="title"> Ocean Observation System</h1>		
 		</div>
 		
+		<?php
+		session_start();
+		if($_SESSION['validate'] != 'true') {
+			echo $_SESSION['validate']; 
+		}
+		session_destroy();
+		?>
 
 		<div class="loginForm container">
 
@@ -34,7 +41,6 @@
 					Username: <input type="text" name ="username"><br>
 					Password: <input type = "password" name = "pass"><br>
 					<input type="submit" name="validate" value="Login">
-	
 		</form>
 		</div>
 		</div>
