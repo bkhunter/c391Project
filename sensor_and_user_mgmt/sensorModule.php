@@ -39,7 +39,7 @@
 		
 		<div class="LoginForm container">
 
-		<form name = "add account" method="post"  action="sensorAdd.php"> 
+		<form name = "add account" method="post"  action="uAccountAdd.php"> 
 					<h2 class ="loginHeader"> Manage User Accounts </h2>
 					<input type="submit" value="Add User Account">
 	
@@ -48,7 +48,7 @@
 		
 		<div class="LoginForm container">
 
-		<form name = "update account" method="post"  action="sensorAdd.php"> 
+		<form name = "update account" method="post"  action="uAccountUpdate.php"> 
 					<input type="submit" value="Update User Account">
 	
 		</form>
