@@ -56,7 +56,7 @@
 		
 		<div class="LoginForm container">
 
-		<form name = "remove account" method="post"  action="sensorAdd.php"> 
+		<form name = "remove account" method="post"  action="uAccountRemove.php"> 
 					<input type="submit" value="Remove User Account">
 	
 		</form>

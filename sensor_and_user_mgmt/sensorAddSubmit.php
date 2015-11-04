@@ -62,7 +62,7 @@ include("PHPconnectionDB.php");
 						</div>	
 					<?php 
 
-				} else if (($sType != 'a') || ($sType != 'i') || ($sType != 's')) {
+				} else if (($sType != 'a') && ($sType != 'i') && ($sType != 's')) {
 	    			?> 
 						<div class="LoginForm container">
 						<h2 class ="LoginHeader"> Invalid - Sensor Type Must Be One Of {'a','i','s'} </h2>

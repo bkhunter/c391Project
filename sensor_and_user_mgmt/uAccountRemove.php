@@ -4,7 +4,7 @@
 
 		<title>
 
-			Update User Account
+			Remove User Account
 
 		</title>
 
