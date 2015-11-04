@@ -35,8 +35,9 @@ include("PHPconnectionDB.php");
 		
 		$stid = oci_parse($conn, $sql);
 		$res = oci_execute($stid);
+		$row = oci_fetch_array($stid, OCI_ASSOC);
 		
-		if ( !oci_fetch_array($stid, OCI_ASSOC) && $_SESSION['login'] != 'true' ) {
+		if ( !$row && $_SESSION['login'] != 'true' ) {
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
 			header('Location: OOS.php', true, 301);
 			exit();			
@@ -46,6 +47,8 @@ include("PHPconnectionDB.php");
 					$_SESSION['login']    = 'true';
 					$_SESSION['validate'] = 'true';
 					$_SESSION['username'] = $username;
+
+					$role = $row["ROLE"];
 				} 
 			}	
 				
@@ -57,6 +60,18 @@ include("PHPconnectionDB.php");
 	
 	echo '<center>Welcome '.$_SESSION[username].'!</center><br/>';
 	
+
+		if($role  = 's'){
+
+		echo '<form name = "subscribe" method="post"  action="subscribe_module.php"> 
+					<h2 class ="subscribe"> </h2>
+					<center><input type="submit" name="subscription" value="subscribe"></center>
+	</form>';
+
+
+	}
+
+
 	
 	?>
 	

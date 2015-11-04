@@ -1,5 +1,8 @@
 <?php
 include("PHPconnectionDB.php");
+
+session_start();
+
 ?>
 
 <html>
@@ -11,7 +14,7 @@ include("PHPconnectionDB.php");
 
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="sensorModule.css">
+    <link rel="stylesheet" type="text/css" href="subscribeModule.css">
     
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -45,9 +48,9 @@ include("PHPconnectionDB.php");
 			<?php
 
 
-				$sql = 'select sensor_id , sensor_type
+				$sql = 'select sensors.sensor_id , sensors.sensor_type
     from users, subscriptions , sensors
-    where users.user_name = \''.$_SESSION["username"].'\'
+    where users.user_name = \''.$_POST['username'].'\'
 		and users.person_id = subscriptions.person_id
     and subscriptions.sensor_id = sensors.sensor_id';
 
@@ -137,31 +140,3 @@ include("PHPconnectionDB.php");
 
 
 
-
-<!---- 
-
-	to unsubscribe from a sensor
-
-	JQUERY
-	
-	var id;	
-
-	$("button").click(function() {
-    	id = this.id;
-	});
-
-
-
-	$.post( "test.php", { id: id} );
-
-	<?php 
-
-		
-		delete from subscriptions 
-		where sensor_id = $_POST["id"];
-
-
-	?>
-
-
--->
