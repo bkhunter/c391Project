@@ -20,6 +20,14 @@ session_start();
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
   </head>
+  <body>
+  <?php
+  		session_start();
+  		if($_SESSION['login'] != 'true') {
+			header('Location: OOS.php', true, 301);
+			exit();	
+		}
+	?>
   
 
   <div class="container">
@@ -33,7 +41,11 @@ session_start();
   </div>
   </div>
   </div>
-  <div class="sidebar">Welcome, <em><?php $_SESSION["username"]?></em>
+  	<form name = "logout" method="post"  action="logout.php"> 
+					<h2 class ="logout"> </h2>
+					<center><input type="submit" name="validate" value="log out"></center>
+	</form>
+  <div class="sidebar">Welcome, <?php echo $_SESSION["username"]?>!
 	<br>
 
     <ul class="nav nav-tabs" id="tabs">
@@ -133,6 +145,7 @@ session_start();
 
 
   </div>
+  </body>
 
 
 
