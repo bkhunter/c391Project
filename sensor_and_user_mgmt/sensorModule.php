@@ -1,4 +1,13 @@
 <html>
+
+  <?php
+  		session_start();
+  		if($_SESSION['login'] != 'true') {
+			header('Location: ../OOS.php', true, 301);
+			exit();	
+		}
+	?>
+
 	<head>
 
 	<title>
@@ -18,6 +27,11 @@
 		<div class = "page-header">
 		<h1 class ="title"> Sensor and User Management</h1>			
 		</div>
+		
+		<form name = "logout" method="post"  action="../logout.php"> 
+					<h2 class ="logout"> </h2>
+					<center><input type="submit" name="validate" value="log out"></center>
+		</form>
 		
 
 		<div class="LoginForm container">
