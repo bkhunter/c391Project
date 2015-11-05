@@ -41,20 +41,24 @@ include("PHPconnectionDB.php");
 			$password = $_POST["newpass"];
 			$_SESSION['login'] = 'true';
 			$username = $_SESSION['username'];
-			$sql = 'update users set password=\''.$password.'\' where user_name=\''.$username.'\'';
-			$stid = oci_parse($conn, $sql);
-			@oci_execute($stid);
-			
-			$sql = 'select * from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
-			$stid = oci_parse($conn, $sql);
-			@oci_execute($stid);
-			if ( !oci_fetch_array($stid, OCI_ASSOC) ) {
+			if($password == ''){
 				$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as password!</font></center>';
-			}
+			}			
 			else {
-				$_SESSION['validatePass'] = '<center><font color="#FF88FF">password changed!</font></center>';
-			}
+				$sql = 'update users set password=\''.$password.'\' where user_name=\''.$username.'\'';
+				$stid = oci_parse($conn, $sql);
+				@oci_execute($stid);
 			
+				$sql = 'select * from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
+				$stid = oci_parse($conn, $sql);
+				@oci_execute($stid);
+				if ( !oci_fetch_array($stid, OCI_ASSOC) ) {
+					$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as password!</font></center>';
+				}
+				else {
+					$_SESSION['validatePass'] = '<center><font color="#FF88FF">password changed!</font></center>';
+				}
+			}
 			echo $_SESSION['validatePass'];
 		}
 		?>
