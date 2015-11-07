@@ -78,13 +78,17 @@ include("PHPconnectionDB.php");
 	
 	<form name = "logout" method="post"  action="logout.php"> 
 					<h2 class ="logout"> </h2>
-					<center><input type="submit" name="validate" value="log out"></center>
+					<center><input type="submit" name="validate" value="  log out  "></center>
 	</form>
 	
 	<form name = "editInfo" method="post"  action="accountupdate.php"> 
 					<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
 					<center>Change password: <input type = "password" name = "newpass">
 					<input type="submit" name="validate" value="confirm"></center>
+	</form>
+	
+	<form name = "editInfo" method="post"  action="accountinfo.php"> 
+					<center><input type="submit" name="validate" value="edit personal information"></center>
 	</form>
 
 	
