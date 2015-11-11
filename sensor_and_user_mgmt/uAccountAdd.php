@@ -36,8 +36,10 @@
 		<div class="LoginForm container">
 	
 			<h1>Create Account</h1>
-			<form name= "Create Sensor" method="post" action="sensorAddSubmit.php"> 
+			<form name= "Create User Account" method="post" action="uAccountAddSubmit.php"> 
 				User Name<input type="text" name="usrName"/> <br/>
+				ID<input type="text" name="ID"/> <br/>
+				Role<input type="text" name="role"/> <br/>
 				Password<input type="text" name="pwd"/> <br/>
 				First Name<input type="text" name="fName"/> <br/>
 				Last Name<input type="text" name="lName"/> <br/>
