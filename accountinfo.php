@@ -53,7 +53,7 @@ include("PHPconnectionDB.php");
 							<td>First Name: '.oci_result($stid, 'FIRST_NAME').'</td>
 							<td>
 								<form name = "continue" method="post"  action="OOSLogin.php"> 
-									<input type="submit" name="validate" value="edit">
+									<input type="submit" name="first" value="edit">
 								</form>
 							</td>
 						</tr>
@@ -61,7 +61,7 @@ include("PHPconnectionDB.php");
 							<td>Last Name: '.oci_result($stid, 'LAST_NAME').'</td>
 							<td>
 								<form name = "continue" method="post"  action="OOSLogin.php"> 
-									<input type="submit" name="validate" value="edit">
+									<input type="submit" name="last" value="edit">
 								</form>
 							</td>
 						</tr>
@@ -69,7 +69,7 @@ include("PHPconnectionDB.php");
 							<td>Address: '.oci_result($stid, 'ADDRESS').'</td>
 							<td>
 								<form name = "continue" method="post"  action="OOSLogin.php"> 
-									<input type="submit" name="validate" value="edit">
+									<input type="submit" name="address" value="edit">
 								</form>
 							</td>
 						</tr>
@@ -77,7 +77,7 @@ include("PHPconnectionDB.php");
 							<td>Email: '.oci_result($stid, 'EMAIL').'</td>
 							<td>
 								<form name = "continue" method="post"  action="OOSLogin.php"> 
-									<input type="submit" name="validate" value="edit">
+									<input type="submit" name="email" value="edit">
 								</form>
 							</td>
 						</tr>
@@ -85,7 +85,7 @@ include("PHPconnectionDB.php");
 							<td>Phone: '.oci_result($stid, 'PHONE').'</td>
 							<td>
 								<form name = "continue" method="post"  action="OOSLogin.php"> 
-									<input type="submit" name="validate" value="edit">
+									<input type="submit" name="phone" value="edit">
 								</form>
 							</td>
 						</tr>
