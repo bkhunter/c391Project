@@ -30,14 +30,15 @@ include("PHPconnectionDB.php");
 		$password = $_POST["pass"];
 		$conn=connect();
 				
-		$sql = 'select ROLE from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
+		$sql = 'select * from users where user_name = \''.$username.'\' and  password = \''.$password.'\'';
 		
 		
 		$stid = oci_parse($conn, $sql);
 		$res = oci_execute($stid);
-		$rows = oci_fetch_array($stid, OCI_ASSOC);
+		oci_fetch($stid);
+
 		
-		if ( !$rows && $_SESSION['login'] != 'true' ) {
+		if ( !$res && $_SESSION['login'] != 'true' ) {
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
 			header('Location: OOS.php', true, 301);
 			exit();			
@@ -47,10 +48,8 @@ include("PHPconnectionDB.php");
 					$_SESSION['login']    = 'true';
 					$_SESSION['validate'] = 'true';
 					$_SESSION['username'] = $username;
-					foreach ($rows as $role => $value){
-						$_SESSION['role']     = $value;
-						break;
-					}
+					$_SESSION['person_id'] = oci_result($stid, 'PERSON_ID');
+					$_SESSION['role'] = oci_result($stid, 'ROLE');
 				} 
 			}	
 				
@@ -86,7 +85,7 @@ include("PHPconnectionDB.php");
 	</form>
 	
 	<form name = "editInfo" method="post"  action="accountinfo.php"> 
-					<center><input type="submit" name="validate" value="edit account"></center>
+					<center><input type="submit" name="validateAcc" value="edit account"></center>
 	</form>
 
 	
