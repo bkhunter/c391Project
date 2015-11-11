@@ -1,7 +1,7 @@
 /*
 persons data
 */
-insert into persons values (1,'John','Lennon','Abbey Road','tangerine@trees.mail',9999999999);
+insert into persons values (101,'John','Lennon','Abbey Road','tangerine@trees.mail',9999999999);
 insert into persons values (2,'Ringo','Starr','Peppers Loney Hearts','marmalade@skies.mail',9999999999);
 insert into persons values (3,'George','Harrison','Magical Mystery','kaleidoscope@eyes.mail',9999999999);
 insert into persons values (4,'Paul','McCartney','Yellow Submarine','cellophane@flowers.mail',9999999999);
@@ -17,5 +17,10 @@ insert into users values ('scientist','scientist','s',1,SYSDATE);
 insert into users values ('data','data','d',2,SYSDATE);
 insert into users values ('admin','admin','a',3,SYSDATE);
 insert into users values ('iamthewalrus','iamtheeggman','s',4,SYSDATE);
+
+
+insert into sensors values (101, 'edmonton', 'a' , 'whats good');
+insert into sensors values (102, 'calgary' , 'a' , 'i dunno');
+insert into subscriptions values (101, 1 );
 
 commit;

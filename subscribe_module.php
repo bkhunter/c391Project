@@ -22,7 +22,9 @@ session_start();
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="subscribeModule.css">
-    
+    <style type=”text/css”>
+
+</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
@@ -63,90 +65,133 @@ session_start();
 
 		<!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="Subscribed">This is subscribed
+    <div role="tabpanel" class="tab-pane active" id="Subscribed">
+
 			<?php
 
 
-				$sql = 'select sensors.sensor_id , sensors.sensor_type
+			$sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description
     from users, subscriptions , sensors
-    where users.user_name = \''.$_POST['username'].'\'
+    where users.user_name = \''.$_SESSION['username'].'\'
 		and users.person_id = subscriptions.person_id
     and subscriptions.sensor_id = sensors.sensor_id';
-
-
-			$conn=connect();
+            
+			$conn = connect();
 
 
 			$stid = oci_parse($conn, $sql);
 			$res = oci_execute($stid);
 
-		if ( !oci_fetch_array($stid, OCI_ASSOC) ) {
+			while(oci_fetch($stid)){    
+				echo 'test';
 
+				$data1["sensor_id"] = oci_result($stid,"SENSOR_ID");
+       			$data1["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+				$data1["description"] = oci_result($stid, "DESCRIPTION");
+				echo 'id : ' .$data1["sensor_id"]. ' type: ' .$data1["sensor_type"].' desc: '.$data1["description"];
 
-			while(($data =oci_fetch_array($stid,OCI,ASSOC))){
-					
-
-				foreach($data as $sensor){
-					
-							echo $data["sensor_id"]. ' : ' .$data["sensor_type"].'<button id ="$data["sensor_id"]">Unsubscribe</button>';
-
-				}			
-
+			
 			}
 
 		
 
 
-		}
+
 
 			?>
 
 
 
 		</div>
-    <div role="tabpanel" class="tab-pane" id="Not">This is not subscribed	</div>
+    <div role="tabpanel" class="tab-pane" id="Not">
+
+			<h3>fasdfasdf</h3>
+
+
+
+
+        <?php
+			$string = 'ay';
+            $sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description from sensors, subscriptions, users 
+   where users.user_name = \''.$string.'\'
+   and users.person_id = subscriptions.person_id
+   and sensors.sensor_id != subscriptions.sensor_id';
+
+                    
+            $conn=connect();
+
+
+			$stid = oci_parse($conn, $sql);
+			$res = oci_execute($stid);
+    
+		
+			while(oci_fetch($stid)){    
+
+				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
+       			$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+				$data2["description"] = oci_result($stid, "DESCRIPTION");
+				echo 'id : ' .$data2["sensor_id"]. ' type: ' .$data2["sensor_type"].' desc: '.$data2["description"];
+				echo ' <button>subscribe</button>';
+			
+			}
+
+			oci_fetch($stid);
+		
+			echo oci_result($stid, "DESCRIPTION");
+            
+
+
+        ?>
+        
+
+
+
+	</div>
   </div>
 
 	</div>
   <div class="dataDisplay">
+		yo
     
-    Data then button to subscribe or unsubscribe
-    <!--
-    
-    this is for side bar
-    need person_id from username
-    i dunno how to get that
-    
-    fill side bar with sensor_type and sensor_id
-    
-    
-		this is for stuff that is subscribed 
+    <?php 
 
-    select sensor_id , sensor_type
-    from users, subscriptions , sensors
-    where users.user_name = $_SESSION["username"]
-		and users.person_id = subscriptions.person_id
-    and subscriptions.sensor_id = sensors.sensor_id
-    
-    
-    while getting $data from sql result array{
-    
-    echo $data["sensor_id"] " : " $data["sensor_type"];
-    <button id ="$data["sensor_id"]">Sub/Unsub</button>
-    
-    }
-    
-    
-    for actual data
-    
-    
-    select
-    
-    
-    
-    
-    -->
-    
+
+        $sql = 'select * from sensors';
+
+
+        $conn=connect();
+
+
+		$stid = oci_parse($conn, $sql);
+		$res = oci_execute($stid);
+
+		
+		echo '<table>';
+
+
+		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> <tbody>';
+		
+
+		while(oci_fetch($stid)){    
+
+
+				$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
+       			$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+        		$data3["location"] = oci_result($stid,"LOCATION");
+        		$data3["description"] = oci_result($stid,"DESCRIPTION");
+				echo '<tr> <td>id : ' .$data3["sensor_id"]. ' </td><td> type: ' .$data3["sensor_type"]. ' </td> <td> location: ' .$data3["location"]. ' </td><td> description: ' .$data3["description"].'</td></tr>';
+			
+		}
+
+	
+
+		echo '</table>';
+
+
+    ?>
+
+
+
   </div>
 
 
