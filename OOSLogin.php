@@ -62,14 +62,13 @@ include("PHPconnectionDB.php");
 	
 	echo '<center>Welcome '.$_SESSION[username].'!</center><br/>';
 	
-
+	
 		if($_SESSION['role'] == 's'){
 
 			echo '<form name = "subscribe" method="post"  action="subscribe_module.php"> 
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="subscription" value="subscribe"></center>
 					</form>';
-		
 		}
 
 
@@ -81,14 +80,13 @@ include("PHPconnectionDB.php");
 					<center><input type="submit" name="validate" value="  log out  "></center>
 	</form>
 	
-	<form name = "editInfo" method="post"  action="accountupdate.php"> 
-					<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
-					<center>Change password: <input type = "password" name = "newpass">
-					<input type="submit" name="validate" value="confirm"></center>
+	<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
+	<form name = "editInfo" method="post"  action="changepass.php"> 
+					<center><input type="submit" name="validate" value="change password"></center>
 	</form>
 	
 	<form name = "editInfo" method="post"  action="accountinfo.php"> 
-					<center><input type="submit" name="validate" value="edit personal information"></center>
+					<center><input type="submit" name="validate" value="edit account"></center>
 	</form>
 
 	
