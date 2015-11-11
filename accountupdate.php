@@ -61,6 +61,22 @@ include("PHPconnectionDB.php");
 			}
 			echo $_SESSION['validatePass'];
 		}
+		if (isset ($_POST['editfirst'])){
+			echo $_POST['first'];
+		}
+		if (isset ($_POST['editlast'])){
+			echo $_POST['last'];
+		}
+		if (isset ($_POST['editaddress'])){
+			echo $_POST['address'];
+		}
+		if (isset ($_POST['editemail'])){
+			echo $_POST['email'];
+		}
+		if (isset ($_POST['editphone'])){
+			echo $_POST['phone'];
+		}
+		
 		?>
 		
 		<form name = "continue" method="post"  action="OOSLogin.php"> 

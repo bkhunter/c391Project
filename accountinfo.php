@@ -52,7 +52,7 @@ include("PHPconnectionDB.php");
 						<tr>
 							<td>First Name: '.oci_result($stid, 'FIRST_NAME').'</td>
 							<td>
-								<form name = "continue" method="post"  action="OOSLogin.php"> 
+								<form name = "continue" method="post"  action="changeaccinfo.php"> 
 									<input type="submit" name="first" value="edit">
 								</form>
 							</td>
@@ -60,7 +60,7 @@ include("PHPconnectionDB.php");
 						<tr>
 							<td>Last Name: '.oci_result($stid, 'LAST_NAME').'</td>
 							<td>
-								<form name = "continue" method="post"  action="OOSLogin.php"> 
+								<form name = "continue" method="post"  action="changeaccinfo.php"> 
 									<input type="submit" name="last" value="edit">
 								</form>
 							</td>
@@ -68,7 +68,7 @@ include("PHPconnectionDB.php");
 						<tr>
 							<td>Address: '.oci_result($stid, 'ADDRESS').'</td>
 							<td>
-								<form name = "continue" method="post"  action="OOSLogin.php"> 
+								<form name = "continue" method="post"  action="changeaccinfo.php"> 
 									<input type="submit" name="address" value="edit">
 								</form>
 							</td>
@@ -76,7 +76,7 @@ include("PHPconnectionDB.php");
 						<tr>
 							<td>Email: '.oci_result($stid, 'EMAIL').'</td>
 							<td>
-								<form name = "continue" method="post"  action="OOSLogin.php"> 
+								<form name = "continue" method="post"  action="changeaccinfo.php"> 
 									<input type="submit" name="email" value="edit">
 								</form>
 							</td>
@@ -84,14 +84,14 @@ include("PHPconnectionDB.php");
 						<tr>
 							<td>Phone: '.oci_result($stid, 'PHONE').'</td>
 							<td>
-								<form name = "continue" method="post"  action="OOSLogin.php"> 
+								<form name = "continue" method="post"  action="changeaccinfo.php"> 
 									<input type="submit" name="phone" value="edit">
 								</form>
 							</td>
 						</tr>
 						<tr>
 						<td>
-							<form name = "continue" method="post"  action="OOSLogin.php"> 
+							<form name = "continue" method="post"  action="changeaccinfo.php"> 
 								<h2 class ="continue"> </h2>
 								<center><input type="submit" name="validate" value="continue"></center>
 							</form>
