@@ -69,6 +69,14 @@ include("PHPconnectionDB.php");
 					<center><input type="submit" name="subscription" value="subscribe"></center>
 					</form>';
 		}
+		
+		if($_SESSION['role'] == 'a'){
+
+			echo '<form name = "subscribe" method="post"  action="./sensor_and_user_mgmt/sensorModule.php"> 
+					<h2 class ="subscribe"> </h2>
+					<center><input type="submit" name="subscription" value="sensor and user management"></center>
+					</form>';
+		}
 
 
 	
