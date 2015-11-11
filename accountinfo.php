@@ -91,7 +91,7 @@ include("PHPconnectionDB.php");
 						</tr>
 						<tr>
 						<td>
-							<form name = "continue" method="post"  action="changeaccinfo.php"> 
+							<form name = "continue" method="post"  action="OOSLogin.php"> 
 								<h2 class ="continue"> </h2>
 								<center><input type="submit" name="validate" value="continue"></center>
 							</form>
