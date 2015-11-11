@@ -27,12 +27,6 @@
 		<div class = "page-header">
 		<h1 class ="title"> Sensor and User Management</h1>			
 		</div>
-		
-		<form name = "logout" method="post"  action="../logout.php"> 
-					<h2 class ="logout"> </h2>
-					<center><input type="submit" name="validate" value="log out"></center>
-		</form>
-		
 
 		<div class="LoginForm container">
 
@@ -73,6 +67,23 @@
 		<form name = "remove account" method="post"  action="uAccountRemove.php"> 
 					<input type="submit" value="Remove User Account">
 	
+		</form>
+		</div>
+
+
+		<div class="LoginForm container">
+
+		<form name = "logout" method="post"  action="../logout.php"> 
+					<h2 class ="logout"> Exit </h2>
+					<input type="submit" name="validate" value="Log Out"></center>
+		</form>
+		</div>
+
+
+		<div class="LoginForm container">
+
+		<form name = "Main" method="post"  action="../logout.php"> 
+					<input type="submit" name="validate" value="Main Menu"></center>
 		</form>
 		</div>
 		
