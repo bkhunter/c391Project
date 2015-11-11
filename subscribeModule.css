@@ -5,10 +5,25 @@
   border-width:2px;
   float:left;
   height:95%;
-	width: 25%;
+	width: 35%;
 
 }
 
+table{
+
+	margin:10px;
+	border: 1px groove black;
+	width:90%;
+
+
+}
+
+td{
+
+	margin:2px
+	border: 2px;
+
+}
 
 .dataDisplay{
   
@@ -23,3 +38,12 @@ em{
 	margin:10px
 
 }
+
+#dataTable{
+
+	margin:10px;
+	border: 1px groove black;
+	width:65%;
+
+}
+    

@@ -82,20 +82,27 @@ session_start();
 			$stid = oci_parse($conn, $sql);
 			$res = oci_execute($stid);
 
+
+
+			echo '<table>';
+
+
+			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> <tbody> ';
+
+
 			while(oci_fetch($stid)){    
-				echo 'test';
 
 				$data1["sensor_id"] = oci_result($stid,"SENSOR_ID");
        			$data1["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data1["description"] = oci_result($stid, "DESCRIPTION");
-				echo 'id : ' .$data1["sensor_id"]. ' type: ' .$data1["sensor_type"].' desc: '.$data1["description"];
-
+				echo '<tr><td>' .$data1["sensor_id"]. '</td><td>' .$data1["sensor_type"].'</td><td>'.$data1["description"];
+				echo '</td><td><button>Unsubscribe</button></td></tr>';
 			
 			}
 
 		
 
-
+			echo '</table>';
 
 
 			?>
@@ -105,7 +112,6 @@ session_start();
 		</div>
     <div role="tabpanel" class="tab-pane" id="Not">
 
-			<h3>fasdfasdf</h3>
 
 
 
@@ -123,6 +129,13 @@ session_start();
 
 			$stid = oci_parse($conn, $sql);
 			$res = oci_execute($stid);
+
+
+			echo '<table>';
+
+
+			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> <tbody> ';
+		
     
 		
 			while(oci_fetch($stid)){    
@@ -130,8 +143,8 @@ session_start();
 				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
        			$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
-				echo 'id : ' .$data2["sensor_id"]. ' type: ' .$data2["sensor_type"].' desc: '.$data2["description"];
-				echo ' <button>subscribe</button>';
+				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
+				echo '</td><td> <button>subscribe</button></td></tr>';
 			
 			}
 
@@ -139,7 +152,8 @@ session_start();
 		
 			echo oci_result($stid, "DESCRIPTION");
             
-
+			
+			echo '</table>';
 
         ?>
         
@@ -151,7 +165,6 @@ session_start();
 
 	</div>
   <div class="dataDisplay">
-		yo
     
     <?php 
 
@@ -166,7 +179,7 @@ session_start();
 		$res = oci_execute($stid);
 
 		
-		echo '<table>';
+		echo '<table id=dataTable>';
 
 
 		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> <tbody>';
@@ -179,7 +192,7 @@ session_start();
        			$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
         		$data3["location"] = oci_result($stid,"LOCATION");
         		$data3["description"] = oci_result($stid,"DESCRIPTION");
-				echo '<tr> <td>id : ' .$data3["sensor_id"]. ' </td><td> type: ' .$data3["sensor_type"]. ' </td> <td> location: ' .$data3["location"]. ' </td><td> description: ' .$data3["description"].'</td></tr>';
+				echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
 			
 		}
 
