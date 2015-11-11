@@ -1,7 +1,7 @@
 /*
 persons data
 */
-insert into persons values (101,'John','Lennon','Abbey Road','tangerine@trees.mail',9999999999);
+insert into persons values (1,'John','Lennon','Abbey Road','tangerine@trees.mail',9999999999);
 insert into persons values (2,'Ringo','Starr','Peppers Loney Hearts','marmalade@skies.mail',9999999999);
 insert into persons values (3,'George','Harrison','Magical Mystery','kaleidoscope@eyes.mail',9999999999);
 insert into persons values (4,'Paul','McCartney','Yellow Submarine','cellophane@flowers.mail',9999999999);
