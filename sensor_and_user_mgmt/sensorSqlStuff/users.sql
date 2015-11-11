@@ -1,3 +1,6 @@
+drop table users;
+drop table persons;
+
 CREATE TABLE persons (
        person_id int,
        first_name varchar(24),
