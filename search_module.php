@@ -39,11 +39,17 @@ session_start();
 
 
 
-	<div>
+	<div class ='col-sm-3'></div>
+	<div class = "col-sm-6">
+		
+		<form name = 'search' class="searchForm">
+
+				<h2>Search subscribed Sensors</h2>
+				<input type="text" name ="searchBar"><br>
+				<input type ="submit" name = "searchSubmit">
 
 
-		<form></form>
-
+		</form>
 
 
 
@@ -52,6 +58,32 @@ session_start();
 
 
 </div>
+
+
+
+
+<?php
+
+
+//EXAMPLE OF HOW TO CREATE .CSV FILE 
+/*
+$list = array (
+    array('aaa', 'bbb', 'ccc', 'dddd'),
+    array('123', '456', '789'),
+    array('"aaa"', '"bbb"')
+);
+
+$fp = fopen('file.csv', 'w');
+
+foreach ($list as $fields) {
+    fputcsv($fp, $fields);
+}
+
+fclose($fp);
+*/
+?>
+
+
 
 
 
