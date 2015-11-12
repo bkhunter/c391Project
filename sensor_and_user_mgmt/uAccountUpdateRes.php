@@ -26,8 +26,8 @@ include("PHPconnectionDB.php");
 
 
 		<?php   	 
-			if(isset($_POST['search'])){        	
-				$name=$_POST['usrName'];            		
+			if(isset($_POST['usrNameSearch'])){        	
+				$name=$_POST['usrName'];          		
 				
 				ini_set('display_errors', 1);
 	    		error_reporting(E_ALL);
@@ -39,40 +39,284 @@ include("PHPconnectionDB.php");
     				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 	    		} 
 
-			}
-
 		?>
+
+				<div class="LoginForm container">
+					<h1>Redo Search</h1>
+					<form name= "userName_search" method="post" action="uAccountUpdateRes.php"> 
+						 Username<input type="text" value="<?php echo $name ?>" name="usrName"/> <br/>
+						<input type="submit" name="usrNameSearch"/>
+					</form>
+				</div>
+
+		<?php
+			
+				$userQ = 'SELECT user_name, password, role, person_id FROM users where user_name = \''.$name.'\'';	
+				
+				//prepare
+				$stid1 = oci_parse($conn, $userQ );
+					
+				//execute
+				$UQres=oci_execute($stid1);
+				$index = 0;
+				$res = array("usrname","pw","role","id");
+				while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
+					foreach($row as $item) {
+						$res[$index] = $item;
+						$index = $index + 1;
+					}
+				}
 		
-		<div class="LoginForm container">
-			<h1>Search for User Account</h1>
-			<form name= "user_search" method="post" action="uAccountUpdateRes.php"> 
-				Person Name<input type="text" value="<?php echo $name ?>" name="usrName"/> <br/>
-				<input type="submit" name="search"/>
-			</form>
-		</div>
+				$pw = $res[1];
+				$role = $res[2];
+				$id = $res[3];
+
 		
+				$personQ = 'SELECT person_id, first_name, last_name, address, email, phone FROM persons WHERE person_id = \''.$id.'\'';	
+				
+				//prepare
+				$stid2 = oci_parse($conn, $personQ );
+					
+				//execute
+				$PQres=oci_execute($stid2);
 
-		<div class="LoginForm container">
-	
-			<h1>Update Account</h1>
-			<form name= "usr_update" method="post" action="sensorAddSubmit.php"> 
-				User Name<input type="text" value= "ayylmao" name="usrName"/> <br/>
-				Password<input type="text" value= "********" name="pwd"/> <br/>
-				First Name<input type="text" value= "Bob" name="fName"/> <br/>
-				Last Name<input type="text" value= "sichurd" name="lName"/> <br/>
-				Address<input type="text" value= "123 Fake Street" name="addr"/> <br/>
-				Email Address<input type="text" value="example@aol.online" name="email"/> <br/>
-				Phone Number<input type="text" value= "555-5555" name="phone"/> <br/>
-				<input type="submit" value="Update" name="create"/>
-			</form>
+				$index = 0;
+				$res2 = array("User ID","First Name","Last Name","Address","Email","Phone");
+				while (($row = oci_fetch_array($stid2, OCI_ASSOC))) {
+					foreach($row as $item) {
+						$res2[$index] = $item;
+						$index = $index + 1;
+					}
+				}
+			
+				$fname = $res2[1];
+				$lname = $res2[2];
+				$addr = $res2[3];
+				$email = $res2[4];
+				$phone = $res2[5];
 
-		</div>	
 
-		<div class="LoginForm container">
+
+			?>
+			<div class="LoginForm container">
+
+				<h1>Update Account</h1>
+				<form name= "usr_update" method="post" action="uAccountAddSubmit.php"> 
+					User Name<input type="text" value= "<?php echo $name ?>" name="usrName"/> <br/>
+					ID<input type="text" value= "<?php echo $id ?>" name="ID" /> <br/>
+					Role<input type="text" value= "<?php echo $role ?>" name= "role" /> <br/>
+					Password<input type="text" value= "<?php echo $pw ?>" name="pwd"/> <br/>
+					First Name<input type="text" value= "<?php echo $fname ?>" name="fName"/> <br/>
+					Last Name<input type="text" value= "<?php echo $lname ?>" name="lName"/> <br/>
+					Address<input type="text" value= "<?php echo $addr ?>" name="addr"/> <br/>
+					Email Address<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
+					Phone Number<input type="text" value="<?php echo $phone ?>" name="phone"/> <br/>
+					<input type="submit" value="update" name="Remove User"/>
+					<input type="submit" value="Remove" name="delete"/>
+				</form>
+
+			</div>	
+
+			<div class="LoginForm container">
 				<form name= "Back" method="post" action="sensorModule.php"> 
 						<input type="submit" name="Return"value="Return To Menu"/>
 				</form>
-		</div>	
+			</div>	
+
+		<?php
+		} else if(isset($_POST['emailSearch'])) { 
+
+			$email=$_POST['email'];  
+
+				ini_set('display_errors', 1);
+	    		error_reporting(E_ALL);
+	    	
+	    		$conn=connect();
+	    		
+	    		if (!$conn) {
+    				$e = oci_error();
+    				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+	    		} 
+
+		?>
+				<div class="LoginForm container">
+					<h1>Redo Search</h1>
+					<form name= "Email Search" method="post" action="uAccountUpdateRes.php"> 
+						 Email<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
+						<input type="submit" name="emailSearch"/>
+					</form>
+				</div>
+
+		<?php		
+
+				$personQ = 'SELECT person_id, first_name, last_name, address, email, phone FROM persons WHERE email = \''.$email.'\'';	
+				
+				//prepare
+				$stid1 = oci_parse($conn, $personQ );
+					
+				//execute
+				$PQres=oci_execute($stid1);
+
+				$index = 0;
+				$res = array("User ID","First Name","Last Name","Address","Email","Phone");
+				while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
+					foreach($row as $item) {
+						$res[$index] = $item;
+						$index = $index + 1;
+					}
+				}
+			
+				$id = $res[0];
+				$fname = $res[1];
+				$lname = $res[2];
+				$addr = $res[3];
+				$phone = $res[5];
+
+
+				$userQ = 'SELECT user_name, password, role, person_id FROM users where person_id = \''.$id.'\'';	
+				
+				//prepare
+				$stid2 = oci_parse($conn, $userQ );
+					
+				//execute
+				$UQres=oci_execute($stid2);
+				$index = 0;
+				$res2 = array("usrname","pw","role","id");
+				while (($row = oci_fetch_array($stid2, OCI_ASSOC))) {
+					foreach($row as $item) {
+						$res2[$index] = $item;
+						$index = $index + 1;
+					}
+				}
+			
+				$name = $res2[0];
+				$pw = $res2[1];
+				$role = $res2[2];
+
+
+			?>
+				<div class="LoginForm container">
+
+					<h1>Update Account</h1>
+					<form name= "usr_update" method="post" action="uAccountAddSubmit.php"> 
+						User Name<input type="text" value= "<?php echo $name ?>" name="usrName"/> <br/>
+						ID<input type="text" value= "<?php echo $id ?>" name="ID" /> <br/>
+						Role<input type="text" value= "<?php echo $role ?>" name= "role" /> <br/>
+						Password<input type="text" value= "<?php echo $pw ?>" name="pwd"/> <br/>
+						First Name<input type="text" value= "<?php echo $fname ?>" name="fName"/> <br/>
+						Last Name<input type="text" value= "<?php echo $lname ?>" name="lName"/> <br/>
+						Address<input type="text" value= "<?php echo $addr ?>" name="addr"/> <br/>
+						Email Address<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
+						Phone Number<input type="text" value="<?php echo $phone ?>" name="phone"/> <br/>
+						<input type="submit" value="Update" name="update"/>
+						<input type="submit" value="Remove" name="delete"/>
+					</form>
+
+				</div>	
+
+				<div class="LoginForm container">
+					<form name= "Back" method="post" action="sensorModule.php"> 
+							<input type="submit" name="Return"value="Return To Menu"/>
+					</form>
+				</div>	
+		<?php
+		} else {
+			$id=$_POST['usrID'];  
+
+			ini_set('display_errors', 1);
+    		error_reporting(E_ALL);
+    	
+    		$conn=connect();
+    		
+    		if (!$conn) {
+				$e = oci_error();
+				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    		} 
+
+		?>
+			<div class="LoginForm container">
+				<h1>Redo Search</h1>
+				<form name= "Email Search" method="post" action="uAccountUpdateRes.php"> 
+					 User ID<input type="text" value="<?php echo $id ?>" name="usrID"/> <br/>
+					<input type="submit" name="IDSearch"/>
+				</form>
+			</div>
+
+		<?php		
+
+			$personQ = 'SELECT person_id, first_name, last_name, address, email, phone FROM persons WHERE person_id = \''.$id.'\'';	
+			
+			//prepare
+			$stid1 = oci_parse($conn, $personQ );
+				
+			//execute
+			$PQres=oci_execute($stid1);
+
+			$index = 0;
+			$res = array("User ID","First Name","Last Name","Address","Email","Phone");
+			while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
+				foreach($row as $item) {
+					$res[$index] = $item;
+					$index = $index + 1;
+				}
+			}
+		
+			$fname = $res[1];
+			$lname = $res[2];
+			$addr = $res[3];
+			$email = $res[4];
+			$phone = $res[5];
+
+
+			$userQ = 'SELECT user_name, password, role, person_id FROM users where person_id = \''.$id.'\'';	
+			
+			//prepare
+			$stid2 = oci_parse($conn, $userQ );
+				
+			//execute
+			$UQres=oci_execute($stid2);
+			$index = 0;
+			$res2 = array("usrname","pw","role","id");
+			while (($row = oci_fetch_array($stid2, OCI_ASSOC))) {
+				foreach($row as $item) {
+					$res2[$index] = $item;
+					$index = $index + 1;
+				}
+			}
+
+			$name = $res2[0];
+			$pw = $res2[1];
+			$role = $res2[2];
+
+
+		?>
+			<div class="LoginForm container">
+
+				<h1>Update Account</h1>
+				<form name= "usr_update" method="post" action="uAccountAddSubmit.php"> 
+					User Name<input type="text" value= "<?php echo $name ?>" name="usrName"/> <br/>
+					ID<input type="text" value= "<?php echo $id ?>" name="ID" /> <br/>
+					Role<input type="text" value= "<?php echo $role ?>" name= "role" /> <br/>
+					Password<input type="text" value= "<?php echo $pw ?>" name="pwd"/> <br/>
+					First Name<input type="text" value= "<?php echo $fname ?>" name="fName"/> <br/>
+					Last Name<input type="text" value= "<?php echo $lname ?>" name="lName"/> <br/>
+					Address<input type="text" value= "<?php echo $addr ?>" name="addr"/> <br/>
+					Email Address<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
+					Phone Number<input type="text" value="<?php echo $phone ?>" name="phone"/> <br/>
+					<input type="submit" value="update" name="update"/>
+					<input type="submit" value="Remove" name="delete"/>
+				</form>
+
+			</div>	
+
+			<div class="LoginForm container">
+					<form name= "Back" method="post" action="sensorModule.php"> 
+							<input type="submit" name="Return"value="Return To Menu"/>
+					</form>
+			</div>	
+		<?php
+		}
+		?>
 
 	</body>
 
