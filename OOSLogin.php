@@ -36,13 +36,9 @@ include("PHPconnectionDB.php");
 		$stid = oci_parse($conn, $sql);
 		$res = oci_execute($stid);
 		oci_fetch($stid);
+
 		
-		if((is_numeric ( oci_result($stid, 'PERSON_ID') )==1)) {
-			$_SESSION['login'] = 'true';
-		}
-		//if not login in or not an account 
-		if ( $_SESSION['login'] != 'true' ) {
-			//wrong username or password message 
+		if ( !$res && $_SESSION['login'] != 'true' ) {
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
 			header('Location: OOS.php', true, 301);
 			exit();			
@@ -72,14 +68,14 @@ include("PHPconnectionDB.php");
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="subscription" value="subscribe"></center>
 					</form>';
-		}
-		
-		if($_SESSION['role'] == 'a'){
 
-			echo '<form name = "subscribe" method="post"  action="./sensor_and_user_mgmt/sensorModule.php"> 
-					<h2 class ="subscribe"> </h2>
-					<center><input type="submit" name="subscription" value="sensor and user management"></center>
+
+
+			echo '<form name = "search" method="post"  action="search_module.php"> 
+					<h2 class ="search"> </h2>
+					<center><input type="submit" name="search" value="search"></center>
 					</form>';
+
 		}
 
 
