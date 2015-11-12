@@ -39,18 +39,27 @@ session_start();
 
 
 
-	<div class ='col-sm-3'></div>
-	<div class = "col-sm-6">
+	<div class ='col-sm-2'></div>
+	<div class = "col-sm-8">
 		
-		<form name = 'search' class="searchForm">
+		<form name = 'keywordSearch' class="keyWords">
 
 				<h2>Search subscribed Sensors</h2>
-				<input type="text" name ="searchBar"><br>
-				<input type ="submit" name = "searchSubmit">
+				Keywords:<br> <input type="text" name ="keyWordSearch"><br>
+				
+				From<br> <input type="date" name ="FromSearch"><br>
+				
+				Until <br> <input type="date" name = "UntilSearch"><br>
+
+				Sensor Location<br> <input type ="text" name = "locationSearch"><br>
+				<input type ="radio" value ="s" name = "personType" class='radio' checked>Scientist
+				<input type="radio" value ="a" name ="personType" class='radio'> Administator
+				<input type="radio" value="d" name="personType" class ="radio">Data Curator <br>
+				<input type="submit" name="SubmitSearch" value="searchsubmitted"><br>
+				
 
 
 		</form>
-
 
 
 	</div>
@@ -62,7 +71,24 @@ session_start();
 
 
 
+
+
 <?php
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+*/
 
 
 //EXAMPLE OF HOW TO CREATE .CSV FILE 
