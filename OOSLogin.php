@@ -39,22 +39,18 @@ include("PHPconnectionDB.php");
 		
 		if((is_numeric ( oci_result($stid, 'PERSON_ID') )==1)) {
 			$_SESSION['login'] = 'true';
+			$_SESSION['validate'] = 'true';
+			$_SESSION['username'] = $username;
+			$_SESSION['person_id'] = oci_result($stid, 'PERSON_ID');
+			$_SESSION['role'] = oci_result($stid, 'ROLE');
 		}
+		
 		//if not login in or not an account 
 		if ( $_SESSION['login'] != 'true' ) {
 			//wrong username or password message 
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
 			header('Location: OOS.php', true, 301);
 			exit();			
-			}
-			else {
-				if($_SESSION['login'] != 'true'){
-					$_SESSION['login']    = 'true';
-					$_SESSION['validate'] = 'true';
-					$_SESSION['username'] = $username;
-					$_SESSION['person_id'] = oci_result($stid, 'PERSON_ID');
-					$_SESSION['role'] = oci_result($stid, 'ROLE');
-				} 
 			}	
 				
 	}
