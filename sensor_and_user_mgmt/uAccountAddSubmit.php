@@ -124,7 +124,7 @@ include("PHPconnectionDB.php");
 
 							<div class="LoginForm container">
 							<form name= "Back" method="post" action="uAccountAdd.php"> 
-								<input type="submit" name="Back"value="Add Another Account"/>
+								<input type="submit" name="Back"value="Create Another Account"/>
 								</form>
 							</div>
 						<?php	
@@ -137,6 +137,7 @@ include("PHPconnectionDB.php");
 		    	}
 	    		  
 			} else if(isset($_POST['update'])) {
+				$KEY=$_POST['key'];
 				$usrName=$_POST['usrName'];
             	$ID=$_POST['ID'];
 		        $role=$_POST['role'];
@@ -179,6 +180,7 @@ include("PHPconnectionDB.php");
 
 					<?php 		
 	    		} else if (strlen($role) != 1) {
+
 	    			?> 
 						<div class="LoginForm container">
 						<h2 class ="LoginHeader"> Invalid - Role Must Be One Of {'a','d','s'} </h2>
@@ -210,75 +212,53 @@ include("PHPconnectionDB.php");
 						</div>	
 					<?php 	 		
 				} else {
-					// Delete existing rows first
-					$delUser = 'DELETE FROM USERS WHERE person_id = \''.$ID.'\'';		
-					$delPer = 'DELETE FROM PERSONS WHERE person_id = \''.$ID.'\'';
-					
-					$del1 = oci_parse($conn, $delUser );
-					$del2 = oci_parse($conn, $delPer);
 
-					$delres1=oci_execute($del1);					
-					$delres2=oci_execute($del2);
-					
+					// updates
 
-					if (!$delres1) {
-						$err = oci_error($del1); 
+					$updPer = 'UPDATE PERSONS set first_name = \''.$fName.'\', last_name = \''.$lName.'\', address = \''.$addr.'\', email = \''.$email.'\', phone = \''.$phone.'\' WHERE person_id = \''.$KEY.'\'';
+
+					$updUsr = 'UPDATE USERS set user_name =\''.$usrName.'\', password = \''.$pw.'\', role = \''.$role.'\', date_registered ='.$DATE.' WHERE person_id=\''.$KEY.'\'';
+			
+					//prepare
+					$stid1 = oci_parse($conn, $updPer );
+					$stid2 = oci_parse($conn, $updUsr );
+
+					//execute
+					$res1=oci_execute($stid1);
+					$res2=oci_execute($stid2);
+
+				
+					if (!$res1) {
+						$err = oci_error($stid1); 
 						echo htmlentities($err['There was an error, please try again']);
 
-				   } else if (!$delres2) {
-						$err = oci_error($del2); 
+				   } else if (!$res2) {
+						$err = oci_error($stid2); 
 						echo htmlentities($err['There was an error, please try again']);
 
 				   } else {
-						oci_free_statement($del1);
-						oci_free_statement($del2);
-						oci_commit($conn);
+						// create success message and appropriate buttons
+						?>
+							<div class="LoginForm container">
+							<h2 class ="LoginHeader"> Success! </h2>
+								<form name= "Finish" method="post" action="sensorModule.php"> 
+									<input type="submit" name="Return"value="Return To Menu"/>
+								</form>
+							</div>
 
-						// delete successful insert new values into db
-						$addPer = 'INSERT INTO PERSONS (person_id, first_name, last_name, address, email, phone) VALUES (\''.$ID.'\',\''.$fName.'\',\''.$lName.'\',\''.$addr.'\',\''.$email.'\',\''.$phone.'\')';
-					
-						$addUsr = 'INSERT INTO USERS (user_name, password, role, person_id, date_registered) VALUES (\''.$usrName.'\',\''.$pw.'\',\''.$role.'\',\''.$ID.'\','.$DATE.')';	
-				
-						//prepare
-						$stid1 = oci_parse($conn, $addPer );
-						$stid2 = oci_parse($conn, $addUsr );
-
-						//execute
-						$res1=oci_execute($stid1);
-						$res2=oci_execute($stid2);
-	
-					
-						if (!$res1) {
-							$err = oci_error($stid1); 
-							echo htmlentities($err['There was an error, please try again']);
-
-					   } else if (!$res2) {
-							$err = oci_error($stid2); 
-							echo htmlentities($err['There was an error, please try again']);
-
-					   } else {
-							// create success message and appropriate buttons
-							?>
-								<div class="LoginForm container">
-								<h2 class ="LoginHeader"> Success! </h2>
-									<form name= "Finish" method="post" action="sensorModule.php"> 
-										<input type="submit" name="Return"value="Return To Menu"/>
-									</form>
-								</div>
-
-								<div class="LoginForm container">
-								<form name= "Back" method="post" action="uAccountUpdate.php"> 
-									<input type="submit" name="Back"value="Add Another Account"/>
-									</form>
-								</div>
-							<?php	
-						}
-						  
-						// Free the statement identifiers when closing the connection
-						oci_free_statement($stid1);
-						oci_free_statement($stid2);
-						oci_close($conn);
+							<div class="LoginForm container">
+							<form name= "Back" method="post" action="uAccountUpdate.php"> 
+								<input type="submit" name="Back"value="Update Another Account"/>
+								</form>
+							</div>
+						<?php	
 					}
+					  
+					// Free the statement identifiers when closing the connection
+					oci_free_statement($stid1);
+					oci_free_statement($stid2);
+					oci_close($conn);
+				
 				}
 				
 			} else if(isset($_POST['delete']))  {

@@ -34,12 +34,20 @@
 		</form>
 
 		<div class="LoginForm container">
-			<h1>Remove a Sensor</h1>
+			<h3>Remove a Sensor</h3>
 			<form name= "Remove Sensor" method="post" action="sensorRemoveSubmit.php"> 
 				Sensor ID <input type="text" name="sID"/> <br/>
 				<input type="submit" name="rmv"value="Remove"/>
 			</form>
 		</div>
+
+		<div class="LoginForm container">
+			<h3> Search </h3>
+			<form name= "userID_search" method="post" action="sensorRemoveRes.php"> 
+				Sensor ID<input type="text" name="usrID"/> <br/>
+				<input type="submit" value="search" name="IDSearch"/>
+			</form>
+		</div>	
 
 		<div class="LoginForm container">
 			<form name= "Finish" method="post" action="sensorModule.php"> 

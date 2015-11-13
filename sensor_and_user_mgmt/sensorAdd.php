@@ -40,7 +40,7 @@
 				Location<input type="text" name="location"/> <br/>
 				ID<input type="text" name="ID"/> <br/>
 				Sensor Type<input type="text" name="sensor_type"/> <br/>
-				Description<input type="text" name="description"/> <br/>
+				Description<textarea name="description" rows="5" cols="35"></textarea>
 				<input type="submit" name="create"value="Create!"/>
 			</form>
 

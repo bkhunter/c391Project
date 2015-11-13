@@ -38,18 +38,6 @@ include("PHPconnectionDB.php");
     				$e = oci_error();
     				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 	    		} 
-
-		?>
-
-				<div class="LoginForm container">
-					<h1>Redo Search</h1>
-					<form name= "userName_search" method="post" action="uAccountUpdateRes.php"> 
-						 Username<input type="text" value="<?php echo $name ?>" name="usrName"/> <br/>
-						<input type="submit" name="usrNameSearch"/>
-					</form>
-				</div>
-
-		<?php
 			
 				$userQ = 'SELECT user_name, password, role, person_id FROM users where user_name = \''.$name.'\'';	
 				
@@ -103,7 +91,7 @@ include("PHPconnectionDB.php");
 				<h1>Update Account</h1>
 				<form name= "usr_update" method="post" action="uAccountAddSubmit.php"> 
 					User Name<input type="text" value= "<?php echo $name ?>" name="usrName"/> <br/>
-					ID<input type="text" value= "<?php echo $id ?>" name="ID" /> <br/>
+					ID<input type="text" value= "<?php echo $id ?>" name="ID" readonly/> <br/>
 					Role<input type="text" value= "<?php echo $role ?>" name= "role" /> <br/>
 					Password<input type="text" value= "<?php echo $pw ?>" name="pwd"/> <br/>
 					First Name<input type="text" value= "<?php echo $fname ?>" name="fName"/> <br/>
@@ -111,11 +99,23 @@ include("PHPconnectionDB.php");
 					Address<input type="text" value= "<?php echo $addr ?>" name="addr"/> <br/>
 					Email Address<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
 					Phone Number<input type="text" value="<?php echo $phone ?>" name="phone"/> <br/>
-					<input type="submit" value="update" name="Remove User"/>
+					<input type="hidden" value= "<?php echo $id ?>" name="key"/>
+					<input type="submit" value="Update" name="update"/>
 					<input type="submit" value="Remove" name="delete"/>
 				</form>
 
 			</div>	
+
+			<div class="LoginForm container">
+				<h1>New Search</h1>
+				<form name= "userName_search" method="post" action="uAccountUpdateRes.php"> 
+					 Username<input type="text" value="<?php echo $name ?>" name="usrName"/> <br/>
+					<input type="submit" name="usrNameSearch" value = "Search"/>
+				</form>
+				<form name= "newSearch" method="post" action="uAccountUpdate.php"> 
+						<input type="submit" name="back" value="Change Parameter"/>
+				</form>
+			</div>
 
 			<div class="LoginForm container">
 				<form name= "Back" method="post" action="sensorModule.php"> 
@@ -126,7 +126,7 @@ include("PHPconnectionDB.php");
 		<?php
 		} else if(isset($_POST['emailSearch'])) { 
 
-			$email=$_POST['email'];  
+				$email=$_POST['email'];  
 
 				ini_set('display_errors', 1);
 	    		error_reporting(E_ALL);
@@ -136,18 +136,7 @@ include("PHPconnectionDB.php");
 	    		if (!$conn) {
     				$e = oci_error();
     				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-	    		} 
-
-		?>
-				<div class="LoginForm container">
-					<h1>Redo Search</h1>
-					<form name= "Email Search" method="post" action="uAccountUpdateRes.php"> 
-						 Email<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
-						<input type="submit" name="emailSearch"/>
-					</form>
-				</div>
-
-		<?php		
+	    		} 	
 
 				$personQ = 'SELECT person_id, first_name, last_name, address, email, phone FROM persons WHERE email = \''.$email.'\'';	
 				
@@ -200,7 +189,7 @@ include("PHPconnectionDB.php");
 					<h1>Update Account</h1>
 					<form name= "usr_update" method="post" action="uAccountAddSubmit.php"> 
 						User Name<input type="text" value= "<?php echo $name ?>" name="usrName"/> <br/>
-						ID<input type="text" value= "<?php echo $id ?>" name="ID" /> <br/>
+						ID<input type="text" value= "<?php echo $id ?>" name="ID" readonly/> <br/>
 						Role<input type="text" value= "<?php echo $role ?>" name= "role" /> <br/>
 						Password<input type="text" value= "<?php echo $pw ?>" name="pwd"/> <br/>
 						First Name<input type="text" value= "<?php echo $fname ?>" name="fName"/> <br/>
@@ -208,11 +197,23 @@ include("PHPconnectionDB.php");
 						Address<input type="text" value= "<?php echo $addr ?>" name="addr"/> <br/>
 						Email Address<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
 						Phone Number<input type="text" value="<?php echo $phone ?>" name="phone"/> <br/>
+						<input type="hidden" value= "<?php echo $id ?>" name="key"/>
 						<input type="submit" value="Update" name="update"/>
 						<input type="submit" value="Remove" name="delete"/>
 					</form>
 
 				</div>	
+
+				<div class="LoginForm container">
+					<h1>New Search</h1>
+					<form name= "Email Search" method="post" action="uAccountUpdateRes.php"> 
+						 Email<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
+						<input type="submit" name="emailSearch" value="Search"/>
+					</form>
+					<form name= "newSearch" method="post" action="uAccountUpdate.php"> 
+							<input type="submit" name="back" value="Change Parameter"/>
+					</form>
+				</div>
 
 				<div class="LoginForm container">
 					<form name= "Back" method="post" action="sensorModule.php"> 
@@ -232,17 +233,6 @@ include("PHPconnectionDB.php");
 				$e = oci_error();
 				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     		} 
-
-		?>
-			<div class="LoginForm container">
-				<h1>Redo Search</h1>
-				<form name= "Email Search" method="post" action="uAccountUpdateRes.php"> 
-					 User ID<input type="text" value="<?php echo $id ?>" name="usrID"/> <br/>
-					<input type="submit" name="IDSearch"/>
-				</form>
-			</div>
-
-		<?php		
 
 			$personQ = 'SELECT person_id, first_name, last_name, address, email, phone FROM persons WHERE person_id = \''.$id.'\'';	
 			
@@ -295,7 +285,7 @@ include("PHPconnectionDB.php");
 				<h1>Update Account</h1>
 				<form name= "usr_update" method="post" action="uAccountAddSubmit.php"> 
 					User Name<input type="text" value= "<?php echo $name ?>" name="usrName"/> <br/>
-					ID<input type="text" value= "<?php echo $id ?>" name="ID" /> <br/>
+					ID<input type="text" value= "<?php echo $id ?>" name="ID" readonly/> <br/>
 					Role<input type="text" value= "<?php echo $role ?>" name= "role" /> <br/>
 					Password<input type="text" value= "<?php echo $pw ?>" name="pwd"/> <br/>
 					First Name<input type="text" value= "<?php echo $fname ?>" name="fName"/> <br/>
@@ -303,11 +293,24 @@ include("PHPconnectionDB.php");
 					Address<input type="text" value= "<?php echo $addr ?>" name="addr"/> <br/>
 					Email Address<input type="text" value="<?php echo $email ?>" name="email"/> <br/>
 					Phone Number<input type="text" value="<?php echo $phone ?>" name="phone"/> <br/>
+					<input type="hidden" value= "<?php echo $id ?>" name="key"/>
 					<input type="submit" value="update" name="update"/>
 					<input type="submit" value="Remove" name="delete"/>
 				</form>
 
 			</div>	
+
+			<div class="LoginForm container">
+				<h1>New Search</h1>
+				<form name= "Email Search" method="post" action="uAccountUpdateRes.php"> 
+					 User ID<input type="text" value="<?php echo $id ?>" name="usrID"/> <br/>
+					<input type="submit" name="IDSearch" value="Search"/>
+				</form>
+				<form name= "newSearch" method="post" action="uAccountUpdate.php"> 
+						<input type="submit" name="back" value="Change Parameter" />
+				</form>
+			</div>
+
 
 			<div class="LoginForm container">
 					<form name= "Back" method="post" action="sensorModule.php"> 
