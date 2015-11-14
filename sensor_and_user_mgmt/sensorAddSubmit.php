@@ -19,6 +19,7 @@ include("PHPconnectionDB.php");
 				$loc=$_POST['location'];            		
 				$sType=$_POST['sensor_type'];
 				$desc=$_POST['description'];
+				$ID=$_POST['ID'];
 				
 				ini_set('display_errors', 1);
 	    		error_reporting(E_ALL);
@@ -79,7 +80,7 @@ include("PHPconnectionDB.php");
 					<?php 		 		
 	    		} else {
 		    		//insert statement
-		    		$sql = 'INSERT INTO SENSORS (location, sensor_type, description) VALUES (\''.$loc.'\',\''.$sType.'\',\''.$desc.'\')';	
+		    		$sql = 'INSERT INTO SENSORS (sensor_id, location, sensor_type, description) VALUES (\''.$ID.'\',\''.$loc.'\',\''.$sType.'\',\''.$desc.'\')';	
 				
 					//prepare
 					$stid = oci_parse($conn, $sql );

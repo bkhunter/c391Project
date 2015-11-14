@@ -38,8 +38,9 @@
 			<h1>Create a Sensor</h1>
 			<form name= "Create Sensor" method="post" action="sensorAddSubmit.php"> 
 				Location<input type="text" name="location"/> <br/>
+				ID<input type="text" name="ID"/> <br/>
 				Sensor Type<input type="text" name="sensor_type"/> <br/>
-				Description<input type="text" name="description"/> <br/>
+				Description<textarea name="description" rows="5" cols="35"></textarea>
 				<input type="submit" name="create"value="Create!"/>
 			</form>
 

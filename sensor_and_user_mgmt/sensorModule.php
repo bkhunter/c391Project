@@ -57,19 +57,10 @@
 		<div class="LoginForm container">
 
 		<form name = "update account" method="post"  action="uAccountUpdate.php"> 
-					<input type="submit" value="Update User Account">
+					<input type="submit" value="Update or Remove User Account">
 	
 		</form>
 		</div>
-		
-		<div class="LoginForm container">
-
-		<form name = "remove account" method="post"  action="uAccountRemove.php"> 
-					<input type="submit" value="Remove User Account">
-	
-		</form>
-		</div>
-
 
 		<div class="LoginForm container">
 
@@ -82,7 +73,7 @@
 
 		<div class="LoginForm container">
 
-		<form name = "Main" method="post"  action="../logout.php"> 
+		<form name = "Main" method="post"  action="../OOSLogin.php"> 
 					<input type="submit" name="validate" value="Main Menu"></center>
 		</form>
 		</div>

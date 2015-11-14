@@ -1,0 +1,2 @@
+DELETE FROM PERSONS
+WHERE person_id = 55;

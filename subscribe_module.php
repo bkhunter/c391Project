@@ -96,7 +96,7 @@ session_start();
        			$data1["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data1["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data1["sensor_id"]. '</td><td>' .$data1["sensor_type"].'</td><td>'.$data1["description"];
-				echo '</td><td><button>Unsubscribe</button></td></tr>';
+				echo '</td><td><button class=unsubscribe id='.$data1["sensor_id"].'>Unsubscribe</button></td></tr>';
 			
 			}
 
@@ -106,6 +106,46 @@ session_start();
 
 
 			?>
+
+		   <script>
+
+		$(document).ready(function(){
+
+			$('.unsubscribe').click(function(){
+
+			alert($(this).attr('id'));
+			$.post('unsubscribe.php', {id:$(this).attr('id')}, function(data){
+
+
+				alert(data);
+				if(data == 'success'){
+
+				}
+				else{
+					
+
+					alert("an error occured while subscribing.");
+
+				}
+
+			} );
+
+
+		});	
+
+
+		});
+	
+					
+
+
+		</script>
+
+
+
+
+
+
 
 
 
@@ -117,11 +157,26 @@ session_start();
 
 
         <?php
+
+
+			//TODO FIX THIS SQL QUERY
+			//ITS NOT FINDING ONLY NON SUBSCRIBED SENSORS
 			$string = 'ay';
             $sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description from sensors, subscriptions, users 
    where users.user_name = \''.$string.'\'
-   and users.person_id = subscriptions.person_id
    and sensors.sensor_id != subscriptions.sensor_id';
+
+
+			/*
+
+
+			select sensors.sensor_id, sensors.sensor_type, sensors.description
+			from sensors, users, subscriptions
+			where sensors.sensor_id != subscriptions.sensor_id
+			and subscriptions.person_id = 1
+	
+
+				*/
 
                     
             $conn=connect();
@@ -144,7 +199,7 @@ session_start();
        			$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
-				echo '</td><td> <button>subscribe</button></td></tr>';
+				echo '</td><td> <button class=subscribe id='.$data2["sensor_id"].'>subscribe</button></td></tr>';
 			
 			}
 
@@ -156,7 +211,39 @@ session_start();
 			echo '</table>';
 
         ?>
-        
+        <script>
+
+		$(document).ready(function(){
+
+			$('.subscribe').click(function(){
+
+			alert($(this).attr('id'));
+			$.post('subscribe.php', {id:$(this).attr('id')}, function(data){
+
+
+				//alert(data);
+				if(data == 'success'){
+
+				}
+				else{
+					
+
+					alert("an error occured while subscribing.");
+
+				}
+
+			} );
+
+
+		});	
+
+
+		});
+	
+					
+
+
+		</script>
 
 
 
