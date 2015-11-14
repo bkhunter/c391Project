@@ -61,7 +61,7 @@ include("PHPconnectionDB.php");
 	
 	echo '<center>Welcome '.$_SESSION[username].'!</center><br/>';
 	
-	
+		//if scientist 
 		if($_SESSION['role'] == 's'){
 
 			echo '<form name = "subscribe" method="post"  action="subscribe_module.php"> 
@@ -70,11 +70,21 @@ include("PHPconnectionDB.php");
 					</form>';
 		}
 		
+		//administrator
 		if($_SESSION['role'] == 'a'){
 
 			echo '<form name = "subscribe" method="post"  action="./sensor_and_user_mgmt/sensorModule.php"> 
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="subscription" value="sensor and user management"></center>
+					</form>';
+		}
+		
+		//data curator
+		if($_SESSION['role'] == 'd'){
+
+			echo '<form name = "subscribe" method="post"  action="./dc/uploadingmodule.php"> 
+					<h2 class ="subscribe"> </h2>
+					<center><input type="submit" name="upload" value="upload data"></center>
 					</form>';
 		}
 
