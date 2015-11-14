@@ -4,6 +4,15 @@
 <?php
 include("../PHPconnectionDB.php");
 
+session_start();
+
+//data curator
+if ($_SESSION['role'] != 'd') {
+		header('Location: ../OOSLogin.php', true, 301);
+		exit();	
+}
+
+
 if (!$_FILES['photo']['name']){
 ?>
 
