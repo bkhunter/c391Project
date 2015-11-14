@@ -2,7 +2,7 @@
 
 <body>
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 
 if (!$_FILES['photo']['name']){
 ?>
