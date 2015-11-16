@@ -1,0 +1,9 @@
+.title{
+	text-align:center;
+}
+
+h1{}
+
+.floatLeft {float: left; }
+.floatRight {float: center; }
+.container { overflow: hidden; }
