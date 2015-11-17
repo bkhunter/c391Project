@@ -43,11 +43,18 @@
 			if ($time == "day") {
 		?>
 				<div class = "container">
-				  <form>
-						<input type="checkbox" name="Location" value="loc"> Location
-						<br>
-						<input type="checkbox" name="Sensor ID" value="id"> Sensor ID
-				  </form> 
+				  <form role="form">
+
+					<div class="checkbox">
+					  <label><input type="checkbox" checked="checked" name="loc" value="" >Location</label>
+					</div>
+
+					<div class="checkbox">
+					  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
+					</div>
+
+				  </form>
+
 				  <form method="post" action="OlapDefault.php">
 				  	  <select id = 'id' name="time">
 					  	  <option value="day">Daily</option>
@@ -60,18 +67,7 @@
 					  <input type="submit" value="Submit">
 				  </form>
 				</div>
-				<div class="container">
-					<div class="row">
-						<div class='col-sm-6'>
-							<input type='text' class="form-control" id='datetimepicker4' />
-						</div>
-						<script type="text/javascript">
-							$(function () {
-								$('#datetimepicker4').datetimepicker();
-							});
-						</script>
-					</div>
-				</div>
+
 		<?php
 
 			} else {
