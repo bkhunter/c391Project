@@ -75,13 +75,11 @@
 		</div>
 
 		<div class="LoginForm container">
-					<h2 class ="LoginHeader"> Select Search Criteria </h2>
-						
-				</div>	
+				<h2 class ="LoginHeader"> Select Parameters </h2>
+		</div>	
 
-		<div class>
-		  <h2>Paramters</h2>
-		  <form role="form">
+		<div class = "LoginForm container">
+		  <form role="form" action="OlapDaily.php">
 			<div class="checkbox">
 			  <label><input type="checkbox" name="loc" value="">Location</label>
 			</div>
@@ -99,6 +97,7 @@
 				<option value="quarter">Quarterly</option>
 				<option value="year">Yearly</option>
 			</select>
+			<input type="submit" value="Submit">
 		</form>
 		</div>
 
