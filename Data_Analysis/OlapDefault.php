@@ -56,7 +56,7 @@
 
 				  <form method="post" action="OlapDefault.php">
 				  	  <select id = 'id' name="time">
-					  	  <option value="day">Daily</option>
+					  	  <option value="day">Dasily</option>
 					  	  <option value="none">All Time</option>
 						  <option value="week">Weekly</option>
 						  <option value="month">Monthly</option>
