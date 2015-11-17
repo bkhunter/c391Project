@@ -2,7 +2,7 @@
 	<style>
 		table#results {
 			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-			width: 100%;
+			width: 95%;
 		}
 
 		table#sensors {
@@ -40,19 +40,20 @@
 			  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
 			</div>
 		  </form>
-		<form method="post" action="OlapDaily.php">
-			<select id = 'id' name="time">
-			  	<option value="none">All Time</option>
-			  	<option value="day">Daily</option>
-				<option value="week">Weekly</option>
-				<option value="month">Monthly</option>
-				<option value="quarter">Quarterly</option>
-				<option value="year">Yearly</option>
-			</select>
-			<input type="submit" value="Submit">
-		</form>
+		  <form method="post" action="OlapDefault.php">
+		  	  <select id = 'id' name="time">
+			  	  <option value="none">All Time</option>
+			  	  <option value="day">Daily</option>
+				  <option value="week">Weekly</option>
+				  <option value="month">Monthly</option>
+				  <option value="quarter">Quarterly</option>
+				  <option value="year">Yearly</option>
+			  </select>
+			  <input type="submit" value="Submit">
+		  </form>
 		</div>
-		<div>
+
+		<div class="floatMiddle">
 			<table id="results" border = "1">
 				<tr>
 					<th>Location</th>

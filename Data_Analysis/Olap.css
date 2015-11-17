@@ -5,7 +5,7 @@
 h1{}
 
 .floatLeft {float: left; }
-.floatRight {float: center; }
+.floatMiddle {float: center; }
 
 .container {
 		-webkit-appearance:none
