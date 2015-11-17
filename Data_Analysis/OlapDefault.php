@@ -43,15 +43,11 @@
 			if ($time == "day") {
 		?>
 				<div class = "container">
-				  <form role="form">
-					<div class="checkbox">
-					  <label><input type="checkbox" checked="checked" name="loc" value="ddd" >Location</label>
-					</div>
-
-					<div class="checkbox">
-					  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
-					</div>
-				  </form>
+				  <form>
+						<input type="checkbox" name="Location" value="loc"> Location
+						<br>
+						<input type="checkbox" name="Sensor ID" value="id"> Sensor ID
+				  </form> 
 				  <form method="post" action="OlapDefault.php">
 				  	  <select id = 'id' name="time">
 					  	  <option value="day">Daily</option>
@@ -63,25 +59,19 @@
 					  </select>
 					  <input type="submit" value="Submit">
 				  </form>
+				</div>
+				<div class="container">
 					<div class="row">
 						<div class='col-sm-6'>
-							<div class="form-group">
-								<div class='input-group date' id='datetimepicker1'>
-									<input type='text' class="form-control" />
-									<span class="input-group-addon">
-									    <span class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
+							<input type='text' class="form-control" id='datetimepicker4' />
 						</div>
 						<script type="text/javascript">
 							$(function () {
-								$('#datetimepicker1').datetimepicker();
+								$('#datetimepicker4').datetimepicker();
 							});
 						</script>
 					</div>
 				</div>
-
 		<?php
 
 			} else {
@@ -102,8 +92,8 @@
 
 		  <form method="post" action="OlapDefault.php">
 		  	  <select id = 'id' name="time">
-			  	  <option value="day">Daily</option>
 			  	  <option value="none">All Time</option>
+			  	  <option value="day">Daily</option>
 				  <option value="week">Weekly</option>
 				  <option value="month">Monthly</option>
 				  <option value="quarter">Quarterly</option>
