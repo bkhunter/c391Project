@@ -31,6 +31,12 @@
 				<h2 class ="LoginHeader"> Select Parameters </h2>
 		</div>	
 
+		<?php 
+			if(isset($_POST['name'])){
+				$choice = $_POST['name'];
+				echo $choice;
+		?> 
+
 		<div class = "container">
 		  <form role="form">
 
