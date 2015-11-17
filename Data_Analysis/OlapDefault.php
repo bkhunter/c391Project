@@ -52,11 +52,9 @@
 					  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
 					</div>
 				  </form>
-				</div>
-
 				  <form method="post" action="OlapDefault.php">
 				  	  <select id = 'id' name="time">
-					  	  <option value="day">Dasily</option>
+					  	  <option value="day">Daily</option>
 					  	  <option value="none">All Time</option>
 						  <option value="week">Weekly</option>
 						  <option value="month">Monthly</option>
@@ -65,6 +63,23 @@
 					  </select>
 					  <input type="submit" value="Submit">
 				  </form>
+					<div class="row">
+						<div class='col-sm-6'>
+							<div class="form-group">
+								<div class='input-group date' id='datetimepicker1'>
+									<input type='text' class="form-control" />
+									<span class="input-group-addon">
+									    <span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+						<script type="text/javascript">
+							$(function () {
+								$('#datetimepicker1').datetimepicker();
+							});
+						</script>
+					</div>
 				</div>
 
 		<?php
