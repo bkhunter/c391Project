@@ -33,9 +33,41 @@
 
 		<?php 
 			if(isset($_POST['time'])){
-				$choice = $_POST['time'];
-				echo $choice;
+				$time = $_POST['time'];
+				$isLoc = $_POSt['loc'];
+				echo $isLoc;
 			}
+
+			if ($time == "day") {
+		?>
+				<div class = "container">
+
+				  <form role="form">
+					<div class="checkbox">
+					  <label><input type="checkbox" name="loc" value="" active>Location</label>
+					</div>
+
+					<div class="checkbox">
+					  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
+					</div>
+				  </form>
+				</div>
+
+				<form method="post" action="OlapDefault.php">
+			  	  <select id = 'id' name="time">
+				  	  <option value="day">Daily</option>
+				  	  <option value="none">All Time</option>
+					  <option value="week">Weekly</option>
+					  <option value="month">Monthly</option>
+					  <option value="quarter">Quarterly</option>
+					  <option value="year">Yearly</option>
+				  </select>
+				  <input type="submit" value="Submit">
+			  </form>
+		</div>
+		<?php
+
+			} else {
 		?> 
 
 		<div class = "container">
@@ -62,8 +94,10 @@
 			  </select>
 			  <input type="submit" value="Submit">
 		  </form>
-
 		</div>
+	<?php
+		}
+		?>
 
 		<div class="floatMiddle">
 			<table id="results" border = "1">
