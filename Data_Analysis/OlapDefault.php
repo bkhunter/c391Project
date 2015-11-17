@@ -35,6 +35,7 @@
 			if(isset($_POST['name'])){
 				$choice = $_POST['name'];
 				echo $choice;
+			}
 		?> 
 
 		<div class = "container">
