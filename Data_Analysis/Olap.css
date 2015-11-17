@@ -6,4 +6,12 @@ h1{}
 
 .floatLeft {float: left; }
 .floatRight {float: center; }
-.container { overflow: hidden; }
+
+.container {
+        width: 350px;
+        clear: both;
+}
+.container input {
+        width: 100%;
+        clear: both;
+}

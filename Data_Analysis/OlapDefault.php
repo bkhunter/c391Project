@@ -1,70 +1,23 @@
 <html>
 	<style>
-			<style>
-			
-			table#sTimeF {
-				
-				background-color: gray;
-			}
+		table#results {
+			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+			width: 100%;
+		}
 
-			table#results {
-				font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-				width: 88%;
-			}
-	
-			table#sensors {
-				width: 100%
-			}
+		table#sensors {
+			width: 100%
+		}
 
-
-			ul#Times {
-				border: 1px black;
-				list-style-type: none;
-				padding: 0;
-			}
-
-			ul#Times li a {
-				background-color: gray;
-				color: white;
-				padding: 10px 20px;
-				text-decoration: none;
-				display: block;
-			}
-
-			ul#Times li a:hover {
-				background-color: black;
-			}
-
-
-			ul#default {
-				border: 1px black;
-				list-style-type: none;
-				padding: 0;
-			}
-
-			ul#default li a {
-				background-color: black;
-				color: white;
-				padding: 10px 20px;
-				text-decoration: none;
-				display: block;
-			}
-
-			ul#default li a:hover {
-				background-color: black;
-			}
-
-		</style>
+	</style>
 
 	<head>
 		<title>
 			Olap Analysis
 		</title>
-		
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	</head>
 
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel ="stylesheet" type ="text/css" href="Olap.css">
 	
@@ -100,108 +53,55 @@
 			<input type="submit" value="Submit">
 		</form>
 		</div>
-
-		<div class="floatLeft">
-			<table id = "sTimeF" border = "1">
-				<th> Select Timeframe </th>
-					<tr>
-						<td>	
-							<ul id="default">
-								<li><a href="OlapDefault.php">Total</a></li>
-							</ul> 
-						</td>
-					</tr>
-					<tr>
-						<td>	
-							<ul id="Times">
-							  <li><a href="OlapDaily.php">Daily</a></li>
-							</ul> 
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<ul id="Times">
-							  <li><a href="OlapWeekly.php">Weekly</a></li>
-							</td>
-						</td>
-					</tr>
-
-					<tr>
-						<td>	
-							<ul id="Times">
-							  	<li><a href="OlapMonthly.php">Monthly</a></li>
-							</ul> 
-						</td>
-					</tr>
-
-					<tr>
-						<td>	
-							<ul id="Times">
-							  <li><a href="OlapQuarterly.php">Quarterly</a></li>
-							</ul> 
-						</td>
-					</tr>
-
-					<tr>
-						<td>	
-							<ul id="Times">
-								<li>
-									<a href="OlapYearly.php">Yearly</a>
-								</li>
-							</ul> 
-						</td>
-					</tr>
+		<div>
+			<table id="results" border = "1">
+				<tr>
+					<th>Location</th>
+					<th>ID1</th>
+					<th>ID2</th>
+					<th>ID3</th>
+				</tr>
+				<tr>
+					<td>texas</td>
+					<td>
+						<table id="sensors" border = "1">
+							<th>Min</th>
+							<th>Max</th>
+							<th>Average</th>
+							<tr>
+								<td> value </td>
+								<td> value </td>
+								<td> value </td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table id="sensors" border = "1">
+							<th>Min</th>
+							<th>Max</th>
+							<th>Average</th>
+							<tr>
+								<td> value </td>
+								<td> value </td>
+								<td> value </td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table id="sensors" border = "1">
+							<th>Min</th>
+							<th>Max</th>
+							<th>Average</th>
+							<tr>
+								<td> value </td>
+								<td> value </td>
+								<td> value </td>
+							</tr>
+						</table>
+					</td>
+				</tr>
 			</table>
 		</div>
-			<div class="floatRight">
-				<table id="results" border = "1">
-					<tr>
-						<th>Location</th>
-						<th>ID1</th>
-						<th>ID2</th>
-						<th>ID3</th>
-					</tr>
-					<tr>
-						<td>texas</td>
-						<td>
-							<table id="sensors" border = "1">
-								<th>Min</th>
-								<th>Max</th>
-								<th>Average</th>
-								<tr>
-									<td> value </td>
-									<td> value </td>
-									<td> value </td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table id="sensors" border = "1">
-								<th>Min</th>
-								<th>Max</th>
-								<th>Average</th>
-								<tr>
-									<td> value </td>
-									<td> value </td>
-									<td> value </td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table id="sensors" border = "1">
-								<th>Min</th>
-								<th>Max</th>
-								<th>Average</th>
-								<tr>
-									<td> value </td>
-									<td> value </td>
-									<td> value </td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</div>
 	</body>
 </html>
 
