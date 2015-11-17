@@ -18,10 +18,20 @@ if ($_SESSION['role'] != 'd') {
 if (!$_FILES['photo']['name']){
 ?>
 
+
+<table align="center">
+
 <form method="post" enctype="multipart/form-data">
-	Your Photo: <input type="file" name="photo" size="25" /><br/>
-	<input type="submit" name="submit" value="Upload" /> <input type="reset" value="Reset" >
+	<tr>
+		<td> <input type="submit" name="submit" value="Upload" />
+		Your Photo: <input type="file" name="photo" size="25" /></td>
+	</tr>
+	<tr>
+		<td> <input type="reset" value="Reset" > </td>
+	</tr>
 </form>
+
+</table>
 
 <?php
 } else {
@@ -44,9 +54,12 @@ oci_bind_by_name($stmt, ':recoreded_data', $lob, -1,  OCI_B_BLOB);
 
 if (@$lob->save($image)){
 	oci_commit($conn);
-	echo "Blob successfully uploaded<br/>";
+	echo "<center>Blob successfully uploaded</center><br/>";
 }else{
-	echo "Couldn't upload Blob<br/>";
+	echo "<center>Couldn't upload Blob</center><br/>";
+	echo '<center><form method="post">
+			<input type="submit" name="submit" value="continue" />
+			</form></center>';
 }
 $lob->free();
 oci_free_statement($stmt);
