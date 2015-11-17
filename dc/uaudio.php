@@ -15,11 +15,7 @@ if ($_SESSION['role'] != 'd') {
 		exit();	
 }
 
-/*
-    'text/csv',
-    'text/comma-separated-values',
-    'image/jpeg',
-*/
+
 $mimetypes = array(
     'audio/wav',
     'audio/x-wav',
@@ -73,14 +69,18 @@ if (@$lob->save($image)){
 			<input type="submit" name="submit" value="continue" />
 			</form></center>';
 }
+
+
 $lob->free();
 oci_free_statement($stmt);
 oci_close($conn);
 
 /* testing if can get wav back 
 $file = download($conn,'audio',1);
-file_put_contents('test.wav', $file);
 */
+
+
+//file_put_contents('test.wav', $file);
 
 
 }

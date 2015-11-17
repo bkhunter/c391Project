@@ -1,3 +1,28 @@
+DROP TABLE imageinfo;
+DROP TABLE audioinfo;
+
+/*
+content is found in images value recoreded_data
+*/
+CREATE TABLE imageinfo(
+    image_id int,
+	imagesize int,	
+    name varchar(128),
+    PRIMARY KEY(image_id),
+    FOREIGN KEY(image_id) REFERENCES images
+) tablespace c391ware;
+
+/*
+content is found in audio_recordings value recoreded_data
+*/
+CREATE TABLE audioinfo(
+    recording_id int,
+	audiosize int,	
+    name varchar(128),
+    PRIMARY KEY(recording_id),
+    FOREIGN KEY(recording_id) REFERENCES audio_recordings
+) tablespace c391ware;
+
 /*
 persons data
 */
