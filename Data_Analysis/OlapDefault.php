@@ -6,7 +6,7 @@
 		}
 
 		table#sensors {
-			width: 100%
+			width: 100%;
 		}
 
 	</style>
@@ -31,20 +31,19 @@
 				<h2 class ="LoginHeader"> Select Parameters </h2>
 		</div>	
 
-		<?php
-			if(isset($_POST['time'])){
-				$choice = $_POST['time'];
-				echo $choice;
-		?> 
 		<div class = "container">
 		  <form role="form">
+
 			<div class="checkbox">
 			  <label><input type="checkbox" name="loc" value="">Location</label>
 			</div>
+
 			<div class="checkbox">
 			  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
 			</div>
+
 		  </form>
+
 		  <form method="post" action="OlapDefault.php">
 		  	  <select id = 'id' name="time">
 			  	  <option value="none">All Time</option>
@@ -56,6 +55,7 @@
 			  </select>
 			  <input type="submit" value="Submit">
 		  </form>
+
 		</div>
 
 		<div class="floatMiddle">
