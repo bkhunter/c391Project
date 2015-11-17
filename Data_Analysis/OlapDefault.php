@@ -62,7 +62,6 @@
 		</title>
 		
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	</head>
 
@@ -70,26 +69,37 @@
 	<link rel ="stylesheet" type ="text/css" href="Olap.css">
 	
 	<body>
-		
-	
 		<div class ="page">
 			<div class = "page-header">
 			<h1 class ="title"> Olap Analysis</h1>			
 		</div>
 
-		<div class = "floatLeft">
+		<div class="LoginForm container">
+					<h2 class ="LoginHeader"> Select Search Criteria </h2>
+						
+				</div>	
+
+		<div class>
 		  <h2>Paramters</h2>
 		  <form role="form">
 			<div class="checkbox">
-			  <label><input type="checkbox" value="">Option 1</label>
+			  <label><input type="checkbox" name="loc" value="">Location</label>
 			</div>
 			<div class="checkbox">
-			  <label><input type="checkbox" value="">Option 2</label>
-			</div>
-			<div class="checkbox disabled">
-			  <label><input type="checkbox" value="" >Option 3</label>
+			  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
 			</div>
 		  </form>
+		<form method="post" >
+			<select id = 'id' name="time">
+			  	<option value="">Select...</option>
+			  	<option value="none">None</option>
+			  	<option value="day">Daily</option>
+				<option value="week">Weekly</option>
+				<option value="month">Monthly</option>
+				<option value="quarter">Quarterly</option>
+				<option value="year">Yearly</option>
+			</select>
+		</form>
 		</div>
 
 		<div class="floatLeft">
