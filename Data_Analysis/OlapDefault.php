@@ -27,11 +27,16 @@
 			<h1 class ="title"> Olap Analysis</h1>			
 		</div>
 
-		<div class="LoginForm container">
+		<div class="container">
 				<h2 class ="LoginHeader"> Select Parameters </h2>
 		</div>	
 
-		<div class = "LoginForm container">
+		<?php
+			if(isset($_POST['time'])){
+				$choice = $_POST['time'];
+				echo $choice;
+		?> 
+		<div class = "container">
 		  <form role="form">
 			<div class="checkbox">
 			  <label><input type="checkbox" name="loc" value="">Location</label>
