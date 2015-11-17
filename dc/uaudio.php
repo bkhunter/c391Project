@@ -82,8 +82,6 @@ $file = download($conn,'audio',1);
 file_put_contents('test.wav', $file);
 */
 
-oci_close($conn);
-
 
 }
 
