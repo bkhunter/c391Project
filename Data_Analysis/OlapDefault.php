@@ -64,8 +64,6 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	</head>
 
 	<link rel="stylesheet" type="text/css" href= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -79,9 +77,8 @@
 			<h1 class ="title"> Olap Analysis</h1>			
 		</div>
 
-		<div class="container">
-		  <h2>Form control: checkbox</h2>
-		  <p>The form below contains three checkboxes. The last option is disabled:</p>
+		<div class = "floatLeft">
+		  <h2>Paramters</h2>
 		  <form role="form">
 			<div class="checkbox">
 			  <label><input type="checkbox" value="">Option 1</label>
@@ -90,7 +87,7 @@
 			  <label><input type="checkbox" value="">Option 2</label>
 			</div>
 			<div class="checkbox disabled">
-			  <label><input type="checkbox" value="" disabled>Option 3</label>
+			  <label><input type="checkbox" value="" >Option 3</label>
 			</div>
 		  </form>
 		</div>
