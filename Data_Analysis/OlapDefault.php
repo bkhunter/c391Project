@@ -32,8 +32,8 @@
 		</div>	
 
 		<?php 
-			if(isset($_POST['name'])){
-				$choice = $_POST['name'];
+			if(isset($_POST['time'])){
+				$choice = $_POST['time'];
 				echo $choice;
 			}
 		?> 
