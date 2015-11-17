@@ -32,7 +32,7 @@
 		</div>	
 
 		<div class = "LoginForm container">
-		  <form role="form" action="OlapDaily.php">
+		  <form role="form">
 			<div class="checkbox">
 			  <label><input type="checkbox" name="loc" value="">Location</label>
 			</div>
@@ -40,10 +40,9 @@
 			  <label><input type="checkbox" name="sID" value="">Sensor ID</label>
 			</div>
 		  </form>
-		<form method="post" >
+		<form method="post" action="OlapDaily.php">
 			<select id = 'id' name="time">
-			  	<option value="">Select...</option>
-			  	<option value="none">None</option>
+			  	<option value="none">All Time</option>
 			  	<option value="day">Daily</option>
 				<option value="week">Weekly</option>
 				<option value="month">Monthly</option>

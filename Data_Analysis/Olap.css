@@ -8,10 +8,17 @@ h1{}
 .floatRight {float: center; }
 
 .container {
+		-webkit-appearance:none
+		-webkit-box-shadow:none
+		box-shadow:none;
         width: 350px;
         clear: both;
 }
 .container input {
         width: 100%;
         clear: both;
+}
+
+select {
+	width: 100%;
 }
