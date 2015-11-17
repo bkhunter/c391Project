@@ -1,11 +1,9 @@
-<html>    
-<body>
+
 
 
 <?php
 
-//$sImage = "data: image/jpeg ;base64," . base64_encode(file_get_contents('here/a'));
-//echo '<img src="' . $sImage . '" alt="Your Image" />';
+
 	
 	function download($conn,$type,$id){
 			$lob  = oci_new_descriptor($conn, OCI_D_LOB);
@@ -35,11 +33,8 @@
 			}
 	}
 
-	//echo '<img height="300" width="300" src="data:image/jpeg;base64, '.$image.'" >';	
-	
-	//oci_close($conn);
+
 ?>
 
 
-</body>
-</html>
+
