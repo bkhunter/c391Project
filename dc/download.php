@@ -20,7 +20,7 @@
 				$stid = oci_parse($conn,$sql);
 				oci_execute($stid,OCI_DEFAULT);
 				oci_fetch($stid);
-				$audiofile = oci_result($stid, 'RECOREDED_DATA');
+				$audiofile = oci_result($stid, 'RECORDED_DATA');
 				return $audiofile->load();
 			}
 			if($type == 'scalar') {
