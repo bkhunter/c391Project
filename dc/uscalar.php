@@ -46,11 +46,13 @@ $image = addslashes($_FILES['batch']['tmp_name']);
 $name  = addslashes($_FILES['batch']['name']);
 $image = file_get_contents($image);
 
-$rows = explode(",", $image);
+//$rows = explode("\n", $image);
+$rows = str_getcsv($image, "\n"); //parse the rows 
+
 $i = 0;
 $conn = connect(); 
 
-$rs = sizeof($rows)-3;
+
 
 
 $stmt = oci_parse($conn, "select * from idtracker");
@@ -60,11 +62,11 @@ $id = oci_result($stmt, 'SCALAR_ID');
 
 //used for seeing in a tuple can be added 
 $check = 1;
-foreach($rows as $row => $data){
-	echo $row[$i+2].'<br/>';
-	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$rows[$i].", TO_DATE('".$rows[$i+1]."', 'DD/MM/YYYY HH24:MI:SS'),".$rows[$i+2].")");
+//foreach($rows as $rowx => $data){
+foreach($rows as $myrow) {	
+	$row = str_getcsv($myrow, ",");
+	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$row[$i].", TO_DATE('".$row[1]."', 'DD/MM/YYYY HH24:MI:SS'),".$row[2].")");
 	$id += 1;
-	$i  += 3;
 	if (!@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
 		$e = $i / 3;
 		echo "<center>Couldn't upload on scalar ".$e."</center><br/>";
@@ -72,9 +74,7 @@ foreach($rows as $row => $data){
 		break;
 	}
 
-	if($i>=$rs) {
-		break;
-	}
+
 }
 if($check == 1){
 	oci_commit($conn);
