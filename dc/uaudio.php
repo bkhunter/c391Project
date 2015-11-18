@@ -79,8 +79,9 @@ oci_close($conn);
 $file = download($conn,'audio',1);
 */
 
-
+//$file = download($conn,'audio',1);
 //file_put_contents('test.wav', $file);
+
 
 
 }

@@ -6,7 +6,6 @@
 
 	
 	function download($conn,$type,$id){
-			$lob  = oci_new_descriptor($conn, OCI_D_LOB);
 			if($type == 'image') {
 				$sql = 'select * from images where image_id='.$id;
 				$stid = oci_parse($conn,$sql);
