@@ -49,7 +49,7 @@ $image = file_get_contents($image);
 //$rows = explode("\n", $image);
 $rows = str_getcsv($image, "\n"); //parse the rows 
 
-$i = 0;
+$e = 0;
 $conn = connect(); 
 
 
@@ -67,9 +67,9 @@ foreach($rows as $myrow) {
 	$row = str_getcsv($myrow, ",");
 	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$row[$i].", TO_DATE('".$row[1]."', 'DD/MM/YYYY HH24:MI:SS'),".$row[2].")");
 	$id += 1;
+	$e += 1;
 	if (!@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
-		$e = $i / 3;
-		echo "<center>Couldn't upload on scalar ".$e."</center><br/>";
+		echo "<center>No scalars uploaded. Couldn't upload on scalar ".$e."</center><br/>";
 		$check = 0;
 		break;
 	}
