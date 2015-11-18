@@ -63,7 +63,6 @@ $check = 1;
 foreach($rows as $row => $data){
 	echo $row[$i+2].'<br/>';
 	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$rows[$i].", TO_DATE('".$rows[$i+1]."', 'DD/MM/YYYY HH24:MI:SS'),".$rows[$i+2].")");
-	echo "insert into scalar_data values (".$id.",".$rows[$i].", TO_DATE('".$rows[$i+1]."', 'DD/MM/YYYY HH24:MI:SS'),".$rows[$i+2].")";
 	$id += 1;
 	$i  += 3;
 	if (!@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
@@ -89,7 +88,7 @@ if($check == 1){
 	oci_fetch($stmt);
 	oci_result($stmt, 'date_created');
 	*/
-	echo "<center>Blobs successfully uploaded</center><br/>";
+	echo "<center>Batch successfully uploaded</center><br/>";
 }
 
 echo '<center><form method="post">

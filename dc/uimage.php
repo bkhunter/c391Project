@@ -26,9 +26,16 @@ if (!$_FILES['photo']['name'] || ($_FILES['photo']['type'] != 'image/jpeg') ){
 <form method="post" enctype="multipart/form-data">
 	<tr>
 		<td>
-		Sensor Id: <input type="text" name ="sid">
+		Sensor Id: </td><td><input type="text" name ="sid">
 		</td>
 	</tr>
+	<tr>
+		<td>
+		Description: </td><td><input type="text" name ="des">
+		</td>
+	</tr>
+	</table>
+	<table align="center">
 	<tr>
 		<td> <input type="submit" name="submit" value="Upload" />
 		Your Photo: (jpeg only)<input type="file" name="photo" size="25" /></td>
@@ -60,7 +67,7 @@ $id = oci_result($stmt, 'IMAGE_ID');
 $lob  = oci_new_descriptor($conn, OCI_D_LOB);
 $lob1  = oci_new_descriptor($conn, OCI_D_LOB);
 $stmt = oci_parse($conn, "insert into images (image_id, sensor_id,date_created,description,thumbnail,recoreded_data)
-               values (".$id.", ".$_POST['sid'].",SYSDATE,'ayylmaoz',EMPTY_BLOB(), EMPTY_BLOB()) 
+               values (".$id.", ".$_POST['sid'].",SYSDATE,'".$_POST['des']."',EMPTY_BLOB(), EMPTY_BLOB()) 
                returning thumbnail, recoreded_data into :thumbnail, :recoreded_data");
 $id += 1;
 
