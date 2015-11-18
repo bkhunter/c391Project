@@ -1,27 +1,20 @@
-DROP TABLE imageinfo;
-DROP TABLE audioinfo;
+DROP TABLE idtracker;
 
 /*
-content is found in images value recoreded_data
+for keeping track of that id is next
 */
-CREATE TABLE imageinfo(
-    image_id int,
-	imagesize int,	
-    name varchar(128),
-    PRIMARY KEY(image_id),
-    FOREIGN KEY(image_id) REFERENCES images
+CREATE TABLE idtracker(
+	colid     int,
+    image_id  int,
+	audio_id  int,
+	scalar_id int,	
+    PRIMARY KEY(colid),
+    UNIQUE (image_id),
+	UNIQUE (audio_id),
+	UNIQUE (scalar_id)
 ) tablespace c391ware;
 
-/*
-content is found in audio_recordings value recoreded_data
-*/
-CREATE TABLE audioinfo(
-    recording_id int,
-	audiosize int,	
-    name varchar(128),
-    PRIMARY KEY(recording_id),
-    FOREIGN KEY(recording_id) REFERENCES audio_recordings
-) tablespace c391ware;
+insert into idtracker values (0,0,0,0);
 
 /*
 persons data
