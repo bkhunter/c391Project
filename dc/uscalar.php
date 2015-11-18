@@ -62,10 +62,9 @@ $id = oci_result($stmt, 'SCALAR_ID');
 
 //used for seeing in a tuple can be added 
 $check = 1;
-//foreach($rows as $rowx => $data){
 foreach($rows as $myrow) {	
 	$row = str_getcsv($myrow, ",");
-	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$row[$i].", TO_DATE('".$row[1]."', 'DD/MM/YYYY HH24:MI:SS'),".$row[2].")");
+	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$row[0].", TO_DATE('".$row[1]."', 'DD/MM/YYYY HH24:MI:SS'),".$row[2].")");
 	$id += 1;
 	$e += 1;
 	if (!@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
@@ -81,12 +80,11 @@ if($check == 1){
 	$stmt = oci_parse($conn, "update idtracker SET SCALAR_ID=".$id."WHERE colid=0");
 	oci_execute($stmt);
 	oci_commit($conn);
-	/*
-	$stmt = oci_parse($conn, "select TO_DATE(date_created, 'DD/MM/YYYY HH24:MI:SS') from scalar_data");
-	//$stmt = oci_parse($conn, "select date_created from scalar_data");
+	/* //get data and time!
+	$stmt = oci_parse($conn, "select TO_CHAR(date_created, 'DD/MM/YYYY HH24:MI:SS') as A from scalar_data");
 	oci_execute($stmt);
 	oci_fetch($stmt);
-	oci_result($stmt, 'date_created');
+	echo oci_result($stmt, 'A');
 	*/
 	echo "<center>Batch successfully uploaded</center><br/>";
 }
