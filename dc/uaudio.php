@@ -26,7 +26,7 @@ $mimetypes = array(
     'audio/vnd.wave'
 );
 
-if ( !in_array( $_FILES['audio']['type'], $mimetypes ) ){
+if ( !in_array( $_FILES['audio']['type'], $mimetypes )  ){
 ?>
 
 <table align="center" >
@@ -41,6 +41,12 @@ if ( !in_array( $_FILES['audio']['type'], $mimetypes ) ){
 		<td>
 		Description: </td><td><input type="text" name ="des">
 		</td>
+	</tr>
+	<tr>
+		<td>
+		Audio length: </td><td><input type="number" name ="len" min="0" value="0">
+		</td>
+		<td>seconds</td>
 	</tr>
 	</table>
 	<table align="center">
@@ -75,7 +81,7 @@ $lob  = oci_new_descriptor($conn, OCI_D_LOB);
 //in dev 
 $stmt = oci_parse($conn, "insert into audio_recordings (recording_id, sensor_id,date_created,
 					length,description,recorded_data)
-               values (".$id.", ".$_POST['sid'].",SYSDATE,1,'".$_POST['des']."', EMPTY_BLOB()) 
+               values (".$id.", ".$_POST['sid'].",SYSDATE,".$_POST['len'].",'".$_POST['des']."', EMPTY_BLOB()) 
                returning recorded_data into :recoreded_data");
 $id += 1;
    
