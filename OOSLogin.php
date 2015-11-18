@@ -76,11 +76,15 @@ include("PHPconnectionDB.php");
 		if($_SESSION['role'] == 'a'){
 
 
-
 			echo '<form name = "search" method="post"  action="search_module.php"> 
 					<h2 class ="search"> </h2>
 					<center><input type="submit" name="search" value="search"></center>
 					</form>';
+			echo '<form name = "search" method="post"  action="./sensorModule.php"> 
+					<h2 class ="search"> </h2>
+					<center><input type="submit" name="search" value="user and sensor management"></center>
+					</form>';
+					
 
 		}
 		
