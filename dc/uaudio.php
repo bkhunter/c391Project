@@ -52,6 +52,8 @@ $image = file_get_contents($image);
 
 
 $conn = connect(); 
+
+//found is implemented with use of http://php.net/manual/en/function.oci-new-descriptor.php 
 $lob  = oci_new_descriptor($conn, OCI_D_LOB);
 //in dev 
 $stmt = oci_parse($conn, "insert into audio_recordings (recording_id, sensor_id,date_created,

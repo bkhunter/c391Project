@@ -25,6 +25,11 @@ if (!$_FILES['photo']['name']){
 
 <form method="post" enctype="multipart/form-data">
 	<tr>
+		<td>
+		Sensor Id: <input type="text" name ="sid">
+		</td>
+	</tr>
+	<tr>
 		<td> <input type="submit" name="submit" value="Upload" />
 		Your Photo: <input type="file" name="photo" size="25" /></td>
 	</tr>
@@ -45,16 +50,28 @@ $image = base64_encode($image);
 
 
 $conn = connect(); 
-$lob  = oci_new_descriptor($conn, OCI_D_LOB);
-$stmt = oci_parse($conn, "insert into images (image_id, sensor_id,date_created,description,thumbnail,recoreded_data)
-               values (1, 101,SYSDATE,'ayylmaoz',EMPTY_BLOB(), EMPTY_BLOB()) 
-               returning recoreded_data into :recoreded_data");
 
-   
-oci_bind_by_name($stmt, ':recoreded_data', $lob, -1,  OCI_B_BLOB);
+$stmt = oci_parse($conn, "select * from idtracker");
+oci_execute($stmt);
+oci_fetch($stmt);
+$id = oci_result($stmt, 'IMAGE_ID');
+
+//found is implemented with use of http://php.net/manual/en/function.oci-new-descriptor.php 
+$lob  = oci_new_descriptor($conn, OCI_D_LOB);
+$lob1  = oci_new_descriptor($conn, OCI_D_LOB);
+$stmt = oci_parse($conn, "insert into images (image_id, sensor_id,date_created,description,thumbnail,recoreded_data)
+               values (".$id.", ".$_POST['sid'].",SYSDATE,'ayylmaoz',EMPTY_BLOB(), EMPTY_BLOB()) 
+               returning thumbnail, recoreded_data into :thumbnail, :recoreded_data");
+$id += 1;
+
+oci_bind_by_name($stmt, ':thumbnail', $lob, -1,  OCI_B_BLOB);   
+oci_bind_by_name($stmt, ':recoreded_data', $lob1, -1,  OCI_B_BLOB);
 @oci_execute($stmt, OCI_NO_AUTO_COMMIT);
 
-if (@$lob->save($image)){
+if (@$lob1->save($image)){
+	oci_commit($conn);
+	$stmt = oci_parse($conn, "update idtracker SET IMAGE_ID=".$id."WHERE colid=0");
+	oci_execute($stmt);
 	oci_commit($conn);
 	echo "<center>Blob successfully uploaded</center><br/>";
 }else{
