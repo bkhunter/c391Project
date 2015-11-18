@@ -80,7 +80,7 @@ include("PHPconnectionDB.php");
 					<h2 class ="search"> </h2>
 					<center><input type="submit" name="search" value="search"></center>
 					</form>';
-			echo '<form name = "search" method="post"  action="./sensorModule.php"> 
+			echo '<form name = "search" method="post"  action="./sensor_and_user_mgmt/sensorModule.php"> 
 					<h2 class ="search"> </h2>
 					<center><input type="submit" name="search" value="user and sensor management"></center>
 					</form>';
