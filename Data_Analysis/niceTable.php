@@ -279,3 +279,54 @@
 				</tr>
 			</table>
 		</div>
+
+
+
+<div class="floatMiddle">
+			<table id="results" border = "1">
+				<tr>
+					<th>Location</th>
+					<th>ID1</th>
+					<th>ID2</th>
+					<th>ID3</th>
+				</tr>
+				<tr>
+					<td>texas</td>
+					<td>
+						<table id="sensors" border = "1">
+							<th>Min</th>
+							<th>Max</th>
+							<th>Average</th>
+							<tr>
+								<td> value </td>
+								<td> value </td>
+								<td> value </td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table id="sensors" border = "1">
+							<th>Min</th>
+							<th>Max</th>
+							<th>Average</th>
+							<tr>
+								<td> value </td>
+								<td> value </td>
+								<td> value </td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table id="sensors" border = "1">
+							<th>Min</th>
+							<th>Max</th>
+							<th>Average</th>
+							<tr>
+								<td> value </td>
+								<td> value </td>
+								<td> value </td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
