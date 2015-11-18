@@ -62,7 +62,8 @@ $id = oci_result($stmt, 'SCALAR_ID');
 $check = 1;
 foreach($rows as $row => $data){
 	echo $row[$i+2].'<br/>';
-	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$rows[$i].", SYSDATE,".$rows[$i+2].")");
+	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$rows[$i].", TO_DATE('".$rows[$i+1]."', 'DD/MM/YYYY HH24:MI:SS'),".$rows[$i+2].")");
+	echo "insert into scalar_data values (".$id.",".$rows[$i].", TO_DATE('".$rows[$i+1]."', 'DD/MM/YYYY HH24:MI:SS'),".$rows[$i+2].")";
 	$id += 1;
 	$i  += 3;
 	if (!@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
@@ -81,6 +82,13 @@ if($check == 1){
 	$stmt = oci_parse($conn, "update idtracker SET SCALAR_ID=".$id."WHERE colid=0");
 	oci_execute($stmt);
 	oci_commit($conn);
+	/*
+	$stmt = oci_parse($conn, "select TO_DATE(date_created, 'DD/MM/YYYY HH24:MI:SS') from scalar_data");
+	//$stmt = oci_parse($conn, "select date_created from scalar_data");
+	oci_execute($stmt);
+	oci_fetch($stmt);
+	oci_result($stmt, 'date_created');
+	*/
 	echo "<center>Blobs successfully uploaded</center><br/>";
 }
 
