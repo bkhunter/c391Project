@@ -53,19 +53,28 @@ $image = file_get_contents($image);
 
 $conn = connect(); 
 
+$stmt = oci_parse($conn, "select * from idtracker");
+oci_execute($stmt);
+oci_fetch($stmt);
+$id = oci_result($stmt, 'AUDIO_ID');
+
 //found is implemented with use of http://php.net/manual/en/function.oci-new-descriptor.php 
 $lob  = oci_new_descriptor($conn, OCI_D_LOB);
 //in dev 
 $stmt = oci_parse($conn, "insert into audio_recordings (recording_id, sensor_id,date_created,
 					length,description,recorded_data)
-               values (1, 101,SYSDATE,1,'ayylmaoz', EMPTY_BLOB()) 
+               values (".$id.", 101,SYSDATE,1,'ayylmaoz', EMPTY_BLOB()) 
                returning recorded_data into :recoreded_data");
-
+$id += 1;
    
 oci_bind_by_name($stmt, ':recoreded_data', $lob, -1,  OCI_B_BLOB);
 @oci_execute($stmt, OCI_NO_AUTO_COMMIT);
 
 if (@$lob->save($image)){
+	oci_commit($conn);
+	//update idtracker for audio_id 
+	$stmt = oci_parse($conn, "update idtracker SET AUDIO_ID=".$id."WHERE colid=0");
+	oci_execute($stmt);
 	oci_commit($conn);
 	echo "<center>Blob successfully uploaded</center><br/>";
 }else{
