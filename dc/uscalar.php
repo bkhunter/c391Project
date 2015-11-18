@@ -51,7 +51,7 @@ $i = 0;
 $conn = connect(); 
 
 $rs = sizeof($rows)-3;
-echo "rs:".$rs.'<br/>';
+
 
 $stmt = oci_parse($conn, "select * from idtracker");
 oci_execute($stmt);
@@ -65,15 +65,13 @@ foreach($rows as $row => $data){
 	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$rows[$i].", SYSDATE,".$rows[$i+2].")");
 	$id += 1;
 	$i  += 3;
-	if (@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
-		echo "<center>Blob successfully uploaded</center><br/>";
-	} else {
+	if (!@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
 		$e = $i / 3;
 		echo "<center>Couldn't upload on scalar ".$e."</center><br/>";
 		$check = 0;
 		break;
 	}
-	echo "i:".$i.'<br/>';
+
 	if($i>=$rs) {
 		break;
 	}
@@ -83,7 +81,7 @@ if($check == 1){
 	$stmt = oci_parse($conn, "update idtracker SET SCALAR_ID=".$id."WHERE colid=0");
 	oci_execute($stmt);
 	oci_commit($conn);
-	echo "<center>------------------------!</center><br/>";
+	echo "<center>Blobs successfully uploaded</center><br/>";
 }
 
 echo '<center><form method="post">
