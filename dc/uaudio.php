@@ -68,10 +68,11 @@ if (@$lob->save($image)){
 	echo "<center>Blob successfully uploaded</center><br/>";
 }else{
 	echo "<center>Couldn't upload Blob</center><br/>";
-	echo '<center><form method="post">
+}
+
+echo '<center><form method="post">
 			<input type="submit" name="submit" value="continue" />
 			</form></center>';
-}
 
 
 $lob->free();
