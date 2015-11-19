@@ -124,7 +124,7 @@ session_start();
 				else{
 					
 
-					alert("an error occured while subscribing.");
+					//alert("an error occured while subscribing.");
 
 				}
 
@@ -161,11 +161,14 @@ session_start();
 
 			//TODO FIX THIS SQL QUERY
 			//ITS NOT FINDING ONLY NON SUBSCRIBED SENSORS.
-            $sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description
+            $sql = 'select distinct sensors.sensor_id , sensors.sensor_type, sensors.description
 										from sensors, users, subscriptions 
+										where sensors.sensor_id not in (
+										select subscriptions.sensor_id
+										from users, subscriptions
 										where users.person_id = \''.$_SESSION["person_id"].'\'
 										and users.person_id = subscriptions.person_id
-										and sensors.sensor_id != subscriptions.sensor_id';
+										)';
 
 
 			/*
@@ -197,16 +200,35 @@ session_start();
 			while(oci_fetch($stid)){    
 
 				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       			$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+       	$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
 				echo '</td><td> <button class=subscribe id='.$data2["sensor_id"].'>subscribe</button></td></tr>';
 			
 			}
 
-			oci_fetch($stid);
+			if($data2["sensor_id"]==''){
+
+
+				echo "sup";
+
+				$newsql = "select sensor_id, sensor_type, description from sensors";
+				$newconn = connect();
+				$parserino = oci_parse($newconn,$newsql);
+				$res = oci_execute($parserino);
+				while(oci_fetch($parserino)){
+				
+					$sensorData["sensor_id"] = oci_result($parserino,"SENSOR_ID");
+					$sensorData["sensor_type"] = oci_result($parserino, "SENSOR_TYPE");
+					$sensorData["description"] = oci_result($parserino, "DESCRIPTION");
+					echo '<tr><td>' .$sensorData["sensor_id"]. '</td><td>' .$sensorData["sensor_type"].'</td><td>'.$sensorData["description"];
+					echo '</td><td> <button class=subscribe id='.$sensorData["sensor_id"].'>subscribe</button></td></tr>';
+
+				}
+
+			}
 		
-			echo oci_result($stid, "DESCRIPTION");
+
             
 			
 			echo '</table>';
@@ -229,7 +251,7 @@ session_start();
 				else{
 					
 
-					alert("an error occured while subscribing.");
+					alert("(Y)");
 
 				}
 

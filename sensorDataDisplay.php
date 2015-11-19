@@ -37,8 +37,8 @@ session_start();
 
 		if($_POST["keyWordSearch"]!=''){
 
-			$sql = $sql . ' and images.description LIKE \''.$_POST['keyWordSearch'].'\'
-		  and audio_recordings.description LIKE \''.$_POST['keyWordSearch'].'\'';
+			$sql = $sql . ' or images.description LIKE \''.$_POST['keyWordSearch'].'\'
+		  or audio_recordings.description LIKE \''.$_POST['keyWordSearch'].'\'';
 
 		}
 	
@@ -49,7 +49,7 @@ session_start();
 		}
 
 		if($_POST["personType"]!=''){
-			$sql = $sql . 'and users.role = \''.$_POST["personType"].'\'';
+			$sql = $sql . 'or users.role = \''.$_POST["personType"].'\'';
 
 
 		}
@@ -66,9 +66,9 @@ session_start();
 
 		if($_POST["FromSearch"]!='' && $_POST["UntilSearch"]==''){
 				
-			$sql = $sql. ' and images.date_created >= \''.$_POST['FromSearch'].'\'
-										and audio_recordings.date_created >= \''.$_POST['FromSearch'].'\'
-										and scalar_data.date_created >= \''.$_POST['FromSearch'].'\''; 
+			$sql = $sql. ' or images.date_created >= \''.$_POST['FromSearch'].'\'
+										or audio_recordings.date_created >= \''.$_POST['FromSearch'].'\'
+										or scalar_data.date_created >= \''.$_POST['FromSearch'].'\''; 
 
 
 		}
@@ -76,7 +76,7 @@ session_start();
 
 		if($_POST["UntilSearch"]!='' && $_POST['FromSearch']==''){
 
-			$sql = $sql. ' and images.date_created <=\''.$_POST['UntilSearch'].'\'
+			$sql = $sql. ' or images.date_created <=\''.$_POST['UntilSearch'].'\'
 										and audio_recordings.date_created <=\''.$_POST['UntilSearch'].'\'
 									  and scalar_data.date_created<= \''.$_POST['UntilSearch'].'\''; 
 
@@ -91,13 +91,14 @@ session_start();
     echo '<br/>';
     echo "do i come here?";
     echo '<br/>';
-	  while(oci_fetch($stid)){
-      echo 'yes<br/>';
-			echo "sup";
+		echo "fetch: " .oci_fetch($stid);
+	  //while(oci_fetch($stid)){
+     // echo 'yes<br/>';
+		//	echo "sup";
 			
 
 
-		}
+	//	}
 
 
 	?>

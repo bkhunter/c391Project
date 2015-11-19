@@ -76,6 +76,10 @@ session_start();
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="subscription" value="subscribe"></center>
 					</form>';
+			echo '<form name = "search" method="post"  action="search_module.php"> 
+					<h2 class ="subscribe"> </h2>
+					<center><input type="submit" name="searchSubmit" value="search"></center>
+					</form>';
 		}
 		
 		//administrator
