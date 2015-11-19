@@ -17,7 +17,7 @@ if ($_SESSION['role'] != 'd') {
 		exit();	
 }
 
-if (!$_FILES['photo']['name']){
+if (!$_FILES['photo']['name'] || ($_FILES['photo']['type'] != 'image/jpeg') ){
 ?>
 
 
@@ -26,12 +26,19 @@ if (!$_FILES['photo']['name']){
 <form method="post" enctype="multipart/form-data">
 	<tr>
 		<td>
-		Sensor Id: <input type="text" name ="sid">
+		Sensor Id: </td><td><input type="text" name ="sid">
 		</td>
 	</tr>
 	<tr>
+		<td>
+		Description: </td><td><input type="text" name ="des">
+		</td>
+	</tr>
+	</table>
+	<table align="center">
+	<tr>
 		<td> <input type="submit" name="submit" value="Upload" />
-		Your Photo: <input type="file" name="photo" size="25" /></td>
+		Your Photo: (jpeg only)<input type="file" name="photo" size="25" /></td>
 	</tr>
 	<tr>
 		<td> <input type="reset" value="Reset" > </td>
@@ -60,7 +67,7 @@ $id = oci_result($stmt, 'IMAGE_ID');
 $lob  = oci_new_descriptor($conn, OCI_D_LOB);
 $lob1  = oci_new_descriptor($conn, OCI_D_LOB);
 $stmt = oci_parse($conn, "insert into images (image_id, sensor_id,date_created,description,thumbnail,recoreded_data)
-               values (".$id.", ".$_POST['sid'].",SYSDATE,'ayylmaoz',EMPTY_BLOB(), EMPTY_BLOB()) 
+               values (".$id.", ".$_POST['sid'].",SYSDATE,'".$_POST['des']."',EMPTY_BLOB(), EMPTY_BLOB()) 
                returning thumbnail, recoreded_data into :thumbnail, :recoreded_data");
 $id += 1;
 
@@ -70,12 +77,16 @@ oci_bind_by_name($stmt, ':recoreded_data', $lob1, -1,  OCI_B_BLOB);
 
 if (@$lob1->save($image)){
 	oci_commit($conn);
+	//update idtracker for image_id 
 	$stmt = oci_parse($conn, "update idtracker SET IMAGE_ID=".$id."WHERE colid=0");
 	oci_execute($stmt);
 	oci_commit($conn);
-	echo "<center>Blob successfully uploaded</center><br/>";
+	echo "<center>Image successfully uploaded!</center><br/>";
 }else{
-	echo "<center>Couldn't upload Blob</center><br/>";
+	echo "<table align='center'>
+			<tr><td>Couldn't upload image. </td></tr>
+			<tr><td>Please check you have correct sensor id.</td></tr>
+			</table><br/>";
 }
 echo '<center><form method="post">
 			<input type="submit" name="submit" value="continue" />

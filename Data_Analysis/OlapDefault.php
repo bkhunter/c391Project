@@ -1,16 +1,8 @@
+<?php
+include("PHPconnectionDB.php");
+?>
+
 <html>
-	<style>
-		table#results {
-			font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-			width: 95%;
-		}
-
-		table#sensors {
-			width: 100%;
-		}
-
-	</style>
-
 	<head>
 		<title>
 			Olap Analysis
@@ -27,125 +19,48 @@
 			<h1 class ="title"> Olap Analysis</h1>			
 		</div>
 
+		<?php 
+			if(isset($_POST['submit'])) {
+
+				$timeT = $_POST['to'];
+				$timeF = $_POST['from'];
+
+				$DateTimeT = DateTime::createFromFormat('Y-m-d', $timeT);
+				$formattedDateT = $DateTimeT->format('F dS Y');
+				$DayT = $DateTimeT->format('d');
+				$MonthT = $DateTimeT->format('m');
+				$YearT = $DateTimeT->format('Y');
+				
+				$DateTimeF = DateTime::createFromFormat('Y-m-d', $timeF);
+				$formattedDateF = $DateTimeF->format('F dS Y');
+				$DayF = $DateTimeF->format('d');
+				$MonthF = $DateTimeF->format('m');
+				$YearF = $DateTimeF->format('Y');
+			}
+
+		?>
+		<div class="container">
+				<h2 class ="LoginHeader"> Range: </h2>
+				<h4> <?php echo $formattedDateF ?> </h4>
+				<h4>      To     </h4>
+				<h4> <?php echo $formattedDateT ?></h4>
+		</div>	
+
 		<div class="container">
 				<h2 class ="LoginHeader"> Select Parameters </h2>
 		</div>	
 
-		<?php 
-			if(isset($_POST['time'])){
-				$time = $_POST['time'];
-				$locCheck = False;
-				$idCheck = False;
-			}
-
-
-			if ($time == "day") {
-		?>
-				<div class = "container">
-				  <form method="post" action="OlapDefault.php">
-					<?php
-					  if (isset($_POST["loc"])) {
-						$locCheck = True;
-					?>
-					 <div class="checkbox">
-					    <label><input type="checkbox" checked="checked" name="loc" value="" >Location</label>
-			  		</div>
-
-					<?php
-					} else {
-					?>
-						
-						<div class="checkbox">
-							<label><input type="checkbox" name="loc" value="" >Location</label>
-				  		</div>
-
-					<?php
-					}
-
-					if (isset($_POST["sID"])) {
-						$idCheck = True;
-					?>
-						<div class="checkbox">
-						  	<label><input type="checkbox" checked = "checked" name="sID" value="">Sensor ID</label>
-					  	</div>
-
-					<?php
-					} else {
-						
-					?>
-						<div class="checkbox">
-							<label><input type="checkbox" name="sID" value="" >Sensor ID</label>
-				  		</div>
-
-					<?php
-					}
-					?>
-					  	<select id = 'id' name="time">
-						  	<option value="day">Daily</option>
-						  	<option value="none">All Time</option>
-							<option value="week">Weekly</option>
-							<option value="month">Monthly</option>
-							<option value="quarter">Quarterly</option>
-							<option value="year">Yearly</option>
-						</select>
-						<input type="submit" value="Submit">
-					</form>
-					
-					<?php
-						if ($idCheck && $locCheck) {
-					?>
-						<form method="post" action="Daily/OlapDaily_L_ID.php">
-						<h3> Input Range </h3>
-							 Date From:<input type="date" name="from">
-							 Date To:<input type="date" name="to">
-								  	<input type="submit" name = "display" value="Display">
-						</form>
-
-					<?php
-					 } else if ($idCheck && !$locCheck) {
-					?>
-						<form method="post" action="Daily/OlapDaily_ID.php">
-						<h3> Input Range </h3>
-							 Date From:<input type="date" name="from">
-							 Date To:<input type="date" name="to">
-								  	<input type="submit" name = "display" value="Display">
-						</form>
-
-					<?php
-					 } else if (!$idCheck && $locCheck) {
-					?>
-						<form method="post" action="Daily/OlapDaily_L.php">
-						<h3> Input Range </h3>
-							 Date From:<input type="date" name="from">
-							 Date To:<input type="date" name="to">
-								  	<input type="submit" name = "display" value="Display">
-						</form>
-					<?php
-					 } else {
-					?>
-						<form method="post" action="Daily/OlapDaily.php">
-						<h3> Input Range </h3>
-							 Date From:<input type="date" name="from">
-							 Date To:<input type="date" name="to">
-								  	<input type="submit" name = "display" value="Display">
-						</form>
-
-				</div>
-		<?php
-				}
-
-			} else {
-		?> 
-
 		<div class = "container">
 		  <form method="post" action="OlapDefault.php">
+
 			  <div class="checkbox">
-			    <label><input type="checkbox" name="loc" value="">Location</label>
+				<label><input type="checkbox" name="loc" value="">Location</label>
 			  </div>
 
 			  <div class="checkbox">
-			    <label><input type="checkbox" name="sID" value="">Sensor ID</label>
+				<label><input type="checkbox" name="sID" value="">Sensor ID</label>
 			  </div>
+
 		  	  <select id = 'id' name="time">
 			  	  <option value="none">All Time</option>
 			  	  <option value="day">Daily</option>
@@ -154,11 +69,8 @@
 				  <option value="quarter">Quarterly</option>
 				  <option value="year">Yearly</option>
 			  </select>
-			  <input type="submit" value="Submit">
+			  	<input type="submit" name = "submit" value="Submit">
 		  </form>
 		</div>
-	<?php
-		}
-		?>
-	</body>
-</html>
+
+

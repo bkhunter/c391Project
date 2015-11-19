@@ -1,5 +1,11 @@
 <?php
+ini_set('session.cache_limiter','public');
+session_cache_limiter(false);
+
 include("PHPconnectionDB.php");
+
+session_start();
+
 ?>
 
 <html>
@@ -22,7 +28,7 @@ include("PHPconnectionDB.php");
 
 	<?php
 	
-	session_start();
+
 	
 	if (isset ($_POST['validate'])){
 	

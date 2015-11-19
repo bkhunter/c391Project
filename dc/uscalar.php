@@ -46,11 +46,13 @@ $image = addslashes($_FILES['batch']['tmp_name']);
 $name  = addslashes($_FILES['batch']['name']);
 $image = file_get_contents($image);
 
-$rows = explode(",", $image);
-$i = 0;
+//$rows = explode("\n", $image);
+$rows = str_getcsv($image, "\n"); //parse the rows 
+
+$e = 0;
 $conn = connect(); 
 
-$rs = sizeof($rows)-3;
+
 
 
 $stmt = oci_parse($conn, "select * from idtracker");
@@ -60,36 +62,31 @@ $id = oci_result($stmt, 'SCALAR_ID');
 
 //used for seeing in a tuple can be added 
 $check = 1;
-foreach($rows as $row => $data){
-	echo $row[$i+2].'<br/>';
-	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$rows[$i].", TO_DATE('".$rows[$i+1]."', 'DD/MM/YYYY HH24:MI:SS'),".$rows[$i+2].")");
-	echo "insert into scalar_data values (".$id.",".$rows[$i].", TO_DATE('".$rows[$i+1]."', 'DD/MM/YYYY HH24:MI:SS'),".$rows[$i+2].")";
+foreach($rows as $myrow) {	
+	$row = str_getcsv($myrow, ",");
+	$stmt = oci_parse($conn, "insert into scalar_data values (".$id.",".$row[0].", TO_DATE('".$row[1]."', 'DD/MM/YYYY HH24:MI:SS'),".$row[2].")");
 	$id += 1;
-	$i  += 3;
+	$e += 1;
 	if (!@oci_execute($stmt, OCI_NO_AUTO_COMMIT)){
-		$e = $i / 3;
-		echo "<center>Couldn't upload on scalar ".$e."</center><br/>";
+		echo "<center>No scalars uploaded. Couldn't upload on scalar ".$e."</center><br/>";
 		$check = 0;
 		break;
 	}
 
-	if($i>=$rs) {
-		break;
-	}
+
 }
 if($check == 1){
 	oci_commit($conn);
 	$stmt = oci_parse($conn, "update idtracker SET SCALAR_ID=".$id."WHERE colid=0");
 	oci_execute($stmt);
 	oci_commit($conn);
-	/*
-	$stmt = oci_parse($conn, "select TO_DATE(date_created, 'DD/MM/YYYY HH24:MI:SS') from scalar_data");
-	//$stmt = oci_parse($conn, "select date_created from scalar_data");
+	/* //get data and time!
+	$stmt = oci_parse($conn, "select TO_CHAR(date_created, 'DD/MM/YYYY HH24:MI:SS') as A from scalar_data");
 	oci_execute($stmt);
 	oci_fetch($stmt);
-	oci_result($stmt, 'date_created');
+	echo oci_result($stmt, 'A');
 	*/
-	echo "<center>Blobs successfully uploaded</center><br/>";
+	echo "<center>Batch successfully uploaded</center><br/>";
 }
 
 echo '<center><form method="post">

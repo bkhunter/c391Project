@@ -15,7 +15,7 @@ if(!isset($_POST['downloaded'])) {
 } else{
 
 $conn = connect(); 
-$file = download($conn,'audio',1);
+$file = download($conn,'audio',0);
 $file2 = file_put_contents('test.wav', $file);
 header('Location: test.wav', true, 301);
 
