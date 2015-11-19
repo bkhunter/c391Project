@@ -158,9 +158,6 @@ session_start();
 
         <?php
 
-
-			//TODO FIX THIS SQL QUERY
-			//ITS NOT FINDING ONLY NON SUBSCRIBED SENSORS.
             $sql = 'select distinct sensors.sensor_id , sensors.sensor_type, sensors.description
 										from sensors, users, subscriptions 
 										where sensors.sensor_id not in (
@@ -169,18 +166,6 @@ session_start();
 										where users.person_id = \''.$_SESSION["person_id"].'\'
 										and users.person_id = subscriptions.person_id
 										)';
-
-
-			/*
-
-
-			select sensors.sensor_id, sensors.sensor_type, sensors.description
-			from sensors, users, subscriptions
-			where sensors.sensor_id != subscriptions.sensor_id
-			and subscriptions.person_id = 1
-	
-
-				*/
 
                     
             $conn=connect();
@@ -208,9 +193,6 @@ session_start();
 			}
 
 			if($data2["sensor_id"]==''){
-
-
-				echo "sup";
 
 				$newsql = "select sensor_id, sensor_type, description from sensors";
 				$newconn = connect();
