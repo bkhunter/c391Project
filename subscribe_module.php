@@ -87,7 +87,7 @@ session_start();
 			echo '<table>';
 
 
-			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> <tbody> ';
+			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> </tr></thead> <tbody> ';
 
 
 			while(oci_fetch($stid)){    
@@ -160,11 +160,12 @@ session_start();
 
 
 			//TODO FIX THIS SQL QUERY
-			//ITS NOT FINDING ONLY NON SUBSCRIBED SENSORS
-			$string = 'ay';
-            $sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description from sensors, subscriptions, users 
-   where users.user_name = \''.$string.'\'
-   and sensors.sensor_id != subscriptions.sensor_id';
+			//ITS NOT FINDING ONLY NON SUBSCRIBED SENSORS.
+            $sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description
+										from sensors, users, subscriptions 
+										where users.person_id = \''.$_SESSION["person_id"].'\'
+										and users.person_id = subscriptions.person_id
+										and sensors.sensor_id != subscriptions.sensor_id';
 
 
 			/*
@@ -189,7 +190,7 @@ session_start();
 			echo '<table>';
 
 
-			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> <tbody> ';
+			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> </tr></thead> <tbody> ';
 		
     
 		
@@ -269,23 +270,22 @@ session_start();
 		echo '<table id=dataTable>';
 
 
-		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> <tbody>';
+		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> </tr> </thead> <tbody> ';
 		
 
 		while(oci_fetch($stid)){    
 
-
-				$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       			$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
-        		$data3["location"] = oci_result($stid,"LOCATION");
-        		$data3["description"] = oci_result($stid,"DESCRIPTION");
-				echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
+			$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
+      $data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+      $data3["location"] = oci_result($stid,"LOCATION");
+      $data3["description"] = oci_result($stid,"DESCRIPTION");
+			echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
 			
 		}
 
 	
 
-		echo '</table>';
+		echo '</tbody></table>';
 
 
     ?>
