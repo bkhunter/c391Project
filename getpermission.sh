@@ -13,5 +13,7 @@ cd ..
 cd Data_Analysis
 chmod 644 *.php
 chmod 644 *.css
+cd Daily
+cd ..
 cd ..
 
