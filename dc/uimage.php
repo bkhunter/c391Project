@@ -2,12 +2,13 @@
 
 <body>
 <?php
+
 ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 
 include("../PHPconnectionDB.php");
 include("download.php");
-
+include("scaleimage.php");
 
 session_start();
 
@@ -55,6 +56,11 @@ $name  = addslashes($_FILES['photo']['name']);
 $image = file_get_contents($image);
 $image = base64_encode($image);
 
+$thumbnail = scaleImageFileToBlob($_FILES['photo']['tmp_name']);
+$thumbnail = base64_encode($thumbnail);
+//echo '<img src="data:image/jpeg;base64, '.$thumbnail.'" >';	
+
+
 
 $conn = connect(); 
 
@@ -64,18 +70,18 @@ oci_fetch($stmt);
 $id = oci_result($stmt, 'IMAGE_ID');
 
 //found is implemented with use of http://php.net/manual/en/function.oci-new-descriptor.php 
-$lob  = oci_new_descriptor($conn, OCI_D_LOB);
-$lob1  = oci_new_descriptor($conn, OCI_D_LOB);
+$lob   = oci_new_descriptor($conn, OCI_D_LOB);
+$lobimage  = oci_new_descriptor($conn, OCI_D_LOB);
 $stmt = oci_parse($conn, "insert into images (image_id, sensor_id,date_created,description,thumbnail,recoreded_data)
                values (".$id.", ".$_POST['sid'].",SYSDATE,'".$_POST['des']."',EMPTY_BLOB(), EMPTY_BLOB()) 
                returning thumbnail, recoreded_data into :thumbnail, :recoreded_data");
 $id += 1;
 
 oci_bind_by_name($stmt, ':thumbnail', $lob, -1,  OCI_B_BLOB);   
-oci_bind_by_name($stmt, ':recoreded_data', $lob1, -1,  OCI_B_BLOB);
+oci_bind_by_name($stmt, ':recoreded_data', $lobimage, -1,  OCI_B_BLOB);
 @oci_execute($stmt, OCI_NO_AUTO_COMMIT);
 
-if (@$lob1->save($image)){
+if ( @$lob->save($thumbnail) && @$lobimage->save($image)){
 	oci_commit($conn);
 	//update idtracker for image_id 
 	$stmt = oci_parse($conn, "update idtracker SET IMAGE_ID=".$id."WHERE colid=0");
