@@ -52,9 +52,9 @@ session_start();
 				Until <br> <input type="date" name = "UntilSearch"><br>
 
 				Sensor Location<br> <input type ="text" name = "locationSearch"><br>
-				<input type ="radio" value ="s" name = "personType" class='radio' checked>Scientist
-				<input type="radio" value ="a" name ="personType" class='radio'> Administator
-				<input type="radio" value="d" name="personType" class ="radio">Data Curator <br>
+				<input type ="checkbox" value ="a" name = "dataType" class='checkbox' checked>Audio Recordings
+				<input type="checkbox" value ="i" name ="dataType" class='checkbox'> Images
+				<input type="checkbox" value="s" name="dataType" class ="checkbox">Scalar Measurements <br>
 				<input type="submit" name="SubmitSearch" value="Submit"><br>
 				
 
