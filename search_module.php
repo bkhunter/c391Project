@@ -2,7 +2,11 @@
 include("PHPconnectionDB.php");
 
 session_start();
-
+//data curator
+if ($_SESSION['role'] != 's') {
+		header('Location: OOSLogin.php', true, 301);
+		exit();	
+}
 ?>
 
 
