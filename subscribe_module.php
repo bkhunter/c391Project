@@ -87,7 +87,7 @@ session_start();
 			echo '<table>';
 
 
-			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> <tbody> ';
+			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> </tr></thead> <tbody> ';
 
 
 			while(oci_fetch($stid)){    
@@ -124,7 +124,7 @@ session_start();
 				else{
 					
 
-					alert("an error occured while subscribing.");
+					//alert("an error occured while subscribing.");
 
 				}
 
@@ -158,25 +158,14 @@ session_start();
 
         <?php
 
-
-			//TODO FIX THIS SQL QUERY
-			//ITS NOT FINDING ONLY NON SUBSCRIBED SENSORS
-			$string = 'ay';
-            $sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description from sensors, subscriptions, users 
-   where users.user_name = \''.$string.'\'
-   and sensors.sensor_id != subscriptions.sensor_id';
-
-
-			/*
-
-
-			select sensors.sensor_id, sensors.sensor_type, sensors.description
-			from sensors, users, subscriptions
-			where sensors.sensor_id != subscriptions.sensor_id
-			and subscriptions.person_id = 1
-	
-
-				*/
+            $sql = 'select distinct sensors.sensor_id , sensors.sensor_type, sensors.description
+										from sensors, users, subscriptions 
+										where sensors.sensor_id not in (
+										select subscriptions.sensor_id
+										from users, subscriptions
+										where users.person_id = \''.$_SESSION["person_id"].'\'
+										and users.person_id = subscriptions.person_id
+										)';
 
                     
             $conn=connect();
@@ -189,23 +178,39 @@ session_start();
 			echo '<table>';
 
 
-			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> <tbody> ';
+			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> </tr></thead> <tbody> ';
 		
     
 		
 			while(oci_fetch($stid)){    
 
 				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       			$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+       	$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
 				echo '</td><td> <button class=subscribe id='.$data2["sensor_id"].'>subscribe</button></td></tr>';
 			
 			}
 
-			oci_fetch($stid);
+			if($data2["sensor_id"]==''){
+
+				$newsql = "select sensor_id, sensor_type, description from sensors";
+				$newconn = connect();
+				$parserino = oci_parse($newconn,$newsql);
+				$res = oci_execute($parserino);
+				while(oci_fetch($parserino)){
+				
+					$sensorData["sensor_id"] = oci_result($parserino,"SENSOR_ID");
+					$sensorData["sensor_type"] = oci_result($parserino, "SENSOR_TYPE");
+					$sensorData["description"] = oci_result($parserino, "DESCRIPTION");
+					echo '<tr><td>' .$sensorData["sensor_id"]. '</td><td>' .$sensorData["sensor_type"].'</td><td>'.$sensorData["description"];
+					echo '</td><td> <button class=subscribe id='.$sensorData["sensor_id"].'>subscribe</button></td></tr>';
+
+				}
+
+			}
 		
-			echo oci_result($stid, "DESCRIPTION");
+
             
 			
 			echo '</table>';
@@ -228,7 +233,7 @@ session_start();
 				else{
 					
 
-					alert("an error occured while subscribing.");
+					alert("(Y)");
 
 				}
 
@@ -269,23 +274,22 @@ session_start();
 		echo '<table id=dataTable>';
 
 
-		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> <tbody>';
+		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> </tr> </thead> <tbody> ';
 		
 
 		while(oci_fetch($stid)){    
 
-
-				$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       			$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
-        		$data3["location"] = oci_result($stid,"LOCATION");
-        		$data3["description"] = oci_result($stid,"DESCRIPTION");
-				echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
+			$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
+      $data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+      $data3["location"] = oci_result($stid,"LOCATION");
+      $data3["description"] = oci_result($stid,"DESCRIPTION");
+			echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
 			
 		}
 
 	
 
-		echo '</table>';
+		echo '</tbody></table>';
 
 
     ?>

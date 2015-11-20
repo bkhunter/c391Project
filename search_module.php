@@ -42,7 +42,7 @@ session_start();
 	<div class ='col-sm-2'></div>
 	<div class = "col-sm-8">
 		
-		<form name = 'keywordSearch' class="keyWords">
+		<form name = 'Search' class="keyWords" method="post"  action="sensorDataDisplay.php">
 
 				<h2>Search subscribed Sensors</h2>
 				Keywords:<br> <input type="text" name ="keyWordSearch"><br>
@@ -55,7 +55,7 @@ session_start();
 				<input type ="radio" value ="s" name = "personType" class='radio' checked>Scientist
 				<input type="radio" value ="a" name ="personType" class='radio'> Administator
 				<input type="radio" value="d" name="personType" class ="radio">Data Curator <br>
-				<input type="submit" name="SubmitSearch" value="searchsubmitted"><br>
+				<input type="submit" name="SubmitSearch" value="Submit"><br>
 				
 
 
