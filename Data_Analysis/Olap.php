@@ -33,6 +33,12 @@ include("PHPconnectionDB.php");
 			</div>
 	<?php
 			$pID = 3;
+			$pID = (string)$pID;
+			$f = "fact";
+			//$tableName = "{$f}{$pID}";
+			$tableName = "fact3";
+			echo tableName;
+
 
 			//construct fact view
 			ini_set('display_errors', 1);
@@ -45,6 +51,40 @@ include("PHPconnectionDB.php");
 				$e = oci_error();
 				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 			} 
+
+			//First drop table
+			$dropQ = 'drop table '.$tableName.' ';
+
+			//prepare
+			$stid = oci_parse($conn, $dropQ );
+		
+			//error_reporting(0);
+
+			//execute
+			$res=oci_execute($stid);
+
+		
+			//create temporary table
+			$tableQ = 'CREATE TABLE '.$tableName.' (
+			location   	varchar(64),
+			person_id    int,
+			sensor_id	int,
+			value 		float,
+			date_created date,
+			FOREIGN KEY(sensor_id,person_id) REFERENCES subscriptions,
+			PRIMARY KEY(sensor_id)) tablespace c391ware' ;
+
+			//prepare
+			$stid = oci_parse($conn, $tableQ );
+		
+			//error_reporting(1);
+
+			//Warning: oci_execute(): ORA-00903: invalid table name in /compsci/webdocs/bkhunter/web_docs/c391Project/Data_Analysis/Olap.php on line 58
+			//execute
+
+			$res=oci_execute($stid);
+
+
 
 			// get sensors attached to admin
 			$sQ = 'select * from subscriptions where person_id = \''.$pID.'\'';	
@@ -71,7 +111,7 @@ include("PHPconnectionDB.php");
 			foreach($s_res as &$sensorID) {
 				
 				// get locations attached to subcribed sensors
-				$lQ = 'select location from sensors where sensor_id = \''.$sensorID.'\'';
+				$lQ = 'select location from sensors where sensor_id = \''.$sensorID.'\' ';
 
 				//prepare
 				$stid = oci_parse($conn, $lQ );
@@ -109,7 +149,7 @@ include("PHPconnectionDB.php");
 
 				//now insert into fact table
 
-				$insert = 'INSERT INTO fact (location, value, person_id, sensor_id, date_created) VALUES (\''.$loc.'\',\''.$val.'\',\''.$pID.'\',\''.$sensorID.'\',\''.$date.'\')';	
+				$insert = 'INSERT INTO '.$tableName.' (location, value, person_id, sensor_id, date_created) VALUES (\''.$loc.'\',\''.$val.'\',\''.$pID.'\',\''.$sensorID.'\',\''.$date.'\')';	
 			
 				//prepare
 				$stid = oci_parse($conn, $insert );
