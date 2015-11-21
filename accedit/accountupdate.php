@@ -5,7 +5,7 @@
 ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 
 <html>
@@ -182,7 +182,7 @@ include("PHPconnectionDB.php");
 		
 		?>
 		
-		<form name = "continue" method="post"  action="OOSLogin.php"> 
+		<form name = "continue" method="post"  action="../OOSLogin.php"> 
 					<h2 class ="continue"> </h2>
 					<center><input type="submit" name="validate" value="continue"></center>
 		</form>
