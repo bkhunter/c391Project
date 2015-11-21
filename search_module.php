@@ -57,21 +57,35 @@ if ($_SESSION['role'] != 's') {
 
 				<h2>Search subscribed Sensors</h2>
 				Keywords:<br> <input type="text" name ="keyWordSearch"><br>
+				<!-- from http://stackoverflow.com/questions/153759/jquery-datepicker-with-text-input-that-doesnt-allow-user-input -->
+				From<br> <input type="text" name ="FromSearch"  readonly='true' class='datePick' id ='date1'><br>
 				
-				From<br> <input type="text" name ="FromSearch"  class='datePick'><br>
-				
-				Until <br> <input type="text" name = "UntilSearch" class='datePick'><br>
+				Until <br> <input type="text" name = "UntilSearch" readonly='true' class='datePick' id='date2'><br>
 				<script>
 
 				$(function(){
 					//from https://jqueryui.com/datepicker
-					$(".datePick").datepicker();
+					$(".datePick").datepicker({
 
+            onSelect:function(date){
+                //from http://api.jquery.com/attribute-equals-selector/
+               $("input[value='Submit']").prop("disabled",true);
+               if($("#date2").val()!='' && $("#date1").val()!=''){
+                console.log('yo');
+                $("input[value='Submit']").prop("disabled",false);
+
+               }    
+
+            }
+
+          });
 
 				});
 
+
+					
+
 				</script>
-				
 
 
 
@@ -79,8 +93,7 @@ if ($_SESSION['role'] != 's') {
 				<input type ="checkbox" value ="a" name = "dataTypeA" class='checkbox' checked>Audio Recordings
 				<input type="checkbox" value ="i" name ="dataTypeI" class='checkbox'> Images
 				<input type="checkbox" value="s" name="dataTypeS" class ="checkbox">Scalar Measurements <br>
-				<input type="submit" name="SubmitSearch" value="Submit"><br>
-				
+				<input type="submit" name="SubmitSearch" value="Submit" id='submitButton'><br>  			
 
 
 		</form>
