@@ -30,13 +30,6 @@ session_start();
 
   </head>
   <body>
-  <?php
-  		session_start();
-  		if($_SESSION['login'] != 'true') {
-			header('Location: OOS.php', true, 301);
-			exit();	
-		}
-	?>
   
 
   <div class="container">
@@ -113,25 +106,19 @@ session_start();
 
 			$('.unsubscribe').click(function(){
 
-			alert($(this).attr('id'));
-			$.post('unsubscribe.php', {id:$(this).attr('id')}, function(data){
+				alert($(this).attr('id'));
+				//referencing http://api.jquery.com/jquery.post/
+				$.post('unsubscribe.php', {id:$(this).attr('id')}, function(data){
 
 
-				alert(data);
-				if(data == 'success'){
+					alert(data);
+					//refresh page 
+					window.location.replace("subscribe_module.php");
 
-				}
-				else{
-					
-
-					//alert("an error occured while subscribing.");
-
-				}
-
-			} );
+				} );
 
 
-		});	
+			});	
 
 
 		});
@@ -185,7 +172,7 @@ session_start();
 			while(oci_fetch($stid)){    
 
 				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       	$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+       		$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
 				echo '</td><td> <button class=subscribe id='.$data2["sensor_id"].'>subscribe</button></td></tr>';
@@ -226,7 +213,7 @@ session_start();
             
 			
 			echo '</table>';
-
+			
         ?>
         <script>
 
@@ -234,25 +221,17 @@ session_start();
 
 			$('.subscribe').click(function(){
 
-			alert($(this).attr('id'));
-			$.post('subscribe.php', {id:$(this).attr('id')}, function(data){
+				alert($(this).attr('id'));
+				//referencing http://api.jquery.com/jquery.post/
+				$.post('subscribe.php', {id:$(this).attr('id')}, function(data){
+				
+					//refresh page 
+					window.location.replace("subscribe_module.php");
+
+				} );
 
 
-				//alert(data);
-				if(data == 'success'){
-
-				}
-				else{
-					
-
-					alert("(Y)");
-
-				}
-
-			} );
-
-
-		});	
+			});	
 
 
 		});
