@@ -75,7 +75,7 @@ if ($_SESSION['role'] != 's') {
                 //from http://api.jquery.com/attribute-equals-selector/
                $("input[value='Submit']").prop("disabled",true);
                if($("#date2").val()!='' && $("#date1").val()!=''){
-                console.log('yo');
+
                 $("input[value='Submit']").prop("disabled",false);
 
                }    

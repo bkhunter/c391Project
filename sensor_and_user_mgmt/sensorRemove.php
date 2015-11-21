@@ -46,8 +46,8 @@
 
 		<div class="LoginForm container">
 			<h3> Search </h3>
-			<form name= "userID_search" method="post" action="sensorRemoveRes.php"> 
-				Sensor ID<input type="text" name="usrID"/> <br/>
+			<form name= "sensor_ID search" method="post" action="sensorRemoveRes.php"> 
+				Sensor ID<input type="text" name="sensID"/> <br/>
 				<input type="submit" value="search" name="IDSearch"/>
 			</form>
 		</div>	

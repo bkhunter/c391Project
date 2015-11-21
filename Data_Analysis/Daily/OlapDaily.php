@@ -1,6 +1,5 @@
 <html>
 	<style>
-			<style>
 			
 			table#sTimeF {
 				
@@ -18,7 +17,7 @@
 
 
 			ul#Times {
-				border: 1px black;
+				border: 10px black;
 				list-style-type: none;
 				padding: 0;
 			}
@@ -28,7 +27,8 @@
 				color: white;
 				padding: 10px 20px;
 				text-decoration: none;
-				display: block;
+				text-align: center;
+
 			}
 
 			ul#Times li a:hover {

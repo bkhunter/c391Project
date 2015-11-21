@@ -20,25 +20,35 @@ include("PHPconnectionDB.php");
 		</div>
 
 		<div class="container">
-				<h2 class ="LoginHeader"> Select Parameters </h2>
+				<h2 class ="LoginHeader">Generate Olap Report</h2>
 		</div>	
 
-			<div class = "container">
-			  <form method="post" action="OlapDefault.php">
-				 Date From (yyyy-mm-dd):<input type="date" name="from">
-				 Date To (yyyy-mm-dd):<input type="date" name="to">
-				  		<input type="submit" name = "submit" value="Submit">
-			  </form>
+		<div class="container">
+			<h3>Input Sensor ID</h3>
+			<form name= "OlapGen" method="post" action="OlapYearly.php"> 
+				Sensor ID <input type="number" name="sID"/> <br/>
+				<input type="submit" name="gen"value="Generate!"/>
+			</form>
+		</div>
 
-			</div>
+		<div class="container">
+			<h3> Verify Sensor ID </h3>
+			<form name= "userID_search" method="post" action="OlapRes.php"> 
+				Sensor ID<input type="number" name="sID"/> <br/>
+				<input type="submit" value="search" name="IDSearch"/>
+			</form>
+		</div>	
 	<?php
 			$pID = 3;
 			$pID = (string)$pID;
 			$f = "fact";
-			//$tableName = "{$f}{$pID}";
-			$tableName = "fact3";
-			echo tableName;
-
+			$tableName = "{$f}{$pID}";
+			
+	
+			//http://stackoverflow.com/questions/871858/php-pass-variable-to-next-page
+			session_start();
+			$_SESSION['pID'] = $pID;
+			$_SESSION['table'] = $tableName;
 
 			//construct fact view
 			ini_set('display_errors', 1);
@@ -71,8 +81,8 @@ include("PHPconnectionDB.php");
 			sensor_id	int,
 			value 		float,
 			date_created date,
-			FOREIGN KEY(sensor_id,person_id) REFERENCES subscriptions,
-			PRIMARY KEY(sensor_id)) tablespace c391ware' ;
+			FOREIGN KEY(sensor_id,person_id) REFERENCES subscriptions
+			) tablespace c391ware' ;
 
 			//prepare
 			$stid = oci_parse($conn, $tableQ );
@@ -142,24 +152,27 @@ include("PHPconnectionDB.php");
 							$val = $item;
 						} else {
 							$date = $item;
+
+							//echo $date;
+							//echo "--";
+
+							//now insert into fact table
+							$insert = 'INSERT INTO '.$tableName.' (location, value, person_id, sensor_id, date_created) VALUES (\''.$loc.'\',\''.$val.'\',\''.$pID.'\',\''.$sensorID.'\',\''.$date.'\')';	
+			
+							//prepare
+							$stid1 = oci_parse($conn, $insert );
+				
+							//execute
+							$res=oci_execute($stid1);
+
+							if (!$res) {
+								$err = oci_error($stid1); 
+								echo htmlentities($err['There was an error, please try again']);
+							}
 						}
+						
 						$i++;
 					}
-				}
-
-				//now insert into fact table
-
-				$insert = 'INSERT INTO '.$tableName.' (location, value, person_id, sensor_id, date_created) VALUES (\''.$loc.'\',\''.$val.'\',\''.$pID.'\',\''.$sensorID.'\',\''.$date.'\')';	
-			
-				//prepare
-				$stid = oci_parse($conn, $insert );
-				
-				//execute
-				$res=oci_execute($stid);
-
-				if (!$res) {
-					$err = oci_error($stid); 
-					echo htmlentities($err['There was an error, please try again']);
 				}
 			}
 		
