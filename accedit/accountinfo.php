@@ -4,7 +4,7 @@
 ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 
 <html>
