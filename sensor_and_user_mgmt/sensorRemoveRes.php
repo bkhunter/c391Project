@@ -35,7 +35,7 @@ if ($_SESSION['role'] != 'a') {
 
 		<?php   	 
 			if(isset($_POST['IDSearch'])){        	
-				$ID=$_POST['usrID'];
+				$ID=$_POST['sensID'];
 
 				ini_set('display_errors', 1);
 				error_reporting(E_ALL);
