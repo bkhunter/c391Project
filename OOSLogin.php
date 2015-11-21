@@ -112,11 +112,11 @@ session_start();
 	</form>
 	
 	<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
-	<form name = "editInfo" method="post"  action="accedit/changepass.php"> 
+	<form name = "editInfo" method="post"  action="./acc_edit/changepass.php"> 
 					<center><input type="submit" name="validate" value="change password"></center>
 	</form>
 	
-	<form name = "editInfo" method="post"  action="accedit/accountinfo.php"> 
+	<form name = "editInfo" method="post"  action="./acc_edit/accountinfo.php"> 
 					<center><input type="submit" name="validateAcc" value="edit account"></center>
 	</form>
 
