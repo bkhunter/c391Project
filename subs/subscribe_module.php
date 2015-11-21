@@ -1,11 +1,14 @@
 <?php
-include("PHPconnectionDB.php");
+ini_set('session.cache_limiter','public');
+session_cache_limiter(false);
+
+include("../PHPconnectionDB.php");
 
 session_start();
 
 		if($_SESSION['role'] != 's'){
 			
-			header('Location: OOSLogin.php', true, 301);
+			header('Location: ../OOSLogin.php', true, 301);
 			exit();	
 		
 		}
@@ -30,13 +33,6 @@ session_start();
 
   </head>
   <body>
-  <?php
-  		session_start();
-  		if($_SESSION['login'] != 'true') {
-			header('Location: OOS.php', true, 301);
-			exit();	
-		}
-	?>
   
 
   <div class="container">
@@ -50,7 +46,7 @@ session_start();
   </div>
   </div>
   </div>
-  	<form name = "logout" method="post"  action="logout.php"> 
+  	<form name = "logout" method="post"  action="../logout.php"> 
 					<h2 class ="logout"> </h2>
 					<center><input type="submit" name="validate" value="log out"></center>
 	</form>
@@ -113,25 +109,19 @@ session_start();
 
 			$('.unsubscribe').click(function(){
 
-			alert($(this).attr('id'));
-			$.post('unsubscribe.php', {id:$(this).attr('id')}, function(data){
+				alert($(this).attr('id'));
+				//referencing http://api.jquery.com/jquery.post/
+				$.post('unsubscribe.php', {id:$(this).attr('id')}, function(data){
 
 
-				alert(data);
-				if(data == 'success'){
+					alert(data);
+					//refresh page 
+					window.location.replace("subscribe_module.php");
 
-				}
-				else{
-					
-
-					//alert("an error occured while subscribing.");
-
-				}
-
-			} );
+				} );
 
 
-		});	
+			});	
 
 
 		});
@@ -185,7 +175,7 @@ session_start();
 			while(oci_fetch($stid)){    
 
 				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       	$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+       		$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
 				echo '</td><td> <button class=subscribe id='.$data2["sensor_id"].'>subscribe</button></td></tr>';
@@ -193,28 +183,40 @@ session_start();
 			}
 
 			if($data2["sensor_id"]==''){
-
-				$newsql = "select sensor_id, sensor_type, description from sensors";
+				$checkSubscriptions = 'select * from subscriptions where subscriptions.person_id = \''.$_SESSION["person_id"].'\' ';
 				$newconn = connect();
-				$parserino = oci_parse($newconn,$newsql);
+				$parserino = oci_parse($newconn,$checkSubscriptions);
 				$res = oci_execute($parserino);
-				while(oci_fetch($parserino)){
+        while(oci_fetch($parserino)){
+          //if there are subscriptions make sure not to display all sensors.
+          $data5['sensor_id']=oci_result($parserino,'SENSOR_ID');
+
+        }
+      
+        if($data5['sensor_id']==''){
+          echo 'yo';
+				  $newsql = "select sensor_id, sensor_type, description from sensors";
+				  $parserino = oci_parse($newconn,$newsql);
+				  $res = oci_execute($parserino);
 				
-					$sensorData["sensor_id"] = oci_result($parserino,"SENSOR_ID");
-					$sensorData["sensor_type"] = oci_result($parserino, "SENSOR_TYPE");
-					$sensorData["description"] = oci_result($parserino, "DESCRIPTION");
-					echo '<tr><td>' .$sensorData["sensor_id"]. '</td><td>' .$sensorData["sensor_type"].'</td><td>'.$sensorData["description"];
-					echo '</td><td> <button class=subscribe id='.$sensorData["sensor_id"].'>subscribe</button></td></tr>';
+				  while(oci_fetch($parserino)){
+				
+					  $sensorData["sensor_id"] = oci_result($parserino,"SENSOR_ID");
+					  $sensorData["sensor_type"] = oci_result($parserino, "SENSOR_TYPE");
+					  $sensorData["description"] = oci_result($parserino, "DESCRIPTION");
+				  	echo '<tr><td>' .$sensorData["sensor_id"]. '</td><td>' .$sensorData["sensor_type"].'</td><td>'.$sensorData["description"];
+				  	echo '</td><td> <button class=subscribe id='.$sensorData["sensor_id"].'>subscribe</button></td></tr>';
 
-				}
+				  }
 
-			}
+        }
+      }
 		
 
             
 			
 			echo '</table>';
-
+			
         ?>
         <script>
 
@@ -222,25 +224,17 @@ session_start();
 
 			$('.subscribe').click(function(){
 
-			alert($(this).attr('id'));
-			$.post('subscribe.php', {id:$(this).attr('id')}, function(data){
+				alert($(this).attr('id'));
+				//referencing http://api.jquery.com/jquery.post/
+				$.post('subscribe.php', {id:$(this).attr('id')}, function(data){
+				
+					//refresh page 
+					window.location.replace("subscribe_module.php");
+
+				} );
 
 
-				//alert(data);
-				if(data == 'success'){
-
-				}
-				else{
-					
-
-					alert("(Y)");
-
-				}
-
-			} );
-
-
-		});	
+			});	
 
 
 		});
@@ -280,9 +274,9 @@ session_start();
 		while(oci_fetch($stid)){    
 
 			$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
-      $data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
-      $data3["location"] = oci_result($stid,"LOCATION");
-      $data3["description"] = oci_result($stid,"DESCRIPTION");
+     		$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+    	  	$data3["location"] = oci_result($stid,"LOCATION");
+      	$data3["description"] = oci_result($stid,"DESCRIPTION");
 			echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
 			
 		}

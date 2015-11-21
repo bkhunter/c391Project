@@ -1,5 +1,16 @@
 <?php
-include("PHPconnectionDB.php");
+ini_set('session.cache_limiter','public');
+session_cache_limiter(false);
+
+
+include("../PHPconnectionDB.php");
+session_start();
+//check account type 
+if ($_SESSION['role'] != 'a') {
+		header('Location: ../OOSLogin.php', true, 301);
+		exit();
+}
+
 ?>
 
 <html>
@@ -86,7 +97,7 @@ include("PHPconnectionDB.php");
 					$stid = oci_parse($conn, $sql );
 					
 					//execute
-					$res=oci_execute($stid);
+					$res=@oci_execute($stid);
 	
 					
 					if (!$res) {

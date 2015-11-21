@@ -28,6 +28,10 @@
 		if($_SESSION['validate'] != 'true') {
 			echo $_SESSION['validate']; 
 		}
+		if($_SESSION['login']   == 'true'){
+			header('Location: OOSLogin.php', true, 301);
+			exit();
+		}
 		session_destroy();
 		?>
 

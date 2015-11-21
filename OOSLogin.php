@@ -59,7 +59,7 @@ session_start();
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
 			header('Location: OOS.php', true, 301);
 			exit();			
-			}	
+		}	
 				
 	}
 	if($_SESSION['login'] != 'true') {
@@ -72,7 +72,7 @@ session_start();
 		//if scientist 
 		if($_SESSION['role'] == 's'){
 
-			echo '<form name = "subscribe" method="post"  action="subscribe_module.php"> 
+			echo '<form name = "subscribe" method="post"  action="subs/subscribe_module.php"> 
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="subscription" value="subscribe"></center>
 					</form>';
@@ -85,12 +85,7 @@ session_start();
 		//administrator
 		if($_SESSION['role'] == 'a'){
 
-
-			echo '<form name = "search" method="post"  action="search_module.php"> 
-					<h2 class ="search"> </h2>
-					<center><input type="submit" name="search" value="search"></center>
-					</form>';
-			echo '<form name = "search" method="post"  action="./sensor_and_user_mgmt/sensorModule.php"> 
+			echo '<form name = "sensor" method="post"  action="./sensor_and_user_mgmt/sensorModule.php"> 
 					<h2 class ="search"> </h2>
 					<center><input type="submit" name="search" value="user and sensor management"></center>
 					</form>';
@@ -117,11 +112,11 @@ session_start();
 	</form>
 	
 	<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
-	<form name = "editInfo" method="post"  action="changepass.php"> 
+	<form name = "editInfo" method="post"  action="./acc_edit/changepass.php"> 
 					<center><input type="submit" name="validate" value="change password"></center>
 	</form>
 	
-	<form name = "editInfo" method="post"  action="accountinfo.php"> 
+	<form name = "editInfo" method="post"  action="./acc_edit/accountinfo.php"> 
 					<center><input type="submit" name="validateAcc" value="edit account"></center>
 	</form>
 

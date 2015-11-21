@@ -1,9 +1,15 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 
 
 session_start();
 
+if($_SESSION['role'] != 's'){
+			
+		header('Location: ../OOSLogin.php', true, 301);
+		exit();	
+		
+}
 
 
 if (isset($_POST['id'])){
@@ -26,7 +32,7 @@ if (isset($_POST['id'])){
         echo $message;
 
 
-    }
+    } 
 
 
 }
