@@ -44,6 +44,10 @@ if ($_SESSION['role'] != 's') {
 
 	</div>
 
+	<form name = "logout" method="post"  action="logout.php"> 
+					<h2 class ="logout"> </h2>
+					<center><input type="submit" name="validate" value="  log out  "></center>
+	</form>
 
 	<div class = 'container'>
 
