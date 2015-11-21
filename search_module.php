@@ -20,6 +20,10 @@ if ($_SESSION['role'] != 's') {
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="searchModule.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 </head>
 
@@ -51,14 +55,27 @@ if ($_SESSION['role'] != 's') {
 				<h2>Search subscribed Sensors</h2>
 				Keywords:<br> <input type="text" name ="keyWordSearch"><br>
 				
-				From<br> <input type="date" name ="FromSearch"><br>
+				From<br> <input type="text" name ="FromSearch"  class='datePick'><br>
 				
-				Until <br> <input type="date" name = "UntilSearch"><br>
+				Until <br> <input type="text" name = "UntilSearch" class='datePick'><br>
+				<script>
+
+				$(function(){
+					//from https://jqueryui.com/datepicker
+					$(".datePick").datepicker();
+
+
+				});
+
+				</script>
+				
+
+
 
 				Sensor Location<br> <input type ="text" name = "locationSearch"><br>
-				<input type ="checkbox" value ="a" name = "dataType" class='checkbox' checked>Audio Recordings
-				<input type="checkbox" value ="i" name ="dataType" class='checkbox'> Images
-				<input type="checkbox" value="s" name="dataType" class ="checkbox">Scalar Measurements <br>
+				<input type ="checkbox" value ="a" name = "dataTypeA" class='checkbox' checked>Audio Recordings
+				<input type="checkbox" value ="i" name ="dataTypeI" class='checkbox'> Images
+				<input type="checkbox" value="s" name="dataTypeS" class ="checkbox">Scalar Measurements <br>
 				<input type="submit" name="SubmitSearch" value="Submit"><br>
 				
 
