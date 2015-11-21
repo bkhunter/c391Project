@@ -193,23 +193,18 @@ session_start();
 			}
 
 			if($data2["sensor_id"]==''){
-        echo 'sup ?<br>';
 				$checkSubscriptions = 'select * from subscriptions where subscriptions.person_id = \''.$_SESSION["person_id"].'\' ';
 				$newconn = connect();
 				$parserino = oci_parse($newconn,$checkSubscriptions);
 				$res = oci_execute($parserino);
         while(oci_fetch($parserino)){
-          echo "yung result: ".oci_result($parserino,'SENSOR_TYPE');
+          //if there are subscriptions make sure not to display all sensors.
           $data5['sensor_id']=oci_result($parserino,'SENSOR_ID');
-          $data5['sensor_type']=oci_result($parserino,"SENSOR_TYPE");
-          $data5['description']=oci_result($parserino,"DESCRIPTION");
-					echo '<tr><td>' .$data5["sensor_id"]. '</td><td>' .$data5["sensor_type"].'</td><td>'.$data5["description"];
-					echo '</td><td> <button class=subscribe id='.$data5["sensor_id"].'>subscribe</button></td></tr>';
 
         }
-
+      
         if($data5['sensor_id']==''){
-
+          echo 'yo';
 				  $newsql = "select sensor_id, sensor_type, description from sensors";
 				  $parserino = oci_parse($newconn,$newsql);
 				  $res = oci_execute($parserino);
@@ -225,8 +220,7 @@ session_start();
 				  }
 
         }
-
-			}
+      }
 		
 
             
