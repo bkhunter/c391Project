@@ -4,26 +4,60 @@
 	<body>
 
 			<center>
-			<!--<div style="width: 50%">-->
-			<p>
-					<h3>Installation:</h3>
+			<div style="width: 45%">
+				<p>
+					<h2>User Documentation:</h2>
 					<table>
 						<tr><td>
-							1) Place the '<b>c391Project</b>' folder into the web_docs of your php web server.<br/>
+							<a href="#installation">Installation Guide</a> 
 						<tr><td>
 						<tr><td>
-							2) You will now need to add our tables to run the site properly and handle the data. We used <b>oracle database</b>, and to 
-								access the database directly <b>SQLPlus</b> utility.<br/>
-								- From the command line navigate to the location where <b>setup.sql</b> and <b>data.sql</b> is located.<br/>
-								- Enter <b>sqlplus</b> and sign.<br/>
-								- Enter <b>@setup.sql</b> and the primary tables will be made.<br/>
-								- Enter <b>@data.sql</b>  and the second set of tables are made and an admin account.<br/>
-								- Sing out of sqlplus<br/>
-								You now have the tables needed for the site to run<br/>
-						</td></tr>
+							<a href="#manual">User Manual</a> 
+						<tr><td>
 					</table>
-			</p>
-			<!--</div>-->
+				</p>
+			
+				<p>
+						<a name="installation"></a><h3>Installation:</h3>
+						<table>
+							<tr><td>
+								Website data is handled with <b>oracle database</b>, and to access the database directly we used <b>SQLPlus</b> utility.
+								<br/><br/>1) <b>First open PHPconnectionDB.php and replace <font color="#ff00ff">user</font> and <font color="#ff00ff">password</font> with your 
+								login credentials to oracle database</b>
+							<tr><td>
+							<tr><td>
+								<br/>2) Place the '<b>c391Project</b>' folder into the web_docs of your php web server.<br/>
+							<tr><td>
+							<tr><td>
+								<br/>3) <b>Add Datebase Tables:</b><br/>
+									You will now need to add our tables to run the site properly and handle the data. We used <b>oracle database</b>, and to 
+									access the database directly <b>SQLPlus</b> utility.<br/>
+									- From the command line navigate to the location where <b>setup.sql</b> and <b>data.sql</b> are located.<br/>
+									- Enter <b>sqlplus</b> and sign.<br/>
+									- Enter <b>@setup.sql;</b> then the primary tables will be made.<br/>
+									- Enter <b>@data.sql;</b>  then the second set of tables are made and an administer account.<br/>
+									- Sing out of sqlplus<br/>
+									You now have the tables needed for the site to run<br/>
+							</td></tr>
+							<tr><td>
+								<br/>4) <b>Viewing website:</b><br/>
+								To view the website enter in the address bar of your web browser your web server address followed by /c391Project/OOS.php<br/>
+								For example we used <b>http://consort.cs.ualberta.ca/~ccid</b> as our web server, where ccid is our login to the computing science school system.<br/>
+								So to view our website we would enter:<br/> <b>http://consort.cs.ualberta.ca/~ccid/c391Project/OOS.php</b> <br/>
+								You will now have an administer account with the user name and password set as <b>admin</b> use the administer account to sign into the website.<br/>
+								You now have the website installed and ready to use!
+							</td></tr>
+						</table>
+				</p>
+				
+				<p>
+					<a name="manual"></a><h3>User Manual:</h3>
+					<table>
+					</table>
+				</p>
+				
+			</div>
+			
 			</center>
 	
 	</body>
