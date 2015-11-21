@@ -8,7 +8,7 @@ include("../PHPconnectionDB.php");
 //check if logged in 
 session_start();
 if($_SESSION['login'] != 'true') {
-	header('Location: OOS.php', true, 301);
+	header('Location: ../OOS.php', true, 301);
 	exit();	
 }
 

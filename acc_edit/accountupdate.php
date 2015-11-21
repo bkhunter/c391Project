@@ -28,7 +28,7 @@ include("../PHPconnectionDB.php");
 		<div class ="page">
 		<div class = "page-header">
 		
-		<h1 class ="title"> Ocean Observation System</h1>		
+		<center><h1>Ocean Observation System</h1></center>	
 		</div>
 		
 		
@@ -36,7 +36,7 @@ include("../PHPconnectionDB.php");
 		
 		session_start();
 		if($_SESSION['login'] != 'true') {
-			header('Location: OOS.php', true, 301);
+			header('Location: ../OOS.php', true, 301);
 			exit();	
 		}
 		$conn=connect();
@@ -178,6 +178,8 @@ include("../PHPconnectionDB.php");
 				}
 			}
 			echo $_SESSION['validatePass'];
+		} else {
+			
 		}
 		
 		?>
