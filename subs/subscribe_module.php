@@ -1,11 +1,11 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 
 session_start();
 
 		if($_SESSION['role'] != 's'){
 			
-			header('Location: OOSLogin.php', true, 301);
+			header('Location: ../OOSLogin.php', true, 301);
 			exit();	
 		
 		}
@@ -271,9 +271,9 @@ session_start();
 		while(oci_fetch($stid)){    
 
 			$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
-      $data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
-      $data3["location"] = oci_result($stid,"LOCATION");
-      $data3["description"] = oci_result($stid,"DESCRIPTION");
+     		$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+    	  	$data3["location"] = oci_result($stid,"LOCATION");
+      	$data3["description"] = oci_result($stid,"DESCRIPTION");
 			echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
 			
 		}

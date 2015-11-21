@@ -72,7 +72,7 @@ session_start();
 		//if scientist 
 		if($_SESSION['role'] == 's'){
 
-			echo '<form name = "subscribe" method="post"  action="subscribe_module.php"> 
+			echo '<form name = "subscribe" method="post"  action="subs/subscribe_module.php"> 
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="subscription" value="subscribe"></center>
 					</form>';
