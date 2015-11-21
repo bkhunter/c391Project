@@ -59,7 +59,7 @@ session_start();
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
 			header('Location: OOS.php', true, 301);
 			exit();			
-			}	
+		}	
 				
 	}
 	if($_SESSION['login'] != 'true') {
