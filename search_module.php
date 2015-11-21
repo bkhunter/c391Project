@@ -54,18 +54,19 @@ if ($_SESSION['role'] != 's') {
 
 				<h2>Search subscribed Sensors</h2>
 				Keywords:<br> <input type="text" name ="keyWordSearch"><br>
+				<!-- from http://stackoverflow.com/questions/153759/jquery-datepicker-with-text-input-that-doesnt-allow-user-input -->
+				From<br> <input type="text" name ="FromSearch"  readonly='true' class='datePick'><br>
 				
-				From<br> <input type="text" name ="FromSearch"  class='datePick'><br>
-				
-				Until <br> <input type="text" name = "UntilSearch" class='datePick'><br>
+				Until <br> <input type="text" name = "UntilSearch" readonly='true' class='datePick'><br>
 				<script>
 
 				$(function(){
 					//from https://jqueryui.com/datepicker
 					$(".datePick").datepicker();
 
-
 				});
+
+				
 
 				</script>
 				

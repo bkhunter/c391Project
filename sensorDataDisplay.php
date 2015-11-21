@@ -29,6 +29,24 @@ session_start();
 	<?php
 
 
+		$data;
+
+		if($_POST['keywordSearch']!=''){
+
+			$data['keywordSearch'] = $_POST['keywordSearch'];
+			$data['keywords'] = preg_split("/(\s)|,/g", $data['keywordSearch']);
+
+		} 
+		
+		if($_POST['locationSearch']!=''){
+				
+			$data['location'] = $_POST['locationSearch'];
+			
+
+		}
+
+		if($_POST[''])
+
 
 		if(isset($_POST['dataTypeA'])){
 
@@ -41,9 +59,11 @@ session_start();
 		if(isset($_POST['dataTypeI'])){
 
 
+
 		}
 
 		if(isset($_POST['dataTypeS'])){
+
 
 
 		}
