@@ -4,11 +4,26 @@
 	<body>
 
 			<center>
-			<div style="width: 50%"><p>
+			<!--<div style="width: 50%">-->
+			<p>
 					<h3>Installation:</h3>
-					Place the 'c391Project' folder into the web_docs of your php web server.
-					
-			</p></div>
+					<table>
+						<tr><td>
+							1) Place the '<b>c391Project</b>' folder into the web_docs of your php web server.<br/>
+						<tr><td>
+						<tr><td>
+							2) You will now need to add our tables to run the site properly and handle the data. We used <b>oracle database</b>, and to 
+								access the database directly <b>SQLPlus</b> utility.<br/>
+								- From the command line navigate to the location where <b>setup.sql</b> and <b>data.sql</b> is located.<br/>
+								- Enter <b>sqlplus</b> and sign.<br/>
+								- Enter <b>@setup.sql</b> and the primary tables will be made.<br/>
+								- Enter <b>@data.sql</b>  and the second set of tables are made and an admin account.<br/>
+								- Sing out of sqlplus<br/>
+								You now have the tables needed for the site to run<br/>
+						</td></tr>
+					</table>
+			</p>
+			<!--</div>-->
 			</center>
 	
 	</body>
