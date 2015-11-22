@@ -20,7 +20,10 @@ if ($_SESSION['role'] != 'd') {
 
 if (!$_FILES['photo']['name'] || ($_FILES['photo']['type'] != 'image/jpeg') ){
 ?>
-
+<form name = "logout" method="post"  action="../OOSLogin.php"> 
+	<h2 class ="main page"> </h2>
+	<center><input type="submit" name="validate" value="  main page  "></center>
+</form>
 
 <table align="center">
 
