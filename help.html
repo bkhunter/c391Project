@@ -4,7 +4,7 @@
 	<body>
 
 			<center>
-			<!--<div style="width: 45%">-->
+			<div style="width: 45%">
 				<p>
 					<h1>User Documentation:</h1>
 					<table>
@@ -54,21 +54,30 @@
 					<a name="manual"></a><h2>User Manual:</h2>
 					<table>
 						<tr><td>
-							<a href="#login">Login Module</a>
+							<a href="#login">Login Module</a><br/>
+							<a href="#pass">	-change password</a><br/>
+							<a href="#info">	-modify personal information<br/>
+							<a href="#logout">	-logout</a>
+
 						</td></tr>
 						<tr><td>
+							<br/>
 							<a href="#sensor_&_user_management">Sensor and User Management Module</a>
 						</td></tr>
 						<tr><td>
+							<br/>
 							<a href="#subscribe">Subscribe Module</a>
 						</td></tr>
 						<tr><td>
+							<br/>
 							<a href="#upload">Uploading Module</a>
 						</td></tr>
 						<tr><td>
+							<br/>
 							<a href="#search">Search Module</a>
 						</td></tr>
 						<tr><td>
+							<br/>
 							<a href="#analysis">Data Analysis Module</a>
 						</td></tr>
 						
@@ -79,6 +88,38 @@
 						<tr><td>
 							<a name="login"></a><h3>Login Module</h3>
 						</td></tr>
+						<tr><td>
+							<font color="#fD00Df"><b>This module is used by users that currently already have an account.</b></font><br/>
+							The module has a <font color="#ff00ff">login</font> field and a <font color="#ff00ff">password</font> field, as well as a 
+							<font color="#ff00ff">login button</font>.<br/>
+							Enter your username into the login field, followed by entering your password into the password field.<br/>
+							Once both fields have been filled in click on the login button.<br/>
+							If your username and password are correct you will be sent to the main user page, also known as <b>OOSLogin.php</b> page.
+							If your username and password are <b>not</b> correct you will be sent back to the login module sign in page, also known as <b>OOS.php</b> page. A message:<br/> 
+							<b>Wrong username or password!</b><br/> will be displayed above the login fields in this case.
+							<br/>
+							From the main user page you will see a series of buttons giving you options of modules to select, based on your user account type, 
+							as well as the option to change password or personal information associated to your account. 					
+							There will also be a <a name="logout"></a><font color="#fD00Df"><b>logout</b></font> button, that if clicked from any page that has this button will sign you out of the website and redirect you to the sign in page.
+							A message:<br/>
+							<b>Please log in</b><br/> will be displayed above the login fields in this case.<br/>
+							<br/>
+							<a name="pass"></a>
+							<font color="#fD00Df"><b>To change password</b></font> go to <b>OOSLogin.php</b> page, the page displayed after signing into the website, and then 
+							click on <b>change password</b> button. You will be sent to a page with a <font color="#ff00ff">change password</font> field and a <font color="#ff00ff">confirm button</font>.
+							Enter your new password into the change password field followed by clicking the confirm button. If the password is allowed a message:<br/>
+							<b>password changed!</b><br/>
+							will be displayed. If the password is not allowed a message:<br/>
+							<b>can not use as password!</b><br/>
+							will be displayed.
+							In both cases <font color="#ff00ff">continue button</font> will be shown. Click on the continue button to be sent back to the <b>OOSLogin.php</b> page.<br/>
+							<br/>
+							<a name="info"></a>
+							<font color="#fD00Df"><b>To modify personal information</b></font> go to <b>OOSLogin.php</b> page, the page displayed after signing into the website, and then 
+							click on <b>edit account</b> button.
+							<br/>
+						</td></tr>
+						
 						<tr><td>
 							<a name="sensor_&_user_management"></a><h3>Sensor and User Management Module</h3>
 						</td></tr>
