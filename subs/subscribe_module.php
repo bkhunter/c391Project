@@ -175,7 +175,7 @@ session_start();
 			while(oci_fetch($stid)){    
 
 				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       		$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+        $data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
 				echo '</td><td> <button class=subscribe id='.$data2["sensor_id"].'>subscribe</button></td></tr>';
@@ -187,6 +187,7 @@ session_start();
 				$newconn = connect();
 				$parserino = oci_parse($newconn,$checkSubscriptions);
 				$res = oci_execute($parserino);
+
         while(oci_fetch($parserino)){
           //if there are subscriptions make sure not to display all sensors.
           $data5['sensor_id']=oci_result($parserino,'SENSOR_ID');
@@ -255,10 +256,10 @@ session_start();
     <?php 
 
 
-        $sql = 'select * from sensors';
+    $sql = 'select * from sensors';
 
 
-        $conn=connect();
+    $conn=connect();
 
 
 		$stid = oci_parse($conn, $sql);
@@ -274,9 +275,9 @@ session_start();
 		while(oci_fetch($stid)){    
 
 			$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
-     		$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
-    	  	$data3["location"] = oci_result($stid,"LOCATION");
-      	$data3["description"] = oci_result($stid,"DESCRIPTION");
+      $data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+      $data3["location"] = oci_result($stid,"LOCATION");
+      $data3["description"] = oci_result($stid,"DESCRIPTION");
 			echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
 			
 		}

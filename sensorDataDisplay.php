@@ -1,11 +1,174 @@
 <?php
-
-ini_set('session.cache_limiter','public');
-session_cache_limiter(false);
-
 include("PHPconnectionDB.php");
 
 session_start();
+
+function getAudioData(){
+
+	$sqlA = 'select * from audio_recordings, subscriptions, sensors	
+		where subscriptions.person_id = \''.$_SESSION['person_id'].'\'
+		and subscriptions.sensor_id =sensors.sensor_id
+		and audio_recordings.sensor_id = sensor_id';
+		
+	if($data['location']!=''){
+
+		$sqlA = $sqlA .'and sensor_id.location = \''.$data['location'].'\'';
+
+	}
+
+
+	if(sizeof($data['keywords'])>0){
+
+		//check all keywords
+		foreach($data['keywords'] as  $keyword){
+			$sqlA = $sqlA .'and audio_recordings.description LIKE \''.$keyword.'\'';		
+
+		}
+
+	}
+
+	if($data['FromSearch']!=''){
+					
+		//$sqlA = $sqlA .'and audio_recordings.date';
+		$formattedFromDate = explode('/', $data['FromSearch']);
+
+
+		$month = $formatttedFromDate[0];
+		$day = $formattedFromDate[1];
+		$year = $formattedFromDate[2];
+		
+		$sqlFromDate = $day.$month.$year;
+		$formattedFromDate = explode('/', $data['UntilSearch']);
+					
+		$month = $formatttedFromDate[0];
+		$day = $formattedFromDate[1];
+		$year = $formattedFromDate[2];
+					
+
+		$sqlUntilDate = $day.$month.$year;
+
+		$sqlA = $sqlA . 'and audio_recordings.date_created between \''.$sqlFromDate.'\' and \''.$sqlUntilDate.'\'';
+	}
+
+	$parsedAudioData = oci_parse($conn,$sqlA);
+	$res = oci_execute($parsedAudioData);
+			
+
+
+
+
+
+
+}
+
+function getScalarData(){
+	
+		$sqlS = 'select * from images, subscriptions, sensors	
+							where subscriptions.person_id = \''.$_SESSION['person_id'].'\'
+							and subscriptions.sensor_id =sensors.sensor_id
+							and audio_recordings.sensor_id = sensor_id
+							';
+		
+			if($data['location']!=''){
+
+					$sqlS = $sqlS .'and sensor_id.location = \''.$data['location'].'\'';
+
+			}
+
+			if($data['FromSearch']!=''){
+					
+					
+					//$sqlA = $sqlA .'and audio_recordings.date';
+
+					$formattedFromDate = explode('/', $data['FromSearch']);
+
+					$month = $formatttedFromDate[0];
+					$day = $formattedFromDate[1];
+					$year = $formattedFromDate[2];
+
+					$sqlFromDate = $day.$month.$year;
+					
+					$formattedFromDate = explode('/', $data['UntilSearch']);
+					
+					$month = $formatttedFromDate[0];
+					$day = $formattedFromDate[1];
+					$year = $formattedFromDate[2];
+					
+
+					$sqlUntilDate = $day.$month.$year;
+
+
+					$sqlS = $sqlS . 'and audio_recordings.date_created between \''.$sqlFromDate.'\' and \''.$sqlUntilDate.'\'';
+			}
+
+
+			$parsedScalarData = oci_parse($conn,$sqlS);
+			$res = oci_execute($parsedScalarData);
+
+
+
+
+
+}
+
+function getImageData(){
+
+
+
+	$sqlI = 'select * from images, subscriptions, sensors	
+							where subscriptions.person_id = \''.$_SESSION['person_id'].'\'
+							and subscriptions.sensor_id =sensors.sensor_id
+							and audio_recordings.sensor_id = sensor_id
+							';
+		
+	if($data['location']!=''){
+
+		$sqlI = $sqlI .'and sensor_id.location = \''.$data['location'].'\'';
+
+	}
+
+	if(sizeof($data['keywords'])>0){
+
+		//check all keywords
+		foreach($data['keywords'] as  $keyword){
+
+			$sqlI = $sqlI .'and audio_recordings.description LIKE \''.$keyword.'\'';		
+
+		}
+
+	}
+
+	if($data['FromSearch']!=''){
+					
+					
+					//$sqlA = $sqlA .'and audio_recordings.date';
+
+					$formattedFromDate = explode('/', $data['FromSearch']);
+
+					$month = $formatttedFromDate[0];
+					$day = $formattedFromDate[1];
+					$year = $formattedFromDate[2];
+
+					$sqlFromDate = $day.$month.$year;
+					
+					$formattedFromDate = explode('/', $data['UntilSearch']);
+					
+					$month = $formatttedFromDate[0];
+					$day = $formattedFromDate[1];
+					$year = $formattedFromDate[2];
+					
+
+					$sqlUntilDate = $day.$month.$year;
+
+
+					$sqlI = $sqlI . 'and audio_recordings.date_created between \''.$sqlFromDate.'\' and \''.$sqlUntilDate.'\'';
+	}
+
+	$parsedImageData = oci_parse($conn,$sqlI);
+	$res = oci_execute($parsedImageData);
+
+
+}
 
 ?>
 
@@ -34,6 +197,7 @@ session_start();
 
 
 		$data;
+		$conn = connect();
 
 		if($_POST['keywordSearch']!=''){
 
@@ -65,70 +229,37 @@ session_start();
 
 		if(isset($_POST['dataTypeA'])){
 
-			$sqlA = 'select * from audio_recordings, subscriptions, sensors	
-							where subscriptions.person_id = \''.$_SESSION['person_id'].'\'
-							and subscriptions.sensor_id =sensors.sensor_id
-							and audio_recordings.sensor_id = sensor_id
-							';
-		
-			if($data['location']!=''){
+			getAudioData();
 
-					$sqlA = $sqlA .'and sensor_id.location = \''.$data['location'].'\'';
-
-			}
-
-			if(sizeof($data['keywords'])>0){
-
-				//check all keywords
-				foreach($data['keywords'] as  $keyword){
-
-					$sqlA = $sqlA .'and audio_recordings.description LIKE \''.$keyword.'\'';		
-
-				}
-
-			}
-
-			if($data['FromSearch']!=''){
-					
-					
-					//$sqlA = $sqlA .'and audio_recordings.date';
-
-					$formattedFromDate = explode('/', $data['FromSearch']);
-
-					$month = $formatttedFromDate[0];
-					$day = $formattedFromDate[1];
-					$year = $formattedFromDate[2];
-
-					$sqlFromDate = $day.$month.$year;
-					
-					$formattedFromDate = explode('/', $data['UntilSearch']);
-					
-					$month = $formatttedFromDate[0];
-					$day = $formattedFromDate[1];
-					$year = $formattedFromDate[2];
-					
-
-					$sqlUntilDate = $day.$month.$year;
-
-
-					$sqlA = $sqlA . 'and audio_recordings.date_created between \''.$sqlFromDate.'\' and \''.$sqlUntilDate.'\'';
-			}
-
-
+			
 		}//if audioRecordings
 
 		if(isset($_POST['dataTypeI'])){
+			getImageData();
 
-
-
-		}
+		}//end if images
 
 		if(isset($_POST['dataTypeS'])){
 
+			getScalarData();
+		
 
+		}//end if scalardata
+		
+
+
+		if(!isset($_POST['dataTypeA']) && !isset($_POST['dataTypeI']) && !isset($_POST['dataTypeS'])){
+
+			getAudioData();
+			getImageData();
+			getScalarData();
+			
 
 		}
-		
+
+	//oci_fetch($parsedAudioData)
+	//oci_fetch($parsedScalarData)
+	//oci_fetch($parsedImageData)
 		
 
 	?>
