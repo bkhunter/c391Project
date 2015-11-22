@@ -344,7 +344,7 @@ function getImageData($data){
 
 	$('.downloadImage').click(function(){
 
-
+		//http://php.net/manual/en/reserved.variables.get.php
 		window.open('downloadImage.php?id='+$(this).attr('id'));
 
 	});
