@@ -1,26 +1,22 @@
+<?php
+include("PHPconnectionDB.php");
+?>
 <html>
-	<style>
-			<style>
+	<head>
+		<style>
 			
-			table#sTimeF {
+			table#Month {
 				
 				background-color: gray;
+				border: 3px solid black;
+				text-align:left;
 			}
-
-			table#results {
-				font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-				width: 88%;
-			}
-	
-			table#sensors {
-				width: 100%
-			}
-
 
 			ul#Times {
-				border: 1px black;
 				list-style-type: none;
 				padding: 0;
+				text-align: left;
+				border: 1px solid black;
 			}
 
 			ul#Times li a {
@@ -29,30 +25,25 @@
 				padding: 10px 20px;
 				text-decoration: none;
 				display: block;
+				list-style-position:inside;
+				text-align:left;
+   				
 			}
 
 			ul#Times li a:hover {
 				background-color: black;
 			}
 
-
-			ul#default {
-				border: 1px black;
+			ul#Res {
+				background-color: white;
 				list-style-type: none;
-				padding: 0;
-			}
-
-			ul#default li a {
-				background-color: black;
-				color: white;
-				padding: 10px 20px;
+				text-align: center;
+				border: 1px solid black;
 				text-decoration: none;
+				padding: 10px 20px;
 				display: block;
-			}
+			}	
 
-			ul#default li a:hover {
-				background-color: black;
-			}
 
 		</style>
 
@@ -60,71 +51,106 @@
 			Olap Analysis
 		</title>
 
+	</head>
+
+	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel ="stylesheet" type ="text/css" href="Olap.css">
 	
 	<body>
+		<?php
+			if (isset($_GET['quarter'])) {   
+				$quarter = $_GET['quarter']; 	 
+				$year = $_GET['year'];
+				$sid = $_GET['sid'];
+				session_start();
+				$tableName = $_SESSION['table'];
+			
+
+				$conn=connect();
+		
+				if (!$conn) {
+					$e = oci_error();
+					trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+				}
+
+				// get locations attached to subcribed sensors
+				$lQ = 'select location from sensors where sensor_id = \''.$sid.'\' ';
+
+				// prepare
+				$stid = oci_parse($conn, $lQ );
 	
+				// execute
+				$res=oci_execute($stid);
+
+				// strange because in a loop, but only 1 location per sensor ID
+				while (($row = oci_fetch_array($stid, OCI_ASSOC))) {
+					foreach($row as $item) {
+						$loc = $item;
+					}
+				}
+
+				?>
+
 			<div class ="page">
 				<div class = "page-header">
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
+		
+			<div class="container">
+				<h4> ID : <?php echo $sid ?> </h4>  
+				<h4>  Location : <?php echo $loc ?> </h4>
+				<h4>  Year : <?php echo $year ?> </h4>
+				<h4>  Quarter : <?php echo $quarter ?> </h4>
+				<table id = "Month" border = "1">
+					<th> Month </th>
+					<th> Sum </th>
+					<th> Min </th>
+					<th> Max </th>
 
-		<div class="floatLeft">
-			<table id = "sTimeF" border = "1">
-				<th> Select Timeframe </th>
-					<tr>
-						<td>	
-							<ul id="default">
-								<li><a href="OlapDefault.php">Total</a></li>
-							</ul> 
-						</td>
-					</tr>
-					<tr>
-						<td>	
-							<ul id="Times">
-							  <li><a href="OlapDaily.php">Daily</a></li>
-							</ul> 
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<ul id="Times">
-							  <li><a href="OlapWeekly.php">Weekly</a></li>
-							</td>
-						</td>
-					</tr>
+			<?php   
 
-					<tr>
-						<td>	
-							<ul id="Times">
-							  	<li><a href="OlapMonthly.php">Monthly</a></li>
-							</ul> 
-						</td>
-					</tr>
+				$monthRes = 'SELECT extract(month from date_created), SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
+				FROM	'.$tableName.' f
+				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\'and f.quarter =\''.$quarter.'\'
+				GROUP BY extract(month from date_created)';
 
-					<tr>
-						<td>	
-							<ul id="Times">
-							  <li><a href="OlapQuarterly.php">Quarterly</a></li>
-							</ul> 
-						</td>
-					</tr>
+				//prepare
+				$stid1 = oci_parse($conn,$monthRes);
 
-					<tr>
-						<td>	
-							<ul id="Times">
-								<li>
-									<a href="OlapYearly.php">Yearly</a>
-								</li>
-							</ul> 
-						</td>
-					</tr>
-			</table>
+				$res = oci_execute($stid1);
+				$i = 0;
+				while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
+					echo '<tr>';
+					foreach($row as $item) {
+						if ($i%4 == 0) {
+
+							echo "<td>"; 
+							echo "<ul id='Times'>";
+							$mObj   = DateTime::createFromFormat('!m', $item);
+							$monthName = $mObj->format('F');
+							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$item'>" .$monthName. "</a></li>";
+							echo "</ul>";
+							echo "</td>"; 
+
+						} else {
+							echo "<td>"; 
+							echo "<ul id='Res'>";
+							echo "<li>" .$item. "</li>";
+							echo "</ul>";
+							echo "</td>"; 
+						}
+						$i++;
+					}
+					echo '</tr>';
+				}
+
+				oci_free_statement($stid1);
+				oci_close($conn);
+
+			}
+		?>
+		</table>
 		</div>
-		<?php echo "Monthly" ?>
 	</body>
 </html>
-
-
-

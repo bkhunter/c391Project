@@ -61,37 +61,59 @@ include("PHPconnectionDB.php");
 	<link rel ="stylesheet" type ="text/css" href="Olap.css">
 	
 	<body>
-
-		<div class ="page">
-			<div class = "page-header">
-			<h1 class ="title"> Olap Analysis</h1>			
-		</div>
-		
-		<div class="container">
-			<table id = "year" border = "1">
-				<th> Year </th>
-				<th> Sum </th>
-				<th> Max </th>
-				<th> Min    </th>
-
-		<?php   	 
-
-			if(isset($_POST['gen'])) {        	
-				$sID=$_POST['sID'];
-
+		<?php 
+			if (isset($_GET['sid'])) {  	 
+				$sid = $_GET['sid'];
 				session_start();
 				$pID = $_SESSION['pID'];
 				$tableName = $_SESSION['table'];
 
 				$conn=connect();
-			
+		
 				if (!$conn) {
 					$e = oci_error();
 					trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 				}
 
+				// get locations attached to subcribed sensors
+				$lQ = 'select location from sensors where sensor_id = \''.$sid.'\' ';
+
+				// prepare
+				$stid = oci_parse($conn, $lQ );
+	
+				// execute
+				$res=oci_execute($stid);
+
+				// strange because in a loop, but only 1 location per sensor ID
+				while (($row = oci_fetch_array($stid, OCI_ASSOC))) {
+					foreach($row as $item) {
+						$loc = $item;
+					}
+				}
+
+				?>
+
+			<div class ="page">
+				<div class = "page-header">
+				<h1 class ="title"> Olap Analysis</h1>			
+			</div>
+		
+			
+		
+			<div class="container">
+				<h4> ID : <?php echo $sid ?> </h4>  
+				<h4>  Location : <?php echo $loc ?> </h4>
+				<table id = "year" border = "1">
+					<th> Year </th>
+					<th> Sum </th>
+					<th> Min </th>
+					<th> Max    </th>
+
+			<?php   	 
+
 				$yearRes = 'SELECT extract(year from date_created) as YEAR, SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
-				FROM   fact3 f
+				FROM	'.$tableName.' f
+				WHERE	f.sensor_id = \''.$sid.'\'	
 				GROUP BY extract(year from date_created)';
 
 				//prepare
@@ -106,7 +128,7 @@ include("PHPconnectionDB.php");
 
 							echo "<td>"; 
 							echo "<ul id='Times'>";
-							echo "<li><a href='OlapMonthly.php'>" .$item. "</a></li>";
+							echo "<li><a href='OlapQuarterly.php?sid=$sid&year=$item'>" .$item. "</a></li>";
 							echo "</ul>";
 							echo "</td>"; 
 
@@ -123,10 +145,10 @@ include("PHPconnectionDB.php");
 				}
 
 				oci_free_statement($stid1);
-	    		oci_close($conn);
+				oci_close($conn);
 			}
-			?>
-			</table>
+		?>
+		</table>
 		</div>
 	</body>
 </html>
