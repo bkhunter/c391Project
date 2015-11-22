@@ -114,9 +114,7 @@ include("PHPconnectionDB.php");
 					<th> Min </th>
 					<th> Max </th>
 
-			<?php   
-				echo date("Y-m-d", strtotime("2015W01")).'~';
-				echo date("Y-m-d", strtotime("2015W01-7"));
+			<?php
 
 /*
 				$week_start = new DateTime();
@@ -130,6 +128,10 @@ include("PHPconnectionDB.php");
 				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\' and extract(month from date_created) = \''.$month.'\'
 				GROUP BY f.week';
 
+				echo $sid;
+				echo $year;
+				echo $month;
+
 				//prepare
 				$stid1 = oci_parse($conn,$weekRes);
 					
@@ -140,9 +142,20 @@ include("PHPconnectionDB.php");
 					foreach($row as $item) {
 						if ($i%4 == 0) {
 
+							$datet = new DateTime();
+							$datef = new DateTime();
+							$datet->setISODate($year, $item+1, 0);
+							$datef->setISODate($year, $item+1, 6);
+
+							$st =  $datet->format('Y-m-d') . "\n";
+							$et =  $datef->format('Y-m-d') . "\n";
+
+							$incr = $item+1;
+
 							echo "<td>"; 
 							echo "<ul id='Times'>";
-							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";
+							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$incr. "] " .$st. " " .$et."</a></li>";
+							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 
 

@@ -49,8 +49,45 @@ values ('canada','a','good time', 5501 );
 
 insert into subscriptions values (5501, 3);
 
+-- week 16 apr 12 - apr 18
 insert into scalar_data (id, sensor_id, date_created, value)
-values ('7701',5501, TO_DATE('11-NOV-2015', 'DD-MON-YYYY' ), 0 );
+values ('7701',5501, TO_DATE('11-APR-2015', 'DD-MON-YYYY' ), 0 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7771',5501, TO_DATE('11-APR-2015', 'DD-MON-YYYY' ), 100 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7772',5501, TO_DATE('12-APR-2015', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7773',5501, TO_DATE('13-APR-2015', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7774',5501, TO_DATE('14-APR-2015', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7775',5501, TO_DATE('15-APR-2015', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7776',5501, TO_DATE('16-APR-2015', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7777',5501, TO_DATE('17-APR-2015', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7778',5501, TO_DATE('18-APR-2015', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7779',5501, TO_DATE('19-APR-2015', 'DD-MON-YYYY' ), 0 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7780',5501, TO_DATE('20-APR-2015', 'DD-MON-YYYY' ), 100 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7781',5501, TO_DATE('26-APR-2015', 'DD-MON-YYYY' ), 500 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7782',5501, TO_DATE('01-MAY-2015', 'DD-MON-YYYY' ), 500 );
 
 
 
@@ -60,8 +97,30 @@ values ('paris','a','good time', 5502 );
 
 insert into subscriptions values (5502, 3);
 
+--week 1 dec 29 - jan 4
 insert into scalar_data (id, sensor_id, date_created, value)
-values ('7702',5502, TO_DATE('11-NOV-2015', 'DD-MON-YYYY' ), 100 );
+values ('6662',5502, TO_DATE('29-DEC-2013', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('6663',5502, TO_DATE('30-DEC-2013', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('6664',5502, TO_DATE('31-DEC-2013', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('6665',5502, TO_DATE('01-JAN-2014', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('6666',5502, TO_DATE('02-JAN-2014', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('6667',5502, TO_DATE('03-JAN-2014', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('6668',5502, TO_DATE('04-JAN-2014', 'DD-MON-YYYY' ), 10 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('6669',5502, TO_DATE('05-JAN-2014', 'DD-MON-YYYY' ), 100 );
 
 
 
