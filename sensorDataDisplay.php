@@ -13,6 +13,8 @@ session_start();
 		</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<lin rel='stylesheet' href ='sensorDataDisplay.css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 	</head>
 
@@ -296,12 +298,35 @@ function getImageData($data){
 		$imageData['ID'] = oci_result($parsedImageData,'IMAGE_ID');
 		$imageData['sensorID'] = oci_result($parsedImageData, 'SENSOR_ID');
 		$imageData['thumbnail'] = oci_result($parsedImageData,'THUMBNAIL');
-		$imageData['length'] = oci_result($parsedImageData,'LENGTH');
+		$imageData['image'] = oci_result($parsedImageData,'RECOREDED_DATA');
+		$imageData['date'] = oci_result($parsedImageData, 'DATE_CREATED');
 		$imageData['description'] = oci_result($parsedImageData, 'DESCRIPTION');
+		echo'sup';
+		file_put_contents('tempPic'.$imageData['ID'].'.jpg', base64_decode($imageData['image']->load()));
+		echo'shamwow';
+	//this will ask the to download file , and it should not be broken :)  
+		//header('Location: tempPic.jpg',true,301);
+		
+
+		
 				
 		echo '<tr><td>'.$imageData['ID'].'</td><td>'.$imageData['sensorID'].'</td> <td> <img src="data:image/jpeg;base64, '.$imageData['thumbnail']->load().'">
-		<td>'.$imageData['length'].'</td> <td>'.$imageData['value'].'</td> <td>'.$imageData['date'].'</td>
-		<td> <button id = '.$imageData['ID'].'>Download</button></td></tr>';
+		<td>'.$imageData['date'].'</td><td>'.$imageData['description'].'</td>
+		<td><button href=downloadImage.php?id='.$imageData['ID'].' class=downloadImage id = '.$imageData['ID'].'>Download</button></td></tr>';
+
+	
+
+		/*
+		image most likely de encode base 64 0.0 idk 
+		
+		image/audio NOT scalar (need to make file) 
+
+		//this is on the same location as this file
+		file_put_contents('some_temp_name_that_we_remove_after.jpg', $imageData['image']->load());
+		//this will ask the to download file , and it should not be broken :)  
+		header(Location: some_temp_name_that_we_remove_after.jpg,true,301);
+		exit();
+		*/
 
 
 		
@@ -314,6 +339,18 @@ function getImageData($data){
 
 
 	?>
+
+	<script>
+
+	$('.downloadImage').click(function(){
+
+
+		window.open('downloadImage.php?id='+$(this).attr('id'));
+
+	});
+
+	</script>
+
 
 	</div>
 	</div>
