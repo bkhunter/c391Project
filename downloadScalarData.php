@@ -8,12 +8,12 @@
 	if(isset($_GET['id'])){
 
 
-		$file = 'tempPic'.$_GET['id'].'.jpg';
+		$file = 'scalar_data'.$_GET['ID'].'.csv';
 
 
 	
-	//http://stackoverflow.com/questions/12094080/download-files-from-server-php
-	header('Content-Description: File Transfer');
+		//http://stackoverflow.com/questions/12094080/download-files-from-server-php
+		header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.$file);
 		header('Content-Transfer-Encoding: binary');
@@ -25,6 +25,8 @@
 
 		exit();
 	}
+
+
 
 
 

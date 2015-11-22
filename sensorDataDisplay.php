@@ -211,13 +211,22 @@ function getScalarData($data){
 
 			while(oci_fetch($parsedScalarData)){
 				$scalarData['ID'] = oci_result($parsedScalarData,'ID');
-				$scalarData['sensorID'] = oci_result($parsedScalarData, 'SENSOR_ID');
+				$scalar['sensorID'] = oci_result($parsedScalarData, 'SENSOR_ID');
 				$scalarData['value'] = oci_result($parsedScalarData, 'VALUE');
 				$scalarData['date'] = oci_result($parsedScalarData,'DATE_CREATED');
+
+				$fp = fopen('scalar_data'.$scalarData['ID'].'.csv','w');
+					foreach($scalarData as $data){
+
+					fputcsv($fp,$data);				
+					
+				}				
+				fclose($fp);
 				
-				echo '<tr><td>'.$scalarData['ID'].'</td><td>'.$scalarData['sensorID'].'</td> 
+
+				echo '<tr><td>'.$scalarData['ID'].'</td><td>'.$scalar['sensorID'].'</td> 
 				<td>'.$scalarData['value'].'</td> <td>'.$scalarData['date'].'</td>
-				<td> <button id = '.$scalarData['ID'].'>Download</button></td></tr>';
+				<td> <button class=downloadCSV id = '.$scalarData['ID'].'>Download</button></td></tr>';
 
 
 			}	
@@ -346,6 +355,13 @@ function getImageData($data){
 
 
 		window.open('downloadImage.php?id='+$(this).attr('id'));
+
+	});
+
+	$('.downloadCSV').click(function(){
+
+
+		window.open('downloadScalarData.php?id='+$(this).attr('id'));
 
 	});
 
