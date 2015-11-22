@@ -4,9 +4,43 @@ include("PHPconnectionDB.php");
 
 <html>
 	<head>
+		<style>
+
+			table#sensors {
+				
+				background-color: gray;
+				border: 3px solid black;
+				width: 100%;
+				text-align: center;
+			}
+
+			ul#item {
+				list-style-type: none;
+				padding: 0;
+				text-align: left;
+				border: 1px solid black;
+			}
+
+			ul#item li a {
+				background-color: gray;
+				color: white;
+				padding: 10px 20px;
+				text-decoration: none;
+				display: block;
+				list-style-position:inside;
+   				
+			}
+
+			ul#item li a:hover {
+				background-color: black;
+			}
+	
+			</style>
+
 		<title>
 			Olap Analysis
 		</title>
+
 	</head>
 
 	<meta charset="utf-8">
@@ -24,21 +58,10 @@ include("PHPconnectionDB.php");
 		</div>	
 
 		<div class="container">
-			<h3>Input Sensor ID</h3>
-			<form name= "OlapGen" method="post" action="OlapYearly.php"> 
-				Sensor ID <input type="number" name="sID"/> <br/>
-				<input type="submit" name="gen"value="Generate!"/>
-			</form>
-		</div>
-
-		<div class="container">
-			<h3> Verify Sensor ID </h3>
-			<form name= "userID_search" method="post" action="OlapRes.php"> 
-				Sensor ID<input type="number" name="sID"/> <br/>
-				<input type="submit" value="search" name="IDSearch"/>
-			</form>
-		</div>	
+			<table id = "sensors" border = "1">
+				<th> Subscribed Sensor IDs </th>
 	<?php
+		
 			$pID = 3;
 			$pID = (string)$pID;
 			$f = "fact";
@@ -81,6 +104,8 @@ include("PHPconnectionDB.php");
 			sensor_id	int,
 			value 		float,
 			date_created date,
+			quarter   	varchar(64),
+			week		int,
 			FOREIGN KEY(sensor_id,person_id) REFERENCES subscriptions
 			) tablespace c391ware' ;
 
@@ -89,12 +114,9 @@ include("PHPconnectionDB.php");
 		
 			//error_reporting(1);
 
-			//Warning: oci_execute(): ORA-00903: invalid table name in /compsci/webdocs/bkhunter/web_docs/c391Project/Data_Analysis/Olap.php on line 58
 			//execute
 
 			$res=oci_execute($stid);
-
-
 
 			// get sensors attached to admin
 			$sQ = 'select * from subscriptions where person_id = \''.$pID.'\'';	
@@ -119,7 +141,19 @@ include("PHPconnectionDB.php");
 
 			// with sensor ID get location and values to put into fact table
 			foreach($s_res as &$sensorID) {
-				
+
+				//display as list item
+				echo "<tr>";
+				echo "<td>"; 
+				echo "<ul id='item'>";
+
+				//http://stackoverflow.com/questions/13102351/passing-a-variable-with-href-in-html
+				echo "<li><a href='OlapYearly.php?sid=$sensorID' >" .$sensorID. "</a></li>";
+
+				echo "</ul>";
+				echo "</td>"; 
+				echo "</tr>";
+
 				// get locations attached to subcribed sensors
 				$lQ = 'select location from sensors where sensor_id = \''.$sensorID.'\' ';
 
@@ -129,6 +163,7 @@ include("PHPconnectionDB.php");
 				//execute
 				$res=oci_execute($stid);
 
+				//strange because in a loop, but only 1 location per sensor ID
 				while (($row = oci_fetch_array($stid, OCI_ASSOC))) {
 					foreach($row as $item) {
 						$loc = $item;
@@ -148,16 +183,30 @@ include("PHPconnectionDB.php");
 				while (($row = oci_fetch_array($stid, OCI_ASSOC))) {
 					$i = 0;
 					foreach($row as $item) {
-						if ($i == 0) {
+						if ($i%2 == 0) {
 							$val = $item;
 						} else {
 							$date = $item;
 
-							//echo $date;
-							//echo "--";
+							//get week and month number
+							$timestamp = strtotime($date);
+							$weekNum = strftime('%-U', $timestamp);
+							$monthNum = strftime('%-m', $timestamp);
+
+
+							if ($monthNum < 4) {
+								$quart = "Jan-Mar";
+							} else if ($monthNum < 7) {
+								$quart = "Apr-Jun";
+							} else if ($monthNum < 10) {
+								$quart = "Jul-Sep";
+							} else {
+								$quart = "Oct-Dec";
+							}
+
 
 							//now insert into fact table
-							$insert = 'INSERT INTO '.$tableName.' (location, value, person_id, sensor_id, date_created) VALUES (\''.$loc.'\',\''.$val.'\',\''.$pID.'\',\''.$sensorID.'\',\''.$date.'\')';	
+							$insert = 'INSERT INTO '.$tableName.' (location, value, person_id, sensor_id, date_created, quarter, week) VALUES (\''.$loc.'\',\''.$val.'\',\''.$pID.'\',\''.$sensorID.'\',\''.$date.'\',\''.$quart.'\',\''.$weekNum.'\')';	
 			
 							//prepare
 							$stid1 = oci_parse($conn, $insert );
@@ -174,8 +223,11 @@ include("PHPconnectionDB.php");
 						$i++;
 					}
 				}
+
 			}
 		
-		?>
+			?>
+			</table>
+		</div>	
 	</body>
 </html>

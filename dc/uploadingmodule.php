@@ -28,10 +28,14 @@ if ($_SESSION['role'] != 'd') {
 	<form name = "uimage" method="post"  action="uscalar.php"> 
 					<center><input type="submit" name="image" value="scalar"></center>
 	</form>
+	<form name = "logout" method="post"  action="../OOSLogin.php"> 
+					<h2 class ="main page"> </h2>
+					<center><input type="submit" name="validate" value="  main page  "></center>
+	</form>
 	<form name = "logout" method="post"  action="../logout.php"> 
 					<h2 class ="logout"> </h2>
 					<center><input type="submit" name="validate" value="  log out  "></center>
-	</form>
+	</form> 
 
 
 </body>

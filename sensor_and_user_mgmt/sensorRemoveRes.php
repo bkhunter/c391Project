@@ -85,7 +85,7 @@ if ($_SESSION['role'] != 'a') {
 				<div class="LoginForm container">
 					<h3> Find Another Sensor </h3>
 					<form name= "userID_search" method="post" action="sensorRemoveRes.php"> 
-						Sensor ID<input type="text" name="usrID"/> <br/>
+						Sensor ID<input type="text" name="sensID"/> <br/>
 						<input type="submit" value="search" name="IDSearch"/>
 					</form>
 				</div>

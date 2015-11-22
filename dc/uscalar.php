@@ -24,6 +24,12 @@ $mimetypes = array(
 if ( !in_array( $_FILES['batch']['type'], $mimetypes ) ){
 ?>
 
+<form name = "logout" method="post"  action="../OOSLogin.php"> 
+	<h2 class ="main page"> </h2>
+	<center><input type="submit" name="validate" value="  main page  "></center>
+</form>
+
+
 
 <table align="center">
 

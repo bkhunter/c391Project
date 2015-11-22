@@ -20,7 +20,10 @@ if ($_SESSION['role'] != 'd') {
 
 if (!$_FILES['photo']['name'] || ($_FILES['photo']['type'] != 'image/jpeg') ){
 ?>
-
+<form name = "logout" method="post"  action="../OOSLogin.php"> 
+	<h2 class ="main page"> </h2>
+	<center><input type="submit" name="validate" value="  main page  "></center>
+</form>
 
 <table align="center">
 
@@ -73,7 +76,7 @@ $id = oci_result($stmt, 'IMAGE_ID');
 $lob   = oci_new_descriptor($conn, OCI_D_LOB);
 $lobimage  = oci_new_descriptor($conn, OCI_D_LOB);
 $stmt = oci_parse($conn, "insert into images (image_id, sensor_id,date_created,description,thumbnail,recoreded_data)
-               values (".$id.", ".$_POST['sid'].",SYSDATE,'".$_POST['des']."',EMPTY_BLOB(), EMPTY_BLOB()) 
+               values (".$id.", ".$_POST['sid'].",to_date( TO_CHAR(SYSDATE, 'DD/MM/YYYY HH24:MI:SS') , 'DD/MM/YYYY HH24:MI:SS' ),'".$_POST['des']."',EMPTY_BLOB(), EMPTY_BLOB()) 
                returning thumbnail, recoreded_data into :thumbnail, :recoreded_data");
 $id += 1;
 
