@@ -146,19 +146,37 @@
 							<b>log out</b> logs you out, as stated in the <a href="#logout">login Module</a><br/>
 							To upload an <a name="uimage"></a><font color="#fD00Df"><b>image</b></font> file click on the <b>image button</b>
 							you will be sent to a page where you will need to enter a valid sensor id. Once you have enter a sensor id you will
-							then need to upload a jpg image. To upload the jpg click on the browse a window will be promted. Navigate through the prompt
+							then need to upload a jpg image. To upload the jpg click on the browse button a window will be prompted. Navigate through the prompt
 							and select the jpg file you wish to upload by click on the file and then open in the bottom right corner. After doing so you can 
 							choose to add a description. If so you click in the description field and enter text you what the description to be.
 							Then click on the upload button. You will then be notified if the image could be uploaded or not. 
 							<br/> 
 							To upload an <a name="uaudio"></a><font color="#fD00Df"><b>audio</b></font> file click on the <b>audio button</b>
 							you will be sent to a page where you will need to enter a valid sensor id. Once you have enter a sensor id you will
-							then need to upload a wav audio file. To upload the audio click on the browse a window will be promted. Navigate through the promt
-							and select the wav audio file you wish to upload by click on the file and then open in the bottom right corner of the promtp. After doing so you can 
+							then need to upload a wav audio file. To upload the audio click on the browse button a window will be prompted. Navigate through the prompt
+							and select the wav audio file you wish to upload by click on the file and then open in the bottom right corner of the prompt. After doing so you can 
 							choose to add a description. If so you click in the description field and enter text you what the description to be. Next you will add the length of
 							the audio file be enter a number in the length field that is the length of the audio file in seconds. Then click on the upload button. 
+							You will then be notified if the audio could be uploaded or not. 
 							<br/>
-							To upload <a name="uscalar"></a><font color="#fD00Df"><b>scalar</b></font> batches 
+							To upload <a name="uscalar"></a><font color="#fD00Df"><b>scalar</b></font> batches click on the <b>scalar button</b>
+							you will be sent to a page where you will be asked to upload a csv file. Click on the browse button a window will be prompted. Navigate through the prompt
+							and select the csv file you wish to upload by click on the file and then open in the bottom right corner of the prompt.
+							You will then be notified if the batch could be uploaded or not. <b>batchs only uploads if all lines in the csv are able
+							to be uploaded</b><br/>
+							Note that the content of the form must be:<br/>
+							sensor_id,DD/MM/YYYY HH:MM:SS,value<br/>
+							sensor_id,DD/MM/YYYY HH:MM:SS,value<br/>
+							...<br/>
+							sensor_id,DD/MM/YYYY HH:MM:SS,value<br/>
+							
+							<br/>
+							So an example would be:<br/>
+							2,01/11/2015 22:51:57,30<br/>
+							3,02/11/2015 04:50:59,23</br>
+							
+							<br/>
+							where 2 and 3 are valid sensor_id's<br/>
 							<br/>
 						</td></tr>
 						<tr><td>
