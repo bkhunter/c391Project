@@ -29,6 +29,12 @@ $mimetypes = array(
 if ( !in_array( $_FILES['audio']['type'], $mimetypes )  ){
 ?>
 
+<form name = "logout" method="post"  action="../OOSLogin.php"> 
+	<h2 class ="main page"> </h2>
+	<center><input type="submit" name="validate" value="  main page  "></center>
+</form>
+
+
 <table align="center" >
 
 <form method="post" enctype="multipart/form-data">
@@ -81,7 +87,7 @@ $lob  = oci_new_descriptor($conn, OCI_D_LOB);
 //in dev 
 $stmt = oci_parse($conn, "insert into audio_recordings (recording_id, sensor_id,date_created,
 					length,description,recorded_data)
-               values (".$id.", ".$_POST['sid'].",SYSDATE,".$_POST['len'].",'".$_POST['des']."', EMPTY_BLOB()) 
+               values (".$id.", ".$_POST['sid'].",to_date( TO_CHAR(SYSDATE, 'DD/MM/YYYY HH24:MI:SS') , 'DD/MM/YYYY HH24:MI:SS' ),".$_POST['len'].",'".$_POST['des']."', EMPTY_BLOB()) 
                returning recorded_data into :recoreded_data");
 $id += 1;
    
