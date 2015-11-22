@@ -115,8 +115,6 @@ include("PHPconnectionDB.php");
 				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\'and f.quarter =\''.$quarter.'\'
 				GROUP BY extract(month from date_created)';
 
-				echo $monthRes;
-
 				//prepare
 				$stid1 = oci_parse($conn,$monthRes);
 
