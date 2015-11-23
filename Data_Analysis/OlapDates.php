@@ -149,7 +149,7 @@ include("PHPconnectionDB.php");
 					echo '<tr>';
 					foreach($row as $item) {
 						if ($i%4 == 0) {
-							$timeStr = "{$month}{'/'}{$item}{'/'}{$year}";
+							$timeStr = "{$month}/{$item}/{$year}";
 							//echo $timeStr;
 
 							//$time = strtotime('10/16/2003');
