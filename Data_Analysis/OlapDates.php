@@ -106,7 +106,7 @@ include("PHPconnectionDB.php");
 
 			<div class="container">
 				<form action= "../OOS.php"> 
-					<input type="button" name="back" value="Main Menu"/>
+					<input type="submit" name="back" value="Main Menu"/>
 				</form>
 			</div>	
 
