@@ -4,6 +4,7 @@
     	ini_set('session.cache_limiter','public');
 		session_cache_limiter(false);
   		session_start();
+
 		//check account type 
 		if ($_SESSION['role'] != 'a') {
 			header('Location: ../OOSLogin.php', true, 301);

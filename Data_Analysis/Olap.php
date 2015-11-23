@@ -1,5 +1,5 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 
 <html>
@@ -124,7 +124,6 @@ include("PHPconnectionDB.php");
 			$stid = oci_parse($conn, $tableQ );
 
 			//execute
-
 			$res=oci_execute($stid);
 
 			// get sensors attached to admin
@@ -241,7 +240,7 @@ include("PHPconnectionDB.php");
 
 		<div class="container">
 			<form action= "../OOSLogin.php"> 
-				<input type="submit" name="back" value="Main Menu"/>
+				<input type="submit" name="back" value="Exit"/>
 			</form>
 		</div>	
 	</body>

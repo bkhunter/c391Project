@@ -1,5 +1,5 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 <html>
 	<?php
@@ -123,7 +123,7 @@ include("PHPconnectionDB.php");
 	
 			<div class="container">
 				<form action= "../OOSLogin.php"> 
-					<input type="submit" name="back" value="Main Menu"/>
+					<input type="submit" name="back" value="Exit"/>
 				</form>
 			</div>	
 		

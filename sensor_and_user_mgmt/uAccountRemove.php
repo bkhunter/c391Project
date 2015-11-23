@@ -1,7 +1,15 @@
 <html>
 
   <?php
-  		session_start();
+		session_cache_limiter(false);
+		session_start();
+
+		//check account type 
+		if ($_SESSION['role'] != 'a') {
+				header('Location: ../OOSLogin.php', true, 301);
+				exit();	
+		}
+ 
   		if($_SESSION['login'] != 'true') {
 			header('Location: ../OOS.php', true, 301);
 			exit();	

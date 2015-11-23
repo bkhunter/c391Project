@@ -1,5 +1,5 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 <html>
 	 <?php
@@ -116,12 +116,7 @@ include("PHPconnectionDB.php");
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
 
-			<div class="container">
-				<form action= "../OOSLogin.php"> 
-					<input type="submit" name="back" value="Main Menu"/>
-				</form>
-			</div>	
-
+			
 			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
 			<div class="container">
 
@@ -129,6 +124,12 @@ include("PHPconnectionDB.php");
 					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
 				</form>
 
+			</div>	
+
+			<div class="container">
+				<form action= "../OOSLogin.php"> 
+					<input type="submit" name="back" value="Exit"/>
+				</form>
 			</div>	
 		
 			<div class="container">
