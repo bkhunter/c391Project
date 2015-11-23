@@ -95,6 +95,20 @@ include("PHPconnectionDB.php");
 				<div class = "page-header">
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
+
+			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
+			<div class="container">
+				<form> 
+					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
+				</form>
+			</div>	
+			
+			<div class="container">
+				<form action= "../OOS.php> 
+					<input type="button" name="back" value="Main Menu"/>
+				</form>
+			</div>	
+
 		
 			<div class="container">
 				<h4> ID : <?php echo $sid ?> </h4>  

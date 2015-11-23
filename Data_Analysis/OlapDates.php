@@ -104,6 +104,12 @@ include("PHPconnectionDB.php");
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
 
+			<div class="container">
+				<form action= "../OOS.php> 
+					<input type="button" name="back" value="Main Menu"/>
+				</form>
+			</div>	
+
 			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
 			<div class="container">
 

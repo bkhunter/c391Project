@@ -11,11 +11,6 @@ include("PHPconnectionDB.php");
 				border: 3px solid black;
 			}
 
-			table#results {
-				font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-				width: 88%;
-			}
-
 			ul#Times {
 				list-style-type: none;
 				padding: 0;
@@ -100,11 +95,15 @@ include("PHPconnectionDB.php");
 		
 			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
 			<div class="container">
-
 				<form> 
 					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
 				</form>
+			</div>	
 
+			<div class="container">
+				<form action= "../OOS.php> 
+					<input type="button" name="back" value="Main Menu"/>
+				</form>
 			</div>	
 			
 			<div class="container">
