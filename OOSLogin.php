@@ -5,16 +5,14 @@ session_cache_limiter(false);
 include("PHPconnectionDB.php");
 
 session_start();
+
 $pID = $_SESSION['person_id'];
 $pID = (string)$pID;
 $f = "fact";
 $tableName = "{$f}{$pID}";
 
-$_SESSION['validate'] = '<center><font color="#DF88FD">Please log in</font></center>';
-$_SESSION['login']   = 'false';
-
 ini_set('display_errors', 1);
-
+	
 error_reporting(E_ALL);
 
 $conn=connect();
@@ -34,7 +32,6 @@ error_reporting(0);
 
 //execute
 $res=oci_execute($stid);
-
 
 ?>
 
@@ -153,6 +150,10 @@ $res=oci_execute($stid);
 	<form name = "editInfo" method="post"  action="./acc_edit/accountinfo.php"> 
 					<center><input type="submit" name="validateAcc" value="edit account"></center>
 	</form>
+
+	
+
+
 
 
 
