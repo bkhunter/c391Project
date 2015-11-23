@@ -11,7 +11,6 @@
 		$file = 'tempPic'.$_GET['id'].'.jpg';
 
 	//http://stackoverflow.com/questions/12094080/download-files-from-server-php
-
 	header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
 		header('Content-Disposition: attachment; filename='.$file);
