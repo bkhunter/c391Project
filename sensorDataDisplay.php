@@ -339,7 +339,8 @@ function getImageData($data){
 
 
 	}
-
+	
+	echo '</table>';
 
 }
 

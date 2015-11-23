@@ -16,8 +16,5 @@ chmod -R 777 Data_Analysis
 cd Data_Analysis
 chmod 644 *.php
 chmod 644 *.css
-chmod -R 777 Daily
-cd Daily
-cd ..
 cd ..
 
