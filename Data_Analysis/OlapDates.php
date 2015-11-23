@@ -135,10 +135,10 @@ include("PHPconnectionDB.php");
 				echo $week_start -> format('d-M-Y'); //and just prints with formatting 
 */
 
-				$weekRes = 'SELECT extract(day from date_created), SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
+				$weekRes = 'SELECT date_created, SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
 				FROM	'.$tableName.' f
 				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\' and extract(month from date_created) = \''.$month.'\' and f.week = \''.$week.'\'
-				GROUP BY extract(day from date_created)';
+				GROUP BY date_created)';
 
 				//prepare
 				$stid1 = oci_parse($conn,$weekRes);
@@ -149,17 +149,17 @@ include("PHPconnectionDB.php");
 					echo '<tr>';
 					foreach($row as $item) {
 						if ($i%4 == 0) {
-							$timeStr = "{$month}/{$item}/{$year}";
+							//$timeStr = "{$month}/{$item}/{$year}";
 							//echo $timeStr;
 
-							$time = strtotime($timeStr);
-							$newformat = date('Y-m-d',$time);
+							//$time = strtotime($timeStr);
+							//$newformat = date('Y-m-d',$time);
 
 							//echo $newformat;
 
 							echo "<td>"; 
 							echo "<ul id='Times'>";
-							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$week=$item'>" .$newformat."</a></li>";
+							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$week=$item'>" .$item."</a></li>";
 							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 
