@@ -135,10 +135,10 @@ include("PHPconnectionDB.php");
 				echo $week_start -> format('d-M-Y'); //and just prints with formatting 
 */
 
-				$weekRes = 'SELECT extract(date from date_created), SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
+				$weekRes = 'SELECT extract(day from date_created), SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
 				FROM	'.$tableName.' f
 				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\' and extract(month from date_created) = \''.$month.'\' and f.week = \''.$week.'\'
-				GROUP BY extract(date from date_created)';
+				GROUP BY extract(day from date_created)';
 
 				//prepare
 				$stid1 = oci_parse($conn,$weekRes);
