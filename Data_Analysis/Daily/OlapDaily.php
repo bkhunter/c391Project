@@ -69,8 +69,8 @@ include("PHPconnectionDB.php");
 				//get week date range 
 				$datet = new DateTime();
 				$datef = new DateTime();
-				$datet->setISODate($year, $item+1, 0);
-				$datef->setISODate($year, $item+1, 6);
+				$datet->setISODate($year, $week+1, 0);
+				$datef->setISODate($year, $week+1, 6);
 
 				$st =  $datet->format('Y-m-d') . "\n";
 				$et =  $datef->format('Y-m-d') . "\n";
