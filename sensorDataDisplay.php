@@ -131,7 +131,7 @@ function getAudioData($data){
 		echo 'until: '.$sqlUntilDate.'<br>';
 		$sqlA = $sqlA . 'and audio_recordings.date_created between TO_DATE(\''.$sqlFromDate.'\' ,\'dd/mm/yyyy\')  and  TO_DATE( \''.$sqlUntilDate.'\',\'dd/mm/yyyy\') ';
 	}
-	echo $sqlA;
+	//echo $sqlA;
 	$conn = connect();
 	$parsedAudioData = oci_parse($conn,$sqlA);
 	$res = oci_execute($parsedAudioData);
@@ -203,7 +203,7 @@ function getScalarData($data){
 			$conn = connect();
 			$parsedScalarData = oci_parse($conn,$sqlS);
 			$res = oci_execute($parsedScalarData);
-			echo $sqlS;
+			//echo $sqlS;
 			echo '<h3>Scalar Data</h3>';
 			echo'<table> <thead> <tr> 
 			<th> ID </th> <th> SensorID</th> <th>value</th> <th>date</th><th>Download</th> </tr>
@@ -290,7 +290,7 @@ function getImageData($data){
 					$sqlI = $sqlI . 'and images.date_created between TO_DATE(\''.$sqlFromDate.'\' ,"dd/mm/yyyy")  and  TO_DATE( \''.$sqlUntilDate.'\',"dd/mm/yyyy") ';
 	}
 
-	echo $sqlI;
+	//echo $sqlI;
 	$conn = connect();
 	$parsedImageData = oci_parse($conn,$sqlI);
 	$res = oci_execute($parsedImageData);
@@ -310,9 +310,9 @@ function getImageData($data){
 		$imageData['image'] = oci_result($parsedImageData,'RECOREDED_DATA');
 		$imageData['date'] = oci_result($parsedImageData, 'DATE_CREATED');
 		$imageData['description'] = oci_result($parsedImageData, 'DESCRIPTION');
-		echo'sup';
+		//echo'sup';
 		file_put_contents('tempPic'.$imageData['ID'].'.jpg', base64_decode($imageData['image']->load()));
-		echo'shamwow';
+		///echo'shamwow';
 
 		
 				
