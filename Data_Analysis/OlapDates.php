@@ -109,10 +109,11 @@ include("PHPconnectionDB.php");
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
 
+			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
 			<div class="container">
 
-				<form name= "Create Sensor" method="post" action="OlapWeekly.php"> 
-					<input type="submit" name="create"value="Roll Up"/>
+				<form> 
+					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
 				</form>
 
 			</div>	
