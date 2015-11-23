@@ -151,6 +151,7 @@ include("PHPconnectionDB.php");
 							echo "<td>"; 
 							echo "<ul id='Times'>";
 							echo "<li><a href='OlapDaily.php?sid=$sid&year=$year&quarter=$quarter&month=$month&week=$item'>" .$st. " " .$et."</a></li>";
+							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$item'>" .$monthName. "</a></li>";
 							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 

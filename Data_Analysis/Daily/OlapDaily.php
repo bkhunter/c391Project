@@ -72,8 +72,8 @@ include("PHPconnectionDB.php");
 				$datet->setISODate($year, $week+1, 0);
 				$datef->setISODate($year, $week+1, 6);
 
-				$st =  $datet->format('Y-m-d') . "\n";
-				$et =  $datef->format('Y-m-d') . "\n";
+				$start =  $datet->format('Y-m-d') . "\n";
+				$end =  $datef->format('Y-m-d') . "\n";
 
 				//get month
 				$mObj   = DateTime::createFromFormat('!m', $month);
@@ -119,7 +119,7 @@ include("PHPconnectionDB.php");
 				<h4>  Year : <?php echo $year ?> </h4>
 				<h4>  Quarter : <?php echo $quarter ?> </h4>
 				<h4>  Month : <?php echo $monthName ?> </h4>
-				<h4>  Week : <?php echo $st ?> to <?php echo $et?> </h4>
+				<h4>  Week : <?php echo $start ?> to <?php echo $end?> </h4>
 				<table id = "Week" border = "1">
 					<th> Day </th>
 					<th> Sum </th>
@@ -127,6 +127,8 @@ include("PHPconnectionDB.php");
 					<th> Max </th>
 
 			<?php
+
+				echo $week;
 /*
 				$week_start = new DateTime();
 				$week = strftime("%U");  //this gets you the week number starting Sunday
