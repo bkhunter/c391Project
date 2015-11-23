@@ -2,6 +2,17 @@
 include("PHPconnectionDB.php");
 ?>
 <html>
+	<?php
+  		ini_set('session.cache_limiter','public');
+		session_cache_limiter(false);
+		
+  		session_start();
+		//check account type 
+		if ($_SESSION['role'] != 's') {
+			header('Location: ../OOSLogin.php', true, 301);
+			exit();	
+		}
+	?>
 	<head>
 		<style>
 			
@@ -9,6 +20,8 @@ include("PHPconnectionDB.php");
 				
 				background-color: gray;
 				border: 3px solid black;
+				text-align:left;
+				width: 100%;
 			}
 
 			ul#Times {

@@ -2,6 +2,17 @@
 include("PHPconnectionDB.php");
 ?>
 <html>
+	 <?php
+  		ini_set('session.cache_limiter','public');
+		session_cache_limiter(false);
+		
+  		session_start();
+		//check account type 
+		if ($_SESSION['role'] != 's') {
+			header('Location: ../OOSLogin.php', true, 301);
+			exit();	
+		}
+	?>
 	<head>
 		<style>
 			
@@ -164,7 +175,7 @@ include("PHPconnectionDB.php");
 
 							echo "<td>"; 
 							echo "<ul id='disp'>";
-							echo "<li> .$timeStr. </li>";
+							echo "<li> $timeStr </li>";
 							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 

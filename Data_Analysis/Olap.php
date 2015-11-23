@@ -3,6 +3,18 @@ include("PHPconnectionDB.php");
 ?>
 
 <html>
+	 <?php
+  		ini_set('session.cache_limiter','public');
+		session_cache_limiter(false);
+		
+  		session_start();
+		$pID = $_SESSION['person_id'];
+		//check account type 
+		if ($_SESSION['role'] != 's') {
+			header('Location: ../OOSLogin.php', true, 301);
+			exit();	
+		}
+	?>
 	<head>
 		<style>
 
@@ -62,7 +74,6 @@ include("PHPconnectionDB.php");
 				<th> Subscribed Sensor IDs </th>
 	<?php
 		
-			$pID = 3;
 			$pID = (string)$pID;
 			$f = "fact";
 			$tableName = "{$f}{$pID}";
