@@ -10,6 +10,7 @@ include("PHPconnectionDB.php");
 				background-color: gray;
 				border: 3px solid black;
 				text-align:left;
+				width: 100%
 			}
 
 			ul#disp {

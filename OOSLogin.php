@@ -80,6 +80,10 @@ session_start();
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="searchSubmit" value="search"></center>
 					</form>';
+
+			echo '<form name = "olap" method="post"  action="Data_Analysis/Olap.php"> 
+					<center><input type="submit" name="olap" value="Data Analysis Module"></center>
+					</form>';
 		}
 		
 		//administrator
