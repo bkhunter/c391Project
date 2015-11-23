@@ -5,6 +5,36 @@ session_cache_limiter(false);
 include("PHPconnectionDB.php");
 
 session_start();
+$pID = $_SESSION['person_id'];
+$pID = (string)$pID;
+$f = "fact";
+$tableName = "{$f}{$pID}";
+
+$_SESSION['validate'] = '<center><font color="#DF88FD">Please log in</font></center>';
+$_SESSION['login']   = 'false';
+
+ini_set('display_errors', 1);
+
+error_reporting(E_ALL);
+
+$conn=connect();
+	
+if (!$conn) {
+	$e = oci_error();
+	trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+} 
+
+// Drop data analysis fact table
+$dropQ = 'drop table '.$tableName.' ';
+
+//prepare
+$stid = oci_parse($conn, $dropQ );
+
+error_reporting(0);
+
+//execute
+$res=oci_execute($stid);
+
 
 ?>
 
@@ -123,10 +153,6 @@ session_start();
 	<form name = "editInfo" method="post"  action="./acc_edit/accountinfo.php"> 
 					<center><input type="submit" name="validateAcc" value="edit account"></center>
 	</form>
-
-	
-
-
 
 
 
