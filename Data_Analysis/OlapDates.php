@@ -152,14 +152,14 @@ include("PHPconnectionDB.php");
 							$timeStr = "{$month}/{$item}/{$year}";
 							//echo $timeStr;
 
-							//$time = strtotime('10/16/2003');
-							//$newformat = date('Y-m-d',$time);
+							$time = strtotime($timeStr);
+							$newformat = date('Y-m-d',$time);
 
 							//echo $newformat;
 
 							echo "<td>"; 
 							echo "<ul id='Times'>";
-							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$week=$item'>" .$timeStr."</a></li>";
+							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$week=$item'>" .$newformat."</a></li>";
 							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 
