@@ -145,13 +145,18 @@ function getAudioData($data){
 	while(oci_fetch($parsedAudioData)){
 		$audioData['audioID'] = oci_result($parsedAudioData,'RECORDING_ID');
 		$audioData['sensorID'] = oci_result($parsedAudioData, 'SENSOR_ID');
+		$audioData['audio'] = oci_result($parsedAudioData , 'RECORDED_DATA');
 		$audioData['length'] = oci_result($parsedAudioData,'LENGTH');
 		$audioData['date'] = oci_result($parsedAudioData , 'DATE_CREATED');
 		$audioData['description'] = oci_result($parsedAudioData , 'DESCRIPTION');
 
+
+		file_put_contents('tempAudio'.$audioData['ID'].'.wav',$audioData['audio']->load());.
+
+
 		echo '<tr><td>'.$audioData['audioID'].'</td><td>'.$audioData['sensorID'].'</td>
 		<td>'.$audioData['length'].'</td> <td>'.$audioData['date'].'</td> <td>'.$audioData['description'].'</td>
-		<td> <button id = '.$audioData['audioID'].'>Download</button></td></tr>';
+		<td> <button class=downloadAudio id = '.$audioData['audioID'].'>Download</button></td></tr>';
 
 
 	}	
@@ -290,7 +295,7 @@ function getImageData($data){
 					$sqlI = $sqlI . 'and images.date_created between TO_DATE(\''.$sqlFromDate.'\' ,"dd/mm/yyyy")  and  TO_DATE( \''.$sqlUntilDate.'\',"dd/mm/yyyy") ';
 	}
 
-	//echo $sqlI;
+	echo $sqlI;
 	$conn = connect();
 	$parsedImageData = oci_parse($conn,$sqlI);
 	$res = oci_execute($parsedImageData);
@@ -360,6 +365,12 @@ function getImageData($data){
 
 		window.open('downloadScalarData.php?id='+$(this).attr('id'));
 
+	});
+
+	$('.downloadAudio').click(function(){
+
+
+		window.open('downloadAudio.php?id='+$(this).attr('id'));
 	});
 
 	</script>
