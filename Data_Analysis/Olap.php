@@ -102,7 +102,7 @@ include("PHPconnectionDB.php");
 			//prepare
 			$stid = oci_parse($conn, $dropQ );
 		
-			//error_reporting(0);
+			error_reporting(0);
 
 			//execute
 			$res=oci_execute($stid);
@@ -122,8 +122,6 @@ include("PHPconnectionDB.php");
 
 			//prepare
 			$stid = oci_parse($conn, $tableQ );
-		
-			//error_reporting(1);
 
 			//execute
 
