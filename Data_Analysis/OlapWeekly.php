@@ -163,15 +163,26 @@ include("../PHPconnectionDB.php");
 					foreach($row as $item) {
 						if ($i%4 == 0) {
 
+							
 							$datet = new DateTime();
 							$datef = new DateTime();
-							$datet->setISODate($year, $item+1, 0);
-							$datef->setISODate($year, $item+1, 6);
+
+							$dateFIR = "{$year}-01-01";
+							$first = date('l',strtotime(date($dateFIR)));
+
+							if (($first == 'Friday') || ($first == 'Saturday')) {
+
+								$datet->setISODate($year, $item, 0);
+								$datef->setISODate($year, $item, 6);
+
+							} else {
+								$datet->setISODate($year, $item+1, 0);
+								$datef->setISODate($year, $item+1, 6);
+							}
 
 							$st =  $datet->format('Y-m-d') . "\n";
 							$et =  $datef->format('Y-m-d') . "\n";
 
-							$incr = $item+1;
 
 							echo "<td>"; 
 							echo "<ul id='Times'>";

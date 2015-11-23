@@ -72,11 +72,23 @@ include("../PHPconnectionDB.php");
 				//get week date range 
 				$datet = new DateTime();
 				$datef = new DateTime();
-				$datet->setISODate($year, $week+1, 0);
-				$datef->setISODate($year, $week+1, 6);
+				$dateFIR = "{$year}-01-01";
+
+				$first = date('l',strtotime(date($dateFIR)));
+
+				if (($first == 'Friday') || ($first == 'Saturday')) {
+
+					$datet->setISODate($year, $week, 0);
+					$datef->setISODate($year, $week, 6);
+
+				} else {
+					$datet->setISODate($year, $week+1, 0);
+					$datef->setISODate($year, $week+1, 6);
+				}
 
 				$start =  $datet->format('Y-m-d') . "\n";
 				$end =  $datef->format('Y-m-d') . "\n";
+
 
 				//get month
 				$mObj   = DateTime::createFromFormat('!m', $month);
@@ -158,6 +170,7 @@ include("../PHPconnectionDB.php");
 				FROM	'.$tableName.' f
 				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\' and extract(month from date_created) = \''.$month.'\' and f.week = \''.$week.'\'
 				GROUP BY extract(day from date_created)';
+
 
 				//prepare
 				$stid1 = oci_parse($conn,$weekRes);
