@@ -150,10 +150,13 @@ include("PHPconnectionDB.php");
 					foreach($row as $item) {
 						if ($i%4 == 0) {
 							$timeStr = "{$month}/{$item}/{$year}";
+							$datetime = DateTime::createFromFormat('m/d/Y', $timeStr);
+							$timeStr = $datetime->format('D, Y-M-d');
 							//echo $timeStr;
 
-							$time = strtotime($timeStr);
-							$newformat = date('Y-m-d',$time);
+							//$time = strtotime($timeStr);
+							//$newformat = date('Y-m-d',$time);
+							//$newDate = date("d-m-Y", strtotime($item));
 
 							//echo $newformat;
 
