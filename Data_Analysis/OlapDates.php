@@ -14,12 +14,8 @@ include("PHPconnectionDB.php");
 
 			ul#disp {
 				list-style-type: none;
-				padding: 0;
 				text-align: left;
 				border: 1px solid black;
-			}
-
-			ul#disp li a {
 				background-color: black;
 				color: white;
 				padding: 10px 20px;
@@ -27,7 +23,6 @@ include("PHPconnectionDB.php");
 				display: block;
 				list-style-position:inside;
 				text-align:left;
-   				
 			}
 
 			ul#Res {
@@ -162,7 +157,7 @@ include("PHPconnectionDB.php");
 
 							echo "<td>"; 
 							echo "<ul id='disp'>";
-							echo "<li>.$timeStr.</li>";
+							echo "<li> .$timeStr. </li>";
 							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 
