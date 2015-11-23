@@ -4,7 +4,7 @@
 ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 
-include("../PHPconnectionDB.php");
+include("PHPconnectionDB.php");
 ?>
 
 <html>
@@ -27,7 +27,7 @@ include("../PHPconnectionDB.php");
 		<div class ="page">
 		<div class = "page-header">
 		
-		<center><h1>Ocean Observation System</h1></center>	
+		<h1 class ="title"> Ocean Observation System</h1>		
 		</div>
 		
 		
@@ -36,7 +36,7 @@ include("../PHPconnectionDB.php");
 		//check if logged in 
 		session_start();
 		if($_SESSION['login'] != 'true') {
-			header('Location: ../OOS.php', true, 301);
+			header('Location: OOS.php', true, 301);
 			exit();	
 		}
 		
@@ -94,7 +94,7 @@ include("../PHPconnectionDB.php");
 						</tr>
 						<tr>
 						<td>
-							<form name = "continue" method="post"  action="../OOSLogin.php"> 
+							<form name = "continue" method="post"  action="OOSLogin.php"> 
 								<h2 class ="continue"> </h2>
 								<center><input type="submit" name="validate" value="continue"></center>
 							</form>
