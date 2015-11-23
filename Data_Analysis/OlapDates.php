@@ -151,7 +151,7 @@ include("PHPconnectionDB.php");
 						if ($i%4 == 0) {
 							$timeStr = "{$month}/{$item}/{$year}";
 							$datetime = DateTime::createFromFormat('m/d/Y', $timeStr);
-							$timeStr = $datetime->format('D-M-d');
+							$timeStr = $datetime->format('D, Y-M-d');
 							//echo $timeStr;
 
 							//$time = strtotime($timeStr);
