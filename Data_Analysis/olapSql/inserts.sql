@@ -184,7 +184,7 @@ values ('disneyland','i','TEST', 5507 );
 insert into subscriptions values (5507, 1);
 
 insert into scalar_data (id, sensor_id, date_created, value)
-values ('9999',5507, TO_DATE('01/08/2011', 'DD/MM/YYYY'), 99 );
+values ('9999',5507, TO_DATE('01/08/2011 22:34;54', 'DD/MM/YYYY HH24:MI:SS'), 99 );
 
 commit;
 -- 22:34;54
