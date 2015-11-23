@@ -5,22 +5,22 @@ include("PHPconnectionDB.php");
 	<head>
 		<style>
 			
-			table#Week {
+			table#Day {
 				
 				background-color: gray;
 				border: 3px solid black;
 				text-align:left;
 			}
 
-			ul#Times {
+			ul#disp {
 				list-style-type: none;
 				padding: 0;
 				text-align: left;
 				border: 1px solid black;
 			}
 
-			ul#Times li a {
-				background-color: gray;
+			ul#disp li a {
+				background-color: black;
 				color: white;
 				padding: 10px 20px;
 				text-decoration: none;
@@ -28,10 +28,6 @@ include("PHPconnectionDB.php");
 				list-style-position:inside;
 				text-align:left;
    				
-			}
-
-			ul#Times li a:hover {
-				background-color: black;
 			}
 
 			ul#Res {
@@ -112,6 +108,14 @@ include("PHPconnectionDB.php");
 				<div class = "page-header">
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
+
+			<div class="container">
+
+				<form name= "Create Sensor" method="post" action="OlapWeekly.php"> 
+					<input type="submit" name="create"value="Roll Up"/>
+				</form>
+
+			</div>	
 		
 			<div class="container">
 				<h4> ID : <?php echo $sid ?> </h4>  
@@ -120,7 +124,7 @@ include("PHPconnectionDB.php");
 				<h4>  Quarter : <?php echo $quarter ?> </h4>
 				<h4>  Month : <?php echo $monthName ?> </h4>
 				<h4>  Week : <?php echo $start ?> to <?php echo $end?> </h4>
-				<table id = "Week" border = "1">
+				<table id = "Day" border = "1">
 					<th> Day </th>
 					<th> Sum </th>
 					<th> Min </th>
@@ -149,20 +153,15 @@ include("PHPconnectionDB.php");
 					echo '<tr>';
 					foreach($row as $item) {
 						if ($i%4 == 0) {
+			
+							//format date 
 							$timeStr = "{$month}/{$item}/{$year}";
 							$datetime = DateTime::createFromFormat('m/d/Y', $timeStr);
 							$timeStr = $datetime->format('D, Y-M-d');
-							//echo $timeStr;
-
-							//$time = strtotime($timeStr);
-							//$newformat = date('Y-m-d',$time);
-							//$newDate = date("d-m-Y", strtotime($item));
-
-							//echo $newformat;
 
 							echo "<td>"; 
-							echo "<ul id='Times'>";
-							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$week=$item'>" .$timeStr."</a></li>";
+							echo "<ul id='disp'>";
+							echo "<li>.$timeStr.</li>";
 							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 
