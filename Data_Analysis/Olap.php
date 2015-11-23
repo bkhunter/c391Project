@@ -126,7 +126,7 @@ include("../PHPconnectionDB.php");
 			//execute
 			$res=oci_execute($stid);
 
-			// get sensors attached to admin
+			// get sensors attatched to scientist
 			$sQ = 'select * from subscriptions where person_id = \''.$pID.'\'';	
 			
 			//prepare

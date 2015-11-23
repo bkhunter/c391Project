@@ -284,8 +284,53 @@ if ($_SESSION['role'] != 'a') {
     					$e = oci_error();
     					trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 	    			}
-	  
-					// Delete existing rows 
+
+					// unsubscribe from all sensors
+
+					// get sensors attatched to scientist
+					$sQ = 'select * from subscriptions where person_id = \''.$ID.'\'';	
+		
+					//prepare
+					$stid = oci_parse($conn, $sQ );
+	
+					//execute
+					$res=oci_execute($stid);
+
+					$s_res = array();
+					while (($row = oci_fetch_array($stid, OCI_ASSOC))) {
+						// only get sensor_id's
+						$i = 0;
+						foreach($row as $item) {
+							if ($i%2 == 0) {
+								array_push($s_res, $item);
+							}
+							$i++;	
+						}
+					}
+
+					// for each sensor, unsubscribe
+					foreach($s_res as &$sensorID) {
+						
+						 $sql  = 'delete from subscriptions
+								where subscriptions.sensor_id =\''.$sensorID.'\'
+								and subscriptions.person_id = \''.$ID.'\'';
+
+						$conn = connect();
+						$stid = oci_parse($conn, $sql);
+						$res = oci_execute($stid);
+
+
+						if(!$res){
+
+							$message = "there was an error unsubscribing ";
+							echo $message;
+
+
+						}
+					}
+
+			  
+					// Delete user and person rows
 					$delUser = 'DELETE FROM USERS WHERE person_id = \''.$ID.'\'';		
 					$delPer = 'DELETE FROM PERSONS WHERE person_id = \''.$ID.'\'';
 					
