@@ -6,6 +6,33 @@ include("PHPconnectionDB.php");
 
 session_start();
 
+$pID = $_SESSION['person_id'];
+$pID = (string)$pID;
+$f = "fact";
+$tableName = "{$f}{$pID}";
+
+ini_set('display_errors', 1);
+	
+error_reporting(E_ALL);
+
+$conn=connect();
+	
+if (!$conn) {
+	$e = oci_error();
+	trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+} 
+
+// Drop data analysis fact table
+$dropQ = 'drop table '.$tableName.' ';
+
+//prepare
+$stid = oci_parse($conn, $dropQ );
+
+error_reporting(0);
+
+//execute
+$res=oci_execute($stid);
+
 ?>
 
 <html>
@@ -79,6 +106,10 @@ session_start();
 			echo '<form name = "search" method="post"  action="search_module.php"> 
 					<h2 class ="subscribe"> </h2>
 					<center><input type="submit" name="searchSubmit" value="search"></center>
+					</form>';
+
+			echo '<form name = "olap" method="post"  action="Data_Analysis/Olap.php"> 
+					<center><input type="submit" name="olap" value="Data Analysis Module"></center>
 					</form>';
 		}
 		

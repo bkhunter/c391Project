@@ -1,8 +1,20 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 
 <html>
+	 <?php
+  		ini_set('session.cache_limiter','public');
+		session_cache_limiter(false);
+		
+  		session_start();
+		$pID = $_SESSION['person_id'];
+		//check account type 
+		if ($_SESSION['role'] != 's') {
+			header('Location: ../OOSLogin.php', true, 301);
+			exit();	
+		}
+	?>
 	<head>
 		<style>
 
@@ -62,7 +74,6 @@ include("PHPconnectionDB.php");
 				<th> Subscribed Sensor IDs </th>
 	<?php
 		
-			$pID = 3;
 			$pID = (string)$pID;
 			$f = "fact";
 			$tableName = "{$f}{$pID}";
@@ -91,7 +102,7 @@ include("PHPconnectionDB.php");
 			//prepare
 			$stid = oci_parse($conn, $dropQ );
 		
-			//error_reporting(0);
+			error_reporting(0);
 
 			//execute
 			$res=oci_execute($stid);
@@ -111,14 +122,11 @@ include("PHPconnectionDB.php");
 
 			//prepare
 			$stid = oci_parse($conn, $tableQ );
-		
-			//error_reporting(1);
 
 			//execute
-
 			$res=oci_execute($stid);
 
-			// get sensors attached to admin
+			// get sensors attatched to scientist
 			$sQ = 'select * from subscriptions where person_id = \''.$pID.'\'';	
 			
 			//prepare
@@ -228,6 +236,12 @@ include("PHPconnectionDB.php");
 		
 			?>
 			</table>
+		</div>	
+
+		<div class="container">
+			<form action= "../OOSLogin.php"> 
+				<input type="submit" name="back" value="Exit"/>
+			</form>
 		</div>	
 	</body>
 </html>

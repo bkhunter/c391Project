@@ -3,12 +3,12 @@
 ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 
-include("../PHPconnectionDB.php");
+include("PHPconnectionDB.php");
 
 
 session_start();
 if($_SESSION['login'] != 'true') {
-	header('Location: ../OOS.php', true, 301);
+	header('Location: OOS.php', true, 301);
 	exit();	
 }
 

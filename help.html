@@ -4,7 +4,7 @@
 	<body>
 
 			<center>
-			<div style="width: 45%">
+			<!--<div style="width: 45%">-->
 				<p>
 					<h1>User Documentation:</h1>
 					<table>
@@ -56,7 +56,7 @@
 						<tr><td>
 							<a href="#login">Login Module</a><br/>
 							<a href="#pass">	-change password</a><br/>
-							<a href="#info">	-modify personal information<br/>
+							<a href="#info">	-modify personal information</a><br/>
 							<a href="#logout">	-logout</a>
 
 						</td></tr>
@@ -70,7 +70,10 @@
 						</td></tr>
 						<tr><td>
 							<br/>
-							<a href="#upload">Uploading Module</a>
+							<a href="#upload">Uploading Module</a><br/>
+							<a href="#uimage">	-upload image</a><br/>
+							<a href="#uaudio">	-upload audio</a><br/>
+							<a href="#uscalar">	-upload scalar</a>
 						</td></tr>
 						<tr><td>
 							<br/>
@@ -121,26 +124,113 @@
 							click on <b>edit account</b> button. On the edit account page you will see your information followed by an <font color="#fD00Df"><b>edit button</b></font>.
 							If you see a line of information you want to change click the edit button. For example if you want to change for first name click the button beside your 
 							current name. Once you select a line of information to change you will be sent to a page asking you to type in your new information in association to the field
-							you have chosen to edit. Enter the desired edited field information and then click confirm. The system will then notify you in the change was able to be made or not. 
+							you have chosen to edit. Enter the desired edited field information and then click confirm. The system will then notify you in the change was able to be made or not.<br/>
 							<br/>
 						</td></tr>
 						
 						<tr><td>
 							<a name="sensor_&_user_management"></a><h3>Sensor and User Management Module</h3>
+							<p> This module is used by administrators to manage user accounts and sensors. In this module an administrator can create or remove sensors, as well as create, remove, or update user accounts.</p>
+							<u> Creating a Sensor: </u> <p> If an administrator wishes to create a sensor, they must know the sensor location, the sensor ID, the sensor type, and be able to provide a short description about the new sensor. If they have all this information, then the steps to creation are simple. Log in (see the login module), and in the home page select "Sensor and User Management". Once in the module, select "Create Sensors". The admin will see empty fields for each variable discussed previously, which they now must enter. Once all fields contain data, selecting "Create" will submit the sensor and create it. Follow the on-screen prompts to navigate back the the main menu of the module. </p>
+							<p> Data constraints: Sensor ID must be unique, Sensor Type must be one of 'a' - audio, 'i' - image, or 's' - scalar, Description cannot be longer than 128 characters.</p>
+							<u> Removing a Sensor: </u> <p> To remove a sensor, the admin simply selects the "Remove Sensors" option in the module. The admin must know the sensor ID of the sensor that they wish to remove, input it into the corresponding field and select "remove". If the admin is unsure that the sensor ID they have matches the Sensor they want to remove, there is a search field in the module as well. Enter the sensor ID in the input field and select "search" to review the sensor information. If it matches, select "remove" as before, and then follow on-screen prompts to get back to the main menu of the module.</p>
+							<p> Data constraints: Sensor ID must be valid </p>
+							<u> Creating a user account : </u>
+							<p> This feature is accessed in the same as all the others in the module: select the appropriate button. In this case it is "Add User Account". The admin needs to have data for the following fields:</p> 
+							<p>	Username - The name the new user will log in with. This must be a unique value! </p>
+							<p> ID - The person's ID - This must be a unique value! </p>
+							<p> Role - Designates the role of the user, which defines what they are allowed to do and see in the system. This field is constrained to values in "a" - admin, "d" - data curator, or "s" - scientist </p>
+							<p> Password - The password associated with the Username - required to log in</p>
+							<p> First Name, Last Name, Adress, Phone Number - Personal Information specific to the new user </p>
+							<p> Email address - the email correspondance of the new user. This must be a unique value!</p>
+							<p> Upon inputting the correct information into each associated field, select "Create" to create the account. Follow the on-screen prompt to return to the sensor and user management module </p>
+							<u> Updating and Removing a user account </u>
+							<p> This module is designed in such a way that you must first seach for a user account before changing it. Select the "Update or Remove User Account" button to initiate the sequence. There is a drop down list which enables the user to select how they want to search. The options are ID, Email, or Username; Selecting one will make an input field appear with a search button. Input the corresponding value and hit search. Displayed is all the data for the user in input fields (except for user ID, that cannot be changed). Simply delete the old value and enter a new one to change the field, and when all changes are made select "Update" and follow on-screen prompts from the success screen to get back to the module home. If the account is to be removed, then after the search simply select the "remove" option beneath the update button. </p>
+							<u> Notes: </u>
+							<p>  - If you search for a value that doesn't exist, you will see dummy values that don't represent real data. For example searching for a sensor that doesn't exist will result in fields like "description" for description and "location" for location. choosing to remove these values will do nothing, even though a success message is displayed.</p>
+							<p>  - Generally, main menu in this module means returning to the previous menu. So selecting main menu in the sensor creation screen will return the admin to the home of the senor and user management module. However selection the main menu button in said module home will take the admin back to the system home. </p>
+							<p> - Selecting logout will end the session for the admin </p>
+							
 						</td></tr>
 						<tr><td>
 							<a name="subscribe"></a><h3>Subscribe Module</h3>
+							<p>The subscribe module is only accessible to scientists. It is an interface to subscribe to sensors. Subscribing to sensors means that the user will be able to search for data coming from the sensor in their subscriptions. To the left of the page, there is a side bar with two tabs, subscribed, and not subscribed. The two tabs show which sensors the user is subscribed to and which they are not subscribed to. In the subscribe tab there is a table of sensors which show the users subscribed sensors. If the user wishes to unsubscribe, each table entry is accompanied by a button which allows the user to do so. In the unsubscribed tab, the table entries are also accompanied by a button but it allows the user to subscribe to a particular sensor. <br> In the center of the page, there is a table which shows all available sensors.</p>
 						</td></tr>
 						<tr><td>
 							<a name="upload"></a><h3>Uploading Module</h3>
 						</td></tr>
 						<tr><td>
+							<font color="#fD00Df"><b>This module is used only by users that are data curators.</b></font><br/>
+							To upload click on the <font color="#fD00Df"><b>upload data button</b></font> found on the <b>OOSLogin.php</b> page.<br/>
+							On the page you are directed to you will see the following buttons:<br/> 
+							image, audio, scalar, main page, log out<br/>
+							<b>main page</b> takes you back to the main page<br/>
+							<b>log out</b> logs you out, as stated in the <a href="#logout">login Module</a><br/>
+							To upload an <a name="uimage"></a><font color="#fD00Df"><b>image</b></font> file click on the <b>image button</b>
+							you will be sent to a page where you will need to enter a valid sensor id. Once you have enter a sensor id you will
+							then need to upload a jpg image. To upload the jpg click on the browse button a window will be prompted. Navigate through the prompt
+							and select the jpg file you wish to upload by click on the file and then open in the bottom right corner. After doing so you can 
+							choose to add a description. If so you click in the description field and enter text you what the description to be.
+							Then click on the upload button. You will then be notified if the image could be uploaded or not. 
+							<br/> 
+							To upload an <a name="uaudio"></a><font color="#fD00Df"><b>audio</b></font> file click on the <b>audio button</b>
+							you will be sent to a page where you will need to enter a valid sensor id. Once you have enter a sensor id you will
+							then need to upload a wav audio file. To upload the audio click on the browse button a window will be prompted. Navigate through the prompt
+							and select the wav audio file you wish to upload by click on the file and then open in the bottom right corner of the prompt. After doing so you can 
+							choose to add a description. If so you click in the description field and enter text you what the description to be. Next you will add the length of
+							the audio file be enter a number in the length field that is the length of the audio file in seconds. Then click on the upload button. 
+							You will then be notified if the audio could be uploaded or not. 
+							<br/>
+							To upload <a name="uscalar"></a><font color="#fD00Df"><b>scalar</b></font> batches click on the <b>scalar button</b>
+							you will be sent to a page where you will be asked to upload a csv file. Click on the browse button a window will be prompted. Navigate through the prompt
+							and select the csv file you wish to upload by click on the file and then open in the bottom right corner of the prompt.
+							You will then be notified if the batch could be uploaded or not. <b>batchs only uploads if all lines in the csv are able
+							to be uploaded</b><br/>
+							Note that the content of the form must be:<br/>
+							sensor_id,DD/MM/YYYY HH:MM:SS,value<br/>
+							sensor_id,DD/MM/YYYY HH:MM:SS,value<br/>
+							...<br/>
+							sensor_id,DD/MM/YYYY HH:MM:SS,value<br/>
+							
+							<br/>
+							So an example would be:<br/>
+							2,01/11/2015 22:51:57,30<br/>
+							3,02/11/2015 04:50:59,23</br>
+							
+							<br/>
+							where 2 and 3 are valid sensor_id's<br/>
+							<br/>
+						</td></tr>
+						<tr><td>
 							<a name="search"></a><h3>Search Module</h3>
+							<p>
+							The search module is provided to scientists so they can search for particular data given by their subscribed sensors.	
+								
+							</p>
 						</td></tr>
 						<tr><td>
 							<a name="analysis"></a><h3>Data Analysis Module</h3>
-						</td></tr>
-					</table>
+							<p> Scientist users of the system can use this module to visualize the scalar data collected by sensors. Once logged in to the system, if the user is of the scientist type, they will see a button called "Data Analysis Module", which when selected transfers to the homepage for the module. When the page is viewed, a fact view is temporarily created for use in queries. To ensure safety if multiple scientists were using the system at the same time the name of the view is "fact" + the person ID of the user. For example a scientist with id 3 would create a fact view named "fact3" while a scientist with ID 50 creates "fact50". The view is always newly created when accessing the module (since new data could be uploaded, or new sensors could be subscribed to) and destroyed when exiting the module.
+							<p> The scientist will see a list of sensors that they are currently subcribed to, each selectable, and once selected begins a time heirarchy of information. In each display the scientist will see aggregate values of sensor data, grouped by certain time parameter (year,month, etc.). Navigation throughout this module is done by selecting each time category, which are explained below.</p>
+							
+							<u> Year: </u>
+							<p> Upon selecting a sensor, the scientist will see the SUM, MIN, and MAX values that that sensor collected for each year it was active. For example, if the year is 2015, sum represents all scalar data observed in 2015 added together, min is the lowest value, and max is the highest.</p>
+							<u> Quarter: </u>
+							<p> Selecting a year shows the SUM, MIN, and MAX of the scalar data recieved in that year, but qrouped by Quarter. A quarter is one of 4 3-month periods that divide a year into 4 parts. So, if the quarter is January - March (Quarter 1) it will show the aggregates for all data collected in those 3 months, in the year selected.</p>
+							<u> Month: </u>
+							<p> Continuing down the hierarchy, selecting a quarter will show that quarter's data, but grouped by the three months in the quarter. So if a sensor recorded data in January, February, and March of a certain year (Quarter 1), the quarter will show the agreggates of all these measurements, but the monthly view shows each one distinctly.</p>
+							<u> Week: </u>
+							<p> Selecting the month in the monthly view separates the month's data by weeks in the month, in the same fashion as explained above. The weeks will only display data in the specified month, even though some weeks intersect. For example if the first week in January started on Sunday, Dec 28th and ended on Saturday Jan 3, the SUM, MIN, and MAX for week 1 of January would only aggregate data from Jan 1st - Jan 3rd. There will also be data for the december values of this same week, but to view this the scientist would need to begin from the corresponding year.</p>
+							<u> Day: </u>
+							<p>Finally, selecting the week displays the SUM, MIN, and MAX for each day in that week that a sensor has values for. So if all data in a week came in on Monday, the aggregates will only be displayed for monday, buf if data was recorded every day in a week, all days will be displayed, with distinct data. This is the lowest level of detail data can be analyzed at.</p>
+
+							<u> Notes: </u>
+							<p> In each module page (other than the first) there are two buttons: Roll up (or back) and Exit. Roll up returns the scientist to the previous level of detail so they can view different results. For example, if a scientist wanted to see all days in a month they would have to drill down to the corresponding weekly view, and then select a week, roll up, select another week, etc. Selecting exit at any time returns the scientist to the system home </p>
+							<p> If a sensor has no data, an empy table is shown when selected. </p>
+							<p> If a time is not shown (year, day, month, etc.) then there is no data collected for it. </p>
+							
+						</td></tr>  
+					</table>'
 				</p>
 				
 			</div>

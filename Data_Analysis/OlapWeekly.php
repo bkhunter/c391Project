@@ -1,7 +1,18 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 <html>
+	<?php
+  		ini_set('session.cache_limiter','public');
+		session_cache_limiter(false);
+		
+  		session_start();
+		//check account type 
+		if ($_SESSION['role'] != 's') {
+			header('Location: ../OOSLogin.php', true, 301);
+			exit();	
+		}
+	?>
 	<head>
 		<style>
 			
@@ -10,6 +21,7 @@ include("PHPconnectionDB.php");
 				background-color: gray;
 				border: 3px solid black;
 				text-align:left;
+				width: 100%;
 			}
 
 			ul#Times {
@@ -101,6 +113,19 @@ include("PHPconnectionDB.php");
 				<div class = "page-header">
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
+
+			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
+			<div class="container">
+				<form> 
+					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
+				</form>
+			</div>	
+	
+			<div class="container">
+				<form action= "../OOSLogin.php"> 
+					<input type="submit" name="back" value="Exit"/>
+				</form>
+			</div>	
 		
 			<div class="container">
 				<h4> ID : <?php echo $sid ?> </h4>  
@@ -128,10 +153,6 @@ include("PHPconnectionDB.php");
 				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\' and extract(month from date_created) = \''.$month.'\'
 				GROUP BY f.week';
 
-				echo $sid;
-				echo $year;
-				echo $month;
-
 				//prepare
 				$stid1 = oci_parse($conn,$weekRes);
 					
@@ -142,19 +163,31 @@ include("PHPconnectionDB.php");
 					foreach($row as $item) {
 						if ($i%4 == 0) {
 
+							
 							$datet = new DateTime();
 							$datef = new DateTime();
-							$datet->setISODate($year, $item+1, 0);
-							$datef->setISODate($year, $item+1, 6);
+
+							$dateFIR = "{$year}-01-01";
+							$first = date('l',strtotime(date($dateFIR)));
+
+							if (($first == 'Friday') || ($first == 'Saturday')) {
+
+								$datet->setISODate($year, $item, 0);
+								$datef->setISODate($year, $item, 6);
+
+							} else {
+								$datet->setISODate($year, $item+1, 0);
+								$datef->setISODate($year, $item+1, 6);
+							}
 
 							$st =  $datet->format('Y-m-d') . "\n";
 							$et =  $datef->format('Y-m-d') . "\n";
 
-							$incr = $item+1;
 
 							echo "<td>"; 
 							echo "<ul id='Times'>";
-							echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$incr. "] " .$st. " " .$et."</a></li>";
+							echo "<li><a href='OlapDates.php?sid=$sid&year=$year&quarter=$quarter&month=$month&week=$item'>" .$st. " " .$et."</a></li>";
+							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$item'>" .$monthName. "</a></li>";
 							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
 							echo "</ul>";
 							echo "</td>"; 

@@ -1,7 +1,18 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 ?>
 <html>
+	<?php
+  		ini_set('session.cache_limiter','public');
+		session_cache_limiter(false);
+		
+  		session_start();
+		//check account type 
+		if ($_SESSION['role'] != 's') {
+			header('Location: ../OOSLogin.php', true, 301);
+			exit();	
+		}
+	?>
 	<head>
 		<style>
 			
@@ -10,6 +21,7 @@ include("PHPconnectionDB.php");
 				background-color: gray;
 				border: 3px solid black;
 				text-align:left;
+				width: 100%;
 			}
 
 			ul#Times {
@@ -95,6 +107,20 @@ include("PHPconnectionDB.php");
 				<div class = "page-header">
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
+
+			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
+			<div class="container">
+				<form> 
+					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
+				</form>
+			</div>	
+			
+			<div class="container">
+				<form action= "../OOSLogin.php"> 
+					<input type="submit" name="back" value="Exit"/>
+				</form>
+			</div>	
+
 		
 			<div class="container">
 				<h4> ID : <?php echo $sid ?> </h4>  

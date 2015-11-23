@@ -4,7 +4,19 @@ values ('texas','a','good time', 5500 );
 insert into subscriptions values (5500, 3);
 
 insert into scalar_data (id, sensor_id, date_created, value)
-values ('7700',5500, TO_DATE('1-JAN-2013', 'DD-MON-YYYY' ), 100 );
+values ('7700',5500, TO_DATE('1-JAN-2011', 'DD-MON-YYYY' ), 100 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7790',5500, TO_DATE('1-JAN-2010', 'DD-MON-YYYY' ), 100 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7740',5500, TO_DATE('1-JAN-2009', 'DD-MON-YYYY' ), 100 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7745',5500, TO_DATE('1-JAN-2008', 'DD-MON-YYYY' ), 100 );
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('7750',5500, TO_DATE('2-JAN-2011', 'DD-MON-YYYY' ), 100 );
 
 insert into scalar_data (id, sensor_id, date_created, value)
 values ('7800',5500, TO_DATE('11-JAN-2013', 'DD-MON-YYYY' ), 200 );
@@ -157,7 +169,6 @@ values ('7705',5505, TO_DATE('11-NOV-2015', 'DD-MON-YYYY' ), 50 );
 
 
 
-
 insert into sensors (location, sensor_type, description, sensor_id)
 values ('fort wayne','a','good time', 5506 );
 
@@ -166,5 +177,15 @@ insert into subscriptions values (5506, 3);
 insert into scalar_data (id, sensor_id, date_created, value)
 values ('7706',5506, TO_DATE('11-NOV-2015', 'DD-MON-YYYY' ), 700 );
 
-commit;
 
+insert into sensors (location, sensor_type, description, sensor_id)
+values ('disneyland','i','TEST', 5507 );
+
+insert into subscriptions values (5507, 1);
+
+insert into scalar_data (id, sensor_id, date_created, value)
+values ('9999',5507, TO_DATE('01/08/2011', 'DD/MM/YYYY'), 99 );
+
+commit;
+-- 22:34;54
+-- HH24:MI:SS

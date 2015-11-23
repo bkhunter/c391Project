@@ -313,9 +313,6 @@ function getImageData($data){
 		echo'sup';
 		file_put_contents('tempPic'.$imageData['ID'].'.jpg', base64_decode($imageData['image']->load()));
 		echo'shamwow';
-		//this will ask the to download file , and it should not be broken :)  
-		//header('Location: tempPic.jpg',true,301);
-		
 
 		
 				
@@ -353,7 +350,7 @@ function getImageData($data){
 
 	$('.downloadImage').click(function(){
 
-
+		//http://php.net/manual/en/reserved.variables.get.php
 		window.open('downloadImage.php?id='+$(this).attr('id'));
 
 	});
