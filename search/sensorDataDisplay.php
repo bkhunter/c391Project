@@ -161,7 +161,7 @@ function getAudioData($data){
 		$audioData['description'] = oci_result($parsedAudioData , 'DESCRIPTION');
 
 		$a = $audioData['audio']->load();
-		file_put_contents('tempAudio'.$audioData['audioID'].'.wav' , $a);
+		file_put_contents('tempAudio'.$audioData['audioID'].'_'.$_SESSION['person_id'].'.wav' , $a);
 
 
 
@@ -246,9 +246,10 @@ function getScalarData($data){
 
 	echo '</table>';
 
-	echo '<center><button class=downloadCSV style="width: 200px; height: 50px">Download Scalar Data</button></center><br/><br/><br/>';
-
-			$fp = fopen('scalar_data.csv','w');
+	if($scalarData[$index]['sensorID']!=''){
+		echo '<center><button class=downloadCSV style="width: 200px; height: 50px">Download Scalar Data</button></center><br/><br/><br/>';
+	}
+			$fp = fopen('scalar_data.csv'.$_SESSION['person_id'],'w');
 				for( $row = 0 ; $row < $index ; $row++){
 					fputcsv($fp,$scalarData[$row]);				
 					
@@ -331,31 +332,15 @@ function getImageData($data){
 		$imageData['image'] = oci_result($parsedImageData,'RECOREDED_DATA');
 		$imageData['date'] = oci_result($parsedImageData, 'DATE_CREATED');
 		$imageData['description'] = oci_result($parsedImageData, 'DESCRIPTION');
-		//echo'sup';
-		file_put_contents('tempPic'.$imageData['ID'].'.jpg', base64_decode($imageData['image']->load()));
-		///echo'shamwow';
+
+		file_put_contents('tempPic'.$imageData['ID'].'_'.$_SESSION['person_id'].'.jpg', base64_decode($imageData['image']->load()));
+
 
 		
 				
 		echo '<tr><td>'.$imageData['sensorID'].'</td> <td> <img src="data:image/jpeg;base64, '.$imageData['thumbnail']->load().'">
 		<td>'.$imageData['date'].'</td><td>'.$imageData['description'].'</td>
 		<td><button href=downloadImage.php?id='.$imageData['ID'].' class=downloadImage id = '.$imageData['ID'].'>Download</button></td></tr>';
-
-	
-
-		/*
-		image most likely de encode base 64 0.0 idk 
-		
-		image/audio NOT scalar (need to make file) 
-
-		//this is on the same location as this file
-		file_put_contents('some_temp_name_that_we_remove_after.jpg', $imageData['image']->load());
-		//this will ask the to download file , and it should not be broken :)  
-		header(Location: some_temp_name_that_we_remove_after.jpg,true,301);
-		exit();
-		*/
-
-
 		
 
 
