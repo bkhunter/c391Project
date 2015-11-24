@@ -151,7 +151,7 @@ function getAudioData($data){
 		$audioData['description'] = oci_result($parsedAudioData , 'DESCRIPTION');
 
 
-		file_put_contents('tempAudio'.$audioData['ID'].'.wav',$audioData['audio']->load());.
+		file_put_contents('tempAudio'.$audioData['audioID'].'.wav', ($audioData['audio']->load()));.
 
 
 		echo '<tr><td>'.$audioData['audioID'].'</td><td>'.$audioData['sensorID'].'</td>
