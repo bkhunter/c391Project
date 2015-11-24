@@ -105,7 +105,13 @@ include("../PHPconnectionDB.php");
 				<div class = "page-header">
 				<h1 class ="title"> Olap Analysis</h1>			
 			</div>
-		
+			
+			<div align="right">
+			<form name = "login" method="post"  action="../help.html"> 
+					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+			</form>
+			</div> 
+			
 			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
 			<div class="container">
 				<form> 

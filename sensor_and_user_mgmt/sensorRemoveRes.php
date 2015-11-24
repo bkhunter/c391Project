@@ -34,6 +34,11 @@ if ($_SESSION['role'] != 'a') {
 		<h1 class ="title"> Sensor and User Management </h1>			
 		</div>
 
+		<div align="right">
+			<form name = "login" method="post"  action="../help.html"> 
+					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+			</form>
+		</div> 
 
 		<?php   	 
 			if(isset($_POST['IDSearch'])){        	

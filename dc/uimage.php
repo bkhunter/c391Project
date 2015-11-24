@@ -1,6 +1,11 @@
 <html>
 
 <body>
+<div align="right">
+			<form name = "login" method="post"  action="../help.html"> 
+					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+			</form>
+</div> 
 <?php
 
 ini_set('session.cache_limiter','public');
