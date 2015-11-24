@@ -16,11 +16,10 @@ include("../PHPconnectionDB.php");
 		}
 	?>
 	<head>
+		<!-- defines how the tables look -->
 		<style>
-			<!-- defines how the tables look -->
 
 			table#sensors {
-				
 				background-color: gray;
 				border: 3px solid black;
 				width: 100%;
@@ -161,15 +160,12 @@ include("../PHPconnectionDB.php");
 
 					// with sensor ID get location and values to put into fact table
 					foreach($s_res as &$sensorID) {
-
+						//http://stackoverflow.com/questions/13102351/passing-a-variable-with-href-in-html
 						//display as list item
 						echo "<tr>";
 						echo "<td>"; 
 						echo "<ul id='item'>";
-
-						//http://stackoverflow.com/questions/13102351/passing-a-variable-with-href-in-html
 						echo "<li><a href='OlapYearly.php?sid=$sensorID' >" .$sensorID. "</a></li>";
-
 						echo "</ul>";
 						echo "</td>"; 
 						echo "</tr>";

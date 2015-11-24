@@ -197,7 +197,7 @@ include("../PHPconnectionDB.php");
 		
 		?>
 		
-		//log out button 
+		<!--log out button -->
 		<form name = "continue" method="post"  action="../OOSLogin.php"> 
 					<h2 class ="continue"> </h2>
 					<center><input type="submit" name="validate" value="continue"></center>

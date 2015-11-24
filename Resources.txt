@@ -1,25 +1,45 @@
+all:
+https://eclass.srv.ualberta.ca/pluginfile.php/2405300/mod_resource/content/1/PHP_lab_Cmput_391.pdf
+https://eclass.srv.ualberta.ca/mod/resource/view.php?id=1684323
+
+bootstrap:
+http://getbootstrap.com/getting-started/
+
+upload:
+http://php.net/manual/en/function.imagejpeg.php#89866
+
+
 Data Analysis
 
-- //http://stackoverflow.com/questions/871858/php-pass-variable-to-next-page
-- //http://stackoverflow.com/questions/13102351/passing-a-variable-with-href-in-html
+
+Date and time conversions and formatting:
 - http://php.net/manual/en/function.strtotime.php
 - http://php.net/manual/en/function.strftime.php
-- http://www.computerhope.com/issues/ch000317.htm
 - http://stackoverflow.com/questions/18467669/convert-number-to-month-name-in-php
 - http://stackoverflow.com/questions/25906836/how-to-get-the-first-day-of-the-current-year
 - http://php.net/manual/en/class.datetime.php
 - http://php.net/manual/en/function.date.php
+
+Tables made with reference to
 - http://www.html.am/html-codes/tables/table-border.cfm
 - http://www.w3schools.com/html/html_lists.asp
+- http://stackoverflow.com/questions/871858/php-pass-variable-to-next-page
+- http://stackoverflow.com/questions/13102351/passing-a-variable-with-href-in-html
+
+Back Button
+- http://www.computerhope.com/issues/ch000317.htm
 
 Sensor And User Management
 
--http://www.w3schools.com/html/html_forms.asp
+DropDown list:
 -http://stackoverflow.com/questions/12293939/select-dropdown-default-value
 -http://stackoverflow.com/questions/9870838/how-to-submit-a-select-menu-without-a-submit-button
 -http://stackoverflow.com/questions/18884713/dynamic-drop-down-list-using-html-and-php
 -http://stackoverflow.com/questions/14652144/how-to-change-content-depending-on-a-select
 -http://www.html-form-guide.com/php-form/php-form-select.html
+
+General usability:
 -http://php.net/manual/en/function.date.php
 -http://php.net/manual/en/function.strtoupper.php
+-http://www.w3schools.com/html/html_forms.asp
 
