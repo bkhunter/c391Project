@@ -9,3 +9,17 @@ Data Analysis
 - http://stackoverflow.com/questions/25906836/how-to-get-the-first-day-of-the-current-year
 - http://php.net/manual/en/class.datetime.php
 - http://php.net/manual/en/function.date.php
+- http://www.html.am/html-codes/tables/table-border.cfm
+- http://www.w3schools.com/html/html_lists.asp
+
+Sensor And User Management
+
+-http://www.w3schools.com/html/html_forms.asp
+-http://stackoverflow.com/questions/12293939/select-dropdown-default-value
+-http://stackoverflow.com/questions/9870838/how-to-submit-a-select-menu-without-a-submit-button
+-http://stackoverflow.com/questions/18884713/dynamic-drop-down-list-using-html-and-php
+-http://stackoverflow.com/questions/14652144/how-to-change-content-depending-on-a-select
+-http://www.html-form-guide.com/php-form/php-form-select.html
+-http://php.net/manual/en/function.date.php
+-http://php.net/manual/en/function.strtoupper.php
+

@@ -1,3 +1,9 @@
+<!--http://www.w3schools.com/html/html_forms.asp-->
+<!--code also taken from class notes -->
+
+
+<!-- The user is able to add a new user account here -->
+
 <html>
 
   <?php
@@ -13,60 +19,58 @@
 	?>
 
 	<head>
-
 		<title>
-
 			Add User Account
-
 		</title>
-
 	</head>
 
 	<link rel="stylesheet" type="text/css" href= "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel ="stylesheet" type ="text/css" href="sensorModule.css">
 
 	<body>
-		
 		<div class ="page">
-		<div class = "page-header">
-		<h1 class ="title"> Sensor and User Management </h1>			
-		</div>
+			
+			<div class = "page-header">
+				<h1 class ="title"> Sensor and User Management </h1>			
+			</div>
 		
-		<div align="right">
-			<form name = "login" method="post"  action="../help.html"> 
-					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
-			</form>
-		</div> 
+			<div align="right">
+				<form name = "login" method="post"  action="../help.html"> 
+						<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+				</form>
+			</div> 
 		
-		<form name = "logout" method="post"  action="../logout.php"> 
+			<form name = "logout" method="post"  action="../logout.php"> 
 					<h2 class ="logout"> </h2>
 					<center><input type="submit" name="validate" value="log out"></center>
-		</form>
-
-		<div class="LoginForm container">
-	
-			<h1>Create Account</h1>
-			<form name= "Create User Account" method="post" action="uAccountAddSubmit.php"> 
-				User Name<input type="text" name="usrName"/> <br/>
-				ID<input type="text" name="ID"/> <br/>
-				Role<input type="text" name="role"/> <br/>
-				Password<input type="text" name="pwd"/> <br/>
-				First Name<input type="text" name="fName"/> <br/>
-				Last Name<input type="text" name="lName"/> <br/>
-				Address<input type="text" name="addr"/> <br/>
-				Email Address<input type="text" name="email"/> <br/>
-				Phone Number<input type="text" name="phone"/> <br/>
-				<input type="submit" name="create"value="Create!"/>
 			</form>
 
-		</div>	
-
-		<div class="LoginForm container">
-				<form name= "Back" method="post" action="sensorModule.php"> 
-						<input type="submit" name="Return"value="Return To Menu"/>
+			<!-- input fields for creation -->
+			<div class="LoginForm container">
+	
+				<h1>Create Account</h1>
+				<form name= "Create User Account" method="post" action="uAccountAddSubmit.php"> 
+					User Name<input type="text" name="usrName"/> <br/>
+					ID<input type="text" name="ID"/> <br/>
+					Role<input type="text" name="role"/> <br/>
+					Password<input type="text" name="pwd"/> <br/>
+					First Name<input type="text" name="fName"/> <br/>
+					Last Name<input type="text" name="lName"/> <br/>
+					Address<input type="text" name="addr"/> <br/>
+					Email Address<input type="text" name="email"/> <br/>
+					Phone Number<input type="text" name="phone"/> <br/>
+					<input type="submit" name="create"value="Create!"/>
 				</form>
-		</div>	
 
+			</div>	
+
+			<!-- back button -->
+			<div class="LoginForm container">
+					<form name= "Back" method="post" action="sensorModule.php"> 
+							<input type="submit" name="Return"value="Return To Menu"/>
+					</form>
+			</div>
+	
+		</div>
 	</body>
-
 </html>
