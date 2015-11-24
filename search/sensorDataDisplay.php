@@ -272,7 +272,7 @@ function getImageData($data){
 		
 	if($data['location']!=''){
 
-		$sqlI = $sqlI .'and sensor_id.location = \''.$data['location'].'\' ';
+		$sqlI = $sqlI .'and sensors.location = \''.$data['location'].'\' ';
 
 	}
 
