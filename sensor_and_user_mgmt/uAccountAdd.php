@@ -32,6 +32,12 @@
 		<h1 class ="title"> Sensor and User Management </h1>			
 		</div>
 		
+		<div align="right">
+			<form name = "login" method="post"  action="../help.html"> 
+					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+			</form>
+		</div> 
+		
 		<form name = "logout" method="post"  action="../logout.php"> 
 					<h2 class ="logout"> </h2>
 					<center><input type="submit" name="validate" value="log out"></center>

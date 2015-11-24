@@ -21,7 +21,11 @@ session_start();
   <head>
     <title>Subscribe to Sensors - OOS</title>
 
-
+		<div align="right">
+			<form name = "login" method="post"  action="../help.html"> 
+					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+			</form>
+		</div> 
 
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="subscribeModule.css">
