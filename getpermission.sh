@@ -10,7 +10,6 @@ cd ..
 chmod -R 777 dc
 cd dc
 chmod 644 *.php
-chmod 644 *.css
 cd ..
 chmod -R 777 Data_Analysis
 cd Data_Analysis
