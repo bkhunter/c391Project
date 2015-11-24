@@ -100,7 +100,7 @@ function getAudioData($data){
 
 	$sqlA = 'select audio_recordings.recording_id ,audio_recordings.sensor_id ,audio_recordings.date_created ,audio_recordings.length, audio_recordings.description, 			audio_recordings.recorded_data , sensors.location
 		from audio_recordings, subscriptions, sensors	
-		where subscriptions.person_id = 1
+		where subscriptions.person_id = '.$_SESSION['person_id'].'
 		and subscriptions.sensor_id = sensors.sensor_id
 		and audio_recordings.sensor_id = subscriptions.sensor_id ';
 		
@@ -183,7 +183,7 @@ function getScalarData($data){
 	
 		$sqlS = 'select scalar_data.id, scalar_data.sensor_id , scalar_data.date_created, scalar_data.value
 		from scalar_data, subscriptions, sensors	
-		where subscriptions.person_id = \''.$_SESSION['person_id'].'\'
+		where subscriptions.person_id = '.$_SESSION['person_id'].'
 		and subscriptions.sensor_id =sensors.sensor_id
 		and scalar_data.sensor_id = sensors.sensor_id ';
 		
@@ -266,7 +266,7 @@ function getImageData($data){
 
 	$sqlI = 'select images.image_id , images.sensor_id, images.date_created, images.description , images.thumbnail , images.recoreded_data  
 	from images, subscriptions, sensors	
-	where subscriptions.person_id = \''.$_SESSION['person_id'].'\'
+	where subscriptions.person_id = '.$_SESSION['person_id'].'
 	and subscriptions.sensor_id =sensors.sensor_id
 	and images.sensor_id = sensors.sensor_id';
 		
