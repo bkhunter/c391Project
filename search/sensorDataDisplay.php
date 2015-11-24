@@ -1,7 +1,5 @@
 <?php
-ini_set('session.cache_limiter','public');
-session_cache_limiter(false);
-include("../PHPconnectionDB.php");
+include("PHPconnectionDB.php");
 
 session_start();
 ?>
@@ -133,21 +131,14 @@ function getAudioData($data){
 		echo 'until: '.$sqlUntilDate.'<br>';
 		$sqlA = $sqlA . 'and audio_recordings.date_created between TO_DATE(\''.$sqlFromDate.'\' ,\'dd/mm/yyyy\')  and  TO_DATE( \''.$sqlUntilDate.'\',\'dd/mm/yyyy\') ';
 	}
+	//echo $sqlA;
 	$conn = connect();
 	$parsedAudioData = oci_parse($conn,$sqlA);
 	$res = oci_execute($parsedAudioData);
 	
 	echo '<h3>Audio Recordings</h3>';	
-	echo'<table> 
-	<col width="50">
-	<col width="100">
-	<col width="100">
-	<col width="100">
-	<col width="100">
-	<col width="100">
-	<col width="100">
-	<thead> <tr> 
-	<th> ID </th> <th> SensorID</th> <th>length</th> <th>date</th> <th> Description</th> <th>Download</th> </tr>
+	echo'<table class =table> <thead> <tr> 
+	 <th> SensorID</th> <th>length</th> <th>date</th> <th> Description</th> <th>Download</th> </tr>
 	</thead><tbody>';
 
 
@@ -159,12 +150,12 @@ function getAudioData($data){
 		$audioData['date'] = oci_result($parsedAudioData , 'DATE_CREATED');
 		$audioData['description'] = oci_result($parsedAudioData , 'DESCRIPTION');
 
+		$a = $audioData['audio']->load();
+		file_put_contents('tempAudio'.$audioData['audioID'].'.wav' , $a);
 
-		file_put_contents('tempAudio'.$audioData['audioID'].'.wav' , $audioData['audio']->load());
 
 
-
-		echo '<tr><td>'.$audioData['audioID'].'</td><td>'.$audioData['sensorID'].'</td>
+		echo '<tr><td>'.$audioData['sensorID'].'</td>
 		<td>'.$audioData['length'].'</td> <td>'.$audioData['date'].'</td> <td>'.$audioData['description'].'</td>
 		<td> <button class=downloadAudio id = '.$audioData['audioID'].'>Download</button></td></tr>';
 
@@ -218,16 +209,10 @@ function getScalarData($data){
 			$conn = connect();
 			$parsedScalarData = oci_parse($conn,$sqlS);
 			$res = oci_execute($parsedScalarData);
-
+			//echo $sqlS;
 			echo '<h3>Scalar Data</h3>';
-			echo'<table> 
-			  <col width="50">
-			  <col width="100">
-			  <col width="100">
-			  <col width="100">
-			  <col width="100">
-			<thead> <tr> 
-			<th> ID </th> <th> SensorID</th> <th>value</th> <th>date</th><th>Download</th> </tr>
+			echo'<table class=table> <thead> <tr> 
+			<th> SensorID</th> <th>value</th> <th>date</th></tr>
 			</thead><tbody>';
 
 			$index = 0;
@@ -242,16 +227,16 @@ function getScalarData($data){
 
 				
 
-				echo '<tr><td>'.$scalar['ID'].'</td><td>'.$scalarData[$index]['sensorID'].'</td> 
+				echo '<tr><td>'.$scalarData[$index]['sensorID'].'</td> 
 				<td>'.$scalarData[$index]['value'].'</td> <td>'.$scalarData[$index]['date'].'</td>
-				<td> <button class=downloadCSV id = '.$scalar['ID'].'>Download</button></td></tr>';
+				</tr>';
 				$index = $index + 1;
 
 			}	
 
 	echo '</table>';
 
-
+	echo '<button class=downloadCSV>Download Scalar Data</button>';
 
 			$fp = fopen('scalar_data.csv','w');
 				for( $row = 0 ; $row < $index ; $row++){
@@ -316,22 +301,15 @@ function getImageData($data){
 					$sqlI = $sqlI . 'and images.date_created between TO_DATE(\''.$sqlFromDate.'\' ,"dd/mm/yyyy")  and  TO_DATE( \''.$sqlUntilDate.'\',"dd/mm/yyyy") ';
 	}
 
+	//echo $sqlI;
 	$conn = connect();
 	$parsedImageData = oci_parse($conn,$sqlI);
 	$res = oci_execute($parsedImageData);
 
 	echo '<h3> Image Data</h3>';
 
-	echo'<table> 
-	<col width="50">
-	<col width="100">
-	<col width="160">
-	<col width="90">
-	<col width="100">
-	<col width="100">
-	<col width="100">
-	<thead> <tr> 
-	<th> ID </th> <th> SensorID</th> <th>Thumbnail</th>  <th>Date</th> <th>Description</th> <th>Download</th> </tr>
+	echo'<table class=table> <thead> <tr> 
+	<th> SensorID</th> <th>Thumbnail</th>  <th>Date</th> <th>Description</th> <th>Download</th> </tr>
 	</thead><tbody>';
 
 	
@@ -343,13 +321,13 @@ function getImageData($data){
 		$imageData['image'] = oci_result($parsedImageData,'RECOREDED_DATA');
 		$imageData['date'] = oci_result($parsedImageData, 'DATE_CREATED');
 		$imageData['description'] = oci_result($parsedImageData, 'DESCRIPTION');
-
+		//echo'sup';
 		file_put_contents('tempPic'.$imageData['ID'].'.jpg', base64_decode($imageData['image']->load()));
-
+		///echo'shamwow';
 
 		
 				
-		echo '<tr><td>'.$imageData['ID'].'</td><td>'.$imageData['sensorID'].'</td> <td> <img src="data:image/jpeg;base64, '.$imageData['thumbnail']->load().'">
+		echo '<tr><td>'.$imageData['sensorID'].'</td> <td> <img src="data:image/jpeg;base64, '.$imageData['thumbnail']->load().'">
 		<td>'.$imageData['date'].'</td><td>'.$imageData['description'].'</td>
 		<td><button href=downloadImage.php?id='.$imageData['ID'].' class=downloadImage id = '.$imageData['ID'].'>Download</button></td></tr>';
 
