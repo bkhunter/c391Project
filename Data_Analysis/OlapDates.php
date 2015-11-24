@@ -62,6 +62,7 @@ include("../PHPconnectionDB.php");
 	
 	<body>
 		<?php
+			// only display if week selected
 			if (isset($_GET['week'])) {
 				$week = $_GET['week']; 
 				$month = $_GET['month'];  
@@ -74,8 +75,10 @@ include("../PHPconnectionDB.php");
 				$datef = new DateTime();
 				$dateFIR = "{$year}-01-01";
 
+				//http://stackoverflow.com/questions/25906836/how-to-get-the-first-day-of-the-current-year
 				$first = date('l',strtotime(date($dateFIR)));
 
+				// use same logic as in OlapWeekl.php to determine whether to increment or not
 				if (($first == 'Friday') || ($first == 'Saturday')) {
 
 					$datet->setISODate($year, $week, 0);
@@ -86,9 +89,9 @@ include("../PHPconnectionDB.php");
 					$datef->setISODate($year, $week+1, 6);
 				}
 
+				// start and end dates
 				$start =  $datet->format('Y-m-d') . "\n";
 				$end =  $datef->format('Y-m-d') . "\n";
-
 
 				//get month
 				$mObj   = DateTime::createFromFormat('!m', $month);
@@ -123,102 +126,94 @@ include("../PHPconnectionDB.php");
 
 				?>
 
-			<div class ="page">
-				<div class = "page-header">
-				<h1 class ="title"> Olap Analysis</h1>			
-			</div>
+				<div class ="page">
+					<div class = "page-header">
+					<h1 class ="title"> Olap Analysis</h1>			
+				</div>
 			
-			<div align="right">
-				<form name = "login" method="post"  action="../help.html"> 
-						<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
-				</form>
-			</div> 
+				<div align="right">
+					<form name = "login" method="post"  action="../help.html"> 
+							<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+					</form>
+				</div> 
 
+				<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
+				<div class="container">
+					<form> 
+						<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
+					</form>
+				</div>	
+
+				<div class="container">
+					<form action= "../OOSLogin.php"> 
+						<input type="submit" name="back" value="Exit"/>
+					</form>
+				</div>	
+
+				<!-- constuct table to be filled with php echos -->
+				<div class="container">
+					<h4> ID : <?php echo $sid ?> </h4>  
+					<h4>  Location : <?php echo $loc ?> </h4>
+					<h4>  Year : <?php echo $year ?> </h4>
+					<h4>  Quarter : <?php echo $quarter ?> </h4>
+					<h4>  Month : <?php echo $monthName ?> </h4>
+					<h4>  Week : <?php echo $start ?> to <?php echo $end?> </h4>
+					<table id = "Day" border = "1">
+						<th> Day </th>
+						<th> Sum </th>
+						<th> Min </th>
+						<th> Max </th>
+
+					<?php
+						//drill down to days
+						$dayRes = 'SELECT extract(day from date_created), SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
+						FROM	'.$tableName.' f
+						WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\' and extract(month from date_created) = \''.$month.'\' and f.week = \''.$week.'\'
+						GROUP BY extract(day from date_created)';
+
+
+						//prepare
+						$stid1 = oci_parse($conn,$dayRes);
+						//execute
+						$res = oci_execute($stid1);
+
+						$i = 0;
+						while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
+							echo '<tr>';
+							foreach($row as $item) {
+								if ($i%4 == 0) {
 			
-			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
-			<div class="container">
+									//format date 
+									//http://php.net/manual/en/class.datetime.php
+									//http://php.net/manual/en/function.date.php
 
-				<form> 
-					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
-				</form>
+									$timeStr = "{$month}/{$item}/{$year}";
+									$datetime = DateTime::createFromFormat('m/d/Y', $timeStr);
+									$timeStr = $datetime->format('D, Y-M-d');
 
-			</div>	
+									echo "<td>"; 
+									echo "<ul id='disp'>";
+									echo "<li> $timeStr </li>";
+									//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a><li>";							
+									echo "</ul>";
+									echo "</td>"; 
 
-			<div class="container">
-				<form action= "../OOSLogin.php"> 
-					<input type="submit" name="back" value="Exit"/>
-				</form>
-			</div>	
-		
-			<div class="container">
-				<h4> ID : <?php echo $sid ?> </h4>  
-				<h4>  Location : <?php echo $loc ?> </h4>
-				<h4>  Year : <?php echo $year ?> </h4>
-				<h4>  Quarter : <?php echo $quarter ?> </h4>
-				<h4>  Month : <?php echo $monthName ?> </h4>
-				<h4>  Week : <?php echo $start ?> to <?php echo $end?> </h4>
-				<table id = "Day" border = "1">
-					<th> Day </th>
-					<th> Sum </th>
-					<th> Min </th>
-					<th> Max </th>
-
-			<?php
-
-/*
-				$week_start = new DateTime();
-				$week = strftime("%U");  //this gets you the week number starting Sunday
-				$week_start->setISODate(2015,$week,0); //return the first day of the week with offset 0
-				echo $week_start -> format('d-M-Y'); //and just prints with formatting 
-*/
-
-				$weekRes = 'SELECT extract(day from date_created), SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
-				FROM	'.$tableName.' f
-				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\' and extract(month from date_created) = \''.$month.'\' and f.week = \''.$week.'\'
-				GROUP BY extract(day from date_created)';
-
-
-				//prepare
-				$stid1 = oci_parse($conn,$weekRes);
-					
-				$res = oci_execute($stid1);
-				$i = 0;
-				while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
-					echo '<tr>';
-					foreach($row as $item) {
-						if ($i%4 == 0) {
-			
-							//format date 
-							$timeStr = "{$month}/{$item}/{$year}";
-							$datetime = DateTime::createFromFormat('m/d/Y', $timeStr);
-							$timeStr = $datetime->format('D, Y-M-d');
-
-							echo "<td>"; 
-							echo "<ul id='disp'>";
-							echo "<li> $timeStr </li>";
-							//echo "<li><a href='OlapWeekly.php?sid=$sid&year=$year&quarter=$quarter&month=$month&$quarter=$item'>" .$item. "</a></li>";							
-							echo "</ul>";
-							echo "</td>"; 
-
-
-						} else {
-							echo "<td>"; 
-							echo "<ul id='Res'>";
-							echo "<li>" .$item. "</li>";
-							echo "</ul>";
-							echo "</td>"; 
+								} else {
+									echo "<td>"; 
+									echo "<ul id='Res'>";
+									echo "<li>" .$item. "</li>";
+									echo "</ul>";
+									echo "</td>"; 
+								}
+								$i++;
+							}
+							echo '</tr>';
 						}
-						$i++;
+						oci_free_statement($stid1);
+						oci_close($conn);
 					}
-					echo '</tr>';
-				}
-
-				oci_free_statement($stid1);
-				oci_close($conn);
-
-			}
-		?>
-		</table>
+					?>
+			</table>
 		</div>
 	</body>
 </html>

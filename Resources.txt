@@ -1,0 +1,11 @@
+Data Analysis
+
+- //http://stackoverflow.com/questions/871858/php-pass-variable-to-next-page
+- //http://stackoverflow.com/questions/13102351/passing-a-variable-with-href-in-html
+- http://php.net/manual/en/function.strtotime.php
+- http://php.net/manual/en/function.strftime.php
+- http://www.computerhope.com/issues/ch000317.htm
+- http://stackoverflow.com/questions/18467669/convert-number-to-month-name-in-php
+- http://stackoverflow.com/questions/25906836/how-to-get-the-first-day-of-the-current-year
+- http://php.net/manual/en/class.datetime.php
+- http://php.net/manual/en/function.date.php
