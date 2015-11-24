@@ -138,7 +138,7 @@ function getAudioData($data){
 	
 	echo '<h3>Audio Recordings</h3>';	
 	echo'<table class =table> <thead> <tr> 
-	 <th> SensorID</th> <th>length</th> <th>date</th> <th> Description</th> <th>Download</th> </tr>
+	<th> ID </th> <th> SensorID</th> <th>length</th> <th>date</th> <th> Description</th> <th>Download</th> </tr>
 	</thead><tbody>';
 
 
@@ -155,7 +155,7 @@ function getAudioData($data){
 
 
 
-		echo '<tr><td>'.$audioData['sensorID'].'</td>
+		echo '<tr><td>'.$audioData['audioID'].'</td><td>'.$audioData['sensorID'].'</td>
 		<td>'.$audioData['length'].'</td> <td>'.$audioData['date'].'</td> <td>'.$audioData['description'].'</td>
 		<td> <button class=downloadAudio id = '.$audioData['audioID'].'>Download</button></td></tr>';
 
@@ -309,7 +309,7 @@ function getImageData($data){
 	echo '<h3> Image Data</h3>';
 
 	echo'<table class=table> <thead> <tr> 
-	<th> SensorID</th> <th>Thumbnail</th>  <th>Date</th> <th>Description</th> <th>Download</th> </tr>
+	<th> ID </th> <th> SensorID</th> <th>Thumbnail</th>  <th>Date</th> <th>Description</th> <th>Download</th> </tr>
 	</thead><tbody>';
 
 	
@@ -327,7 +327,7 @@ function getImageData($data){
 
 		
 				
-		echo '<tr><td>'.$imageData['sensorID'].'</td> <td> <img src="data:image/jpeg;base64, '.$imageData['thumbnail']->load().'">
+		echo '<tr><td>'.$imageData['ID'].'</td><td>'.$imageData['sensorID'].'</td> <td> <img src="data:image/jpeg;base64, '.$imageData['thumbnail']->load().'">
 		<td>'.$imageData['date'].'</td><td>'.$imageData['description'].'</td>
 		<td><button href=downloadImage.php?id='.$imageData['ID'].' class=downloadImage id = '.$imageData['ID'].'>Download</button></td></tr>';
 
