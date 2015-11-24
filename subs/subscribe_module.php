@@ -65,49 +65,62 @@ session_start();
 
 		<!-- Tab panes -->
   <div class="tab-content">
+
+		<!--this div is a tab that shows 
+		the users subscriptions -->
+
     <div role="tabpanel" class="tab-pane active" id="Subscribed">
 
-			<?php
+	<?php
 
-
-			$sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description
-    from users, subscriptions , sensors
-    where users.user_name = \''.$_SESSION['username'].'\'
+		//this is the sql query that will be executed
+		//this finds the subscribed modules of the user
+		//that is currently logged in
+		$sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description
+    	from users, subscriptions , sensors
+    	where users.user_name = \''.$_SESSION['username'].'\'
 		and users.person_id = subscriptions.person_id
-    and subscriptions.sensor_id = sensors.sensor_id';
+		and subscriptions.sensor_id = sensors.sensor_id';
             
-			$conn = connect();
+		$conn = connect();
 
 
-			$stid = oci_parse($conn, $sql);
-			$res = oci_execute($stid);
+		$stid = oci_parse($conn, $sql);
+		$res = oci_execute($stid);
 
 
 
-			echo '<table>';
+		echo '<table>';
+
+		//table header
+		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> </tr></thead> <tbody> ';
 
 
-			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> </tr></thead> <tbody> ';
+		while(oci_fetch($stid)){    
+			//as it fetches each row of data
+			//it will create a row in the table
 
-
-			while(oci_fetch($stid)){    
-
-				$data1["sensor_id"] = oci_result($stid,"SENSOR_ID");
-       			$data1["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
-				$data1["description"] = oci_result($stid, "DESCRIPTION");
-				echo '<tr><td>' .$data1["sensor_id"]. '</td><td>' .$data1["sensor_type"].'</td><td>'.$data1["description"];
-				echo '</td><td><button class=unsubscribe id='.$data1["sensor_id"].'>Unsubscribe</button></td></tr>';
+			$data1["sensor_id"] = oci_result($stid,"SENSOR_ID");
+			$data1["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+			$data1["description"] = oci_result($stid, "DESCRIPTION");
+			echo '<tr><td>' .$data1["sensor_id"]. '</td><td>' .$data1["sensor_type"].'</td><td>'.$data1["description"];
+			echo '</td><td><button class=unsubscribe id='.$data1["sensor_id"].'>Unsubscribe</button></td></tr>';
 			
-			}
+		}
 
 		
 
-			echo '</table>';
+		echo '</table>';
 
 
-			?>
+		?>
 
-		   <script>
+		<script>
+		//this script executes when the user presses any one of the
+		//unsubscribed buttons
+		//it posts the sensor_id of that row to unsubscribe.php
+		//unsubscribe.php handles dropping that row of data from the 
+		//subscriptions table 
 
 		$(document).ready(function(){
 
@@ -144,25 +157,27 @@ session_start();
 
 
 		</div>
+	<!--This div is a tab that shows the user the sensors 
+		they are not currently subscribed to. -->
     <div role="tabpanel" class="tab-pane" id="Not">
 
 
 
 
 
-        <?php
+		<?php
 
-            $sql = 'select distinct sensors.sensor_id , sensors.sensor_type, sensors.description
-										from sensors, users, subscriptions 
-										where sensors.sensor_id not in (
-										select subscriptions.sensor_id
-										from users, subscriptions
-										where users.person_id = \''.$_SESSION["person_id"].'\'
-										and users.person_id = subscriptions.person_id
-										)';
+			$sql = 'select distinct sensors.sensor_id , sensors.sensor_type, sensors.description
+			from sensors, users, subscriptions 
+			where sensors.sensor_id not in (
+			select subscriptions.sensor_id
+			from users, subscriptions
+			where users.person_id = \''.$_SESSION["person_id"].'\'
+			and users.person_id = subscriptions.person_id
+			)';
 
                     
-            $conn=connect();
+			$conn=connect();
 
 
 			$stid = oci_parse($conn, $sql);
@@ -171,38 +186,48 @@ session_start();
 
 			echo '<table>';
 
-
+			//table header
 			echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th> DESCRIPTION</th> <th>Subscribe</th> </tr></thead> <tbody> ';
 		
     
 		
 			while(oci_fetch($stid)){    
-
+				//creates table of unsubscribed sensors
 				$data2["sensor_id"] = oci_result($stid,"SENSOR_ID");
-        $data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+				$data2["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
 				$data2["description"] = oci_result($stid, "DESCRIPTION");
 				echo '<tr><td>' .$data2["sensor_id"]. '</td><td>' .$data2["sensor_type"].'</td><td>'.$data2["description"];
 				echo '</td><td> <button class=subscribe id='.$data2["sensor_id"].'>subscribe</button></td></tr>';
 			
 			}
 
+			//below is code that I use
+			// to display unsubscribed sensors 
+			//if subscriptions is empty
+
 			if($data2["sensor_id"]==''){
+				//checks if the user that is logged in
+				//has any current subscriptions.
 				$checkSubscriptions = 'select * from subscriptions where subscriptions.person_id = \''.$_SESSION["person_id"].'\' ';
 				$newconn = connect();
 				$parserino = oci_parse($newconn,$checkSubscriptions);
 				$res = oci_execute($parserino);
 
-        while(oci_fetch($parserino)){
-          //if there are subscriptions make sure not to display all sensors.
-          $data5['sensor_id']=oci_result($parserino,'SENSOR_ID');
+			while(oci_fetch($parserino)){
+				//if there are subscriptions make sure not to display all sensors.
+				$data5['sensor_id']=oci_result($parserino,'SENSOR_ID');
 
-        }
-      
-        if($data5['sensor_id']==''){
-          echo 'yo';
-				  $newsql = "select sensor_id, sensor_type, description from sensors";
-				  $parserino = oci_parse($newconn,$newsql);
-				  $res = oci_execute($parserino);
+			}
+		
+			//$data5['sensor_id'] stays blank if the user
+			//does not currently have any subscriptions
+
+			if($data5['sensor_id']==''){
+				//show all sensors
+				//because user is not subscribed to anything.
+				$newsql = "select sensor_id, sensor_type, description from sensors";
+				$parserino = oci_parse($newconn,$newsql);
+				$res = oci_execute($parserino);
 				
 				  while(oci_fetch($parserino)){
 				
@@ -224,6 +249,9 @@ session_start();
 			
         ?>
         <script>
+		//this script is executed when any subscribed button is clicked
+		//The sensor_id of the row is given to subscribe.php
+		//php adds the necessary data to the subscriptions table.
 
 		$(document).ready(function(){
 
@@ -252,36 +280,40 @@ session_start();
 
 
 	</div>
-  </div>
+	</div>
 
 	</div>
-  <div class="dataDisplay">
+
+	<!--This shows all available sensors
+		so the user can easily choose
+		which sensors they want to subscribe to. -->
+	<div class="dataDisplay">
     
-    <?php 
+	<?php 
+
+	//shows all sensors
+	$sql = 'select * from sensors';
 
 
-    $sql = 'select * from sensors';
+	$conn=connect();
 
 
-    $conn=connect();
-
-
-		$stid = oci_parse($conn, $sql);
-		$res = oci_execute($stid);
+	$stid = oci_parse($conn, $sql);
+	$res = oci_execute($stid);
 
 		
-		echo '<table id=dataTable>';
+	echo '<table id=dataTable>';
 
-
-		echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> </tr> </thead> <tbody> ';
+	//create the table
+	echo '<thead> <tr> <th> ID </th> <th>TYPE</th> <th>LOCATION</th> <th> DESCRIPTION</th> </tr> </thead> <tbody> ';
 		
 
-		while(oci_fetch($stid)){    
-
-			$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
-      $data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
-      $data3["location"] = oci_result($stid,"LOCATION");
-      $data3["description"] = oci_result($stid,"DESCRIPTION");
+	while(oci_fetch($stid)){    
+		//fill table with rows from sensors table.
+		$data3["sensor_id"] = oci_result($stid,"SENSOR_ID");
+		$data3["sensor_type"] = oci_result($stid,"SENSOR_TYPE");
+		$data3["location"] = oci_result($stid,"LOCATION");
+		$data3["description"] = oci_result($stid,"DESCRIPTION");
 			echo '<tr> <td>' .$data3["sensor_id"]. ' </td><td>' .$data3["sensor_type"]. ' </td> <td>' .$data3["location"]. ' </td><td>' .$data3["description"].'</td></tr>';
 			
 		}

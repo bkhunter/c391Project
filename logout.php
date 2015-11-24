@@ -42,6 +42,11 @@
 		$res=oci_execute($stid);
 
 
+		//http://php.net/manual/en/function.unlink.php#109971
+		array_map('unlink', glob("search/*.jpg"));
+		array_map('unlink', glob("search/*.csv"));
+		array_map('unlink', glob("search/*.wav"));
+
 		//send user back to login page 
 		header('Location: OOS.php', true, 301);
 		exit();

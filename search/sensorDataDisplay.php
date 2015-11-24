@@ -44,7 +44,7 @@ session_start();
 		//$conn = connect();
 		if($_POST['keyWordSearch']!=''){
 			
-			$data['keywords'] = preg_split('/(\s)+|,/m', $_POST['keyWordSearch']);
+			$data['keywords'] = preg_split('/(\s)+|,/', $_POST['keyWordSearch']);
 
 		} 
 		
