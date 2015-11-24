@@ -1,0 +1,9 @@
+Group Information:
+
+|name           | |csid      | |student id |
+___________________________________________|
+|Boyan Peychoff    bpeychof     1357628    |
+
+|Victor Olivares   volivare     1373878    |
+
+|Ben Hunter        bkhunter     1299604	   |

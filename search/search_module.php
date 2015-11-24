@@ -101,7 +101,19 @@ if ($_SESSION['role'] != 's') {
 				<input type ="checkbox" value ="a" name = "dataTypeA" class='checkbox' checked>Audio Recordings
 				<input type="checkbox" value ="i" name ="dataTypeI" class='checkbox'> Images
 				<input type="checkbox" value="s" name="dataTypeS" class ="checkbox">Scalar Measurements <br>
-				<input type="submit" name="SubmitSearch" value="Submit" id='submitButton'><br>  			
+				<input type="submit" name="SubmitSearch" value="Submit" id='submitButton'><br>  	
+
+
+				<script>
+				$(document).ready(function(){
+
+
+				
+
+
+				});
+
+				</script>		
 
 
 		</form>
