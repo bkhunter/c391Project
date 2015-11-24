@@ -8,7 +8,7 @@
 	if(isset($_GET['id'])){
 
 
-		$file = 'tempAudio'.$_GET['id'].'.wav';
+		$file = 'tempAudio'.$_GET['id'].'_'.$_SESSION['person_id'].'.wav';
 
 	//http://stackoverflow.com/questions/12094080/download-files-from-server-php
 	header('Content-Description: File Transfer');

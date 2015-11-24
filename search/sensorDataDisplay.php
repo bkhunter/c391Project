@@ -226,13 +226,17 @@ function getScalarData($data){
 			</thead><tbody>';
 
 			$index = 0;
+			$scalarcheck = 0;
 			while(oci_fetch($parsedScalarData)){
-
 
 				$scalar['ID'] = oci_result($parsedScalarData,'ID');
 				$scalarData[$index]['sensorID'] = oci_result($parsedScalarData, 'SENSOR_ID');
 				$scalarData[$index]['value'] = oci_result($parsedScalarData, 'VALUE');
 				$scalarData[$index]['date'] = oci_result($parsedScalarData,'DATE_CREATED');
+				
+				if((is_numeric ( oci_result($parsedScalarData, 'SENSOR_ID') )==1)) {
+					$scalarcheck = 1;
+				}
 
 
 				
@@ -246,15 +250,15 @@ function getScalarData($data){
 
 	echo '</table>';
 
-	if($scalarData[$index]['sensorID']!=''){
+	if($scalarcheck == 1){
 		echo '<center><button class=downloadCSV style="width: 200px; height: 50px">Download Scalar Data</button></center><br/><br/><br/>';
 	}
-			$fp = fopen('scalar_data.csv'.$_SESSION['person_id'],'w');
-				for( $row = 0 ; $row < $index ; $row++){
-					fputcsv($fp,$scalarData[$row]);				
-					
-				}				
-			fclose($fp);			
+	$fp = fopen('scalar_data'.$_SESSION['person_id'].'.csv','w');
+		for( $row = 0 ; $row < $index ; $row++){
+			fputcsv($fp,$scalarData[$row]);				
+			
+		}				
+	fclose($fp);			
 
 
 

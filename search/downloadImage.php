@@ -8,7 +8,7 @@
 	if(isset($_GET['id'])){
 
 
-		$file = 'tempPic'.$_GET['id'].'.jpg';
+		$file = 'tempPic'.$_GET['id'].'_'.$_SESSION['person_id'].'.jpg';
 
 	//http://stackoverflow.com/questions/12094080/download-files-from-server-php
 	header('Content-Description: File Transfer');

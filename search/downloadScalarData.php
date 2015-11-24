@@ -8,7 +8,7 @@
 	if(isset($_GET['id'])){
 
 
-		$file = 'scalar_data'.$_GET['ID'].'.csv';
+		$file = 'scalar_data'.$_SESSION['person_id'].'.csv';
 
 
 	

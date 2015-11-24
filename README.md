@@ -6,6 +6,10 @@ An Ocean Observation System (OOS) is a computer information system that stores a
 
 Please read help.html if you have questions about using our website.
 
+For information what the resources we used:
+please read Resources.txt
+
+
 ### Team : ###
 * Boyan Peychoff
 * Victor Olivares
