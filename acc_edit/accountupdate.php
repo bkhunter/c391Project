@@ -31,6 +31,11 @@ include("../PHPconnectionDB.php");
 		<center><h1>Ocean Observation System</h1></center>	
 		</div>
 		
+		<div align="right">
+			<form name = "login" method="post"  action="../help.html"> 
+					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+			</form>
+		</div> 
 		
 		<?php
 		

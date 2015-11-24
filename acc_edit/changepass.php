@@ -33,6 +33,12 @@ if($_SESSION['login'] != 'true') {
 
 	<center><h1>Ocean Observation System</h1></center>
 	
+	<div align="right">
+			<form name = "login" method="post"  action="../help.html"> 
+					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+			</form>
+	</div> 
+	
 	<form name = "editInfo" method="post"  action="accountupdate.php"> 
 					<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
 					<center>Change password: <input type = "password" name = "newpass">
