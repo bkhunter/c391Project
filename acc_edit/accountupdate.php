@@ -85,10 +85,34 @@ include("../PHPconnectionDB.php");
 				$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as name!</font></center>';
 			}			
 			else {
-				//name change 
+				//first name change 
 				$sql = 'update persons set first_name=\''.$name.'\' where person_id=\''.$_SESSION['person_id'].'\'';
 				$stid = oci_parse($conn, $sql);
-
+				
+				//checking if able to make change 
+				if ( !@oci_execute($stid) ) {
+					$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as name!</font></center>';
+				}
+				else {
+					$_SESSION['validatePass'] = '<center><font color="#FF88FF">name changed!</font></center>';
+				}
+			}
+			
+			echo $_SESSION['validatePass'];
+		}
+		if (isset ($_POST['editlast'])){
+			//last name change 
+			$name = $_POST['last'];
+			$_SESSION['login'] = 'true';
+			if($name == ''){
+				$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as name!</font></center>';
+			}			
+			else {
+				$sql = 'update persons set last_name=\''.$name.'\' where person_id=\''.$_SESSION['person_id'].'\'';
+				$stid = oci_parse($conn, $sql);
+				
+				
+				//checking if able to make change 
 				if ( !@oci_execute($stid) ) {
 					$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as name!</font></center>';
 				}
@@ -99,26 +123,8 @@ include("../PHPconnectionDB.php");
 			//message based of issues or not 
 			echo $_SESSION['validatePass'];
 		}
-		if (isset ($_POST['editlast'])){
-			$name = $_POST['last'];
-			$_SESSION['login'] = 'true';
-			if($name == ''){
-				$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as name!</font></center>';
-			}			
-			else {
-				$sql = 'update persons set last_name=\''.$name.'\' where person_id=\''.$_SESSION['person_id'].'\'';
-				$stid = oci_parse($conn, $sql);
-			
-				if ( !@oci_execute($stid) ) {
-					$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as name!</font></center>';
-				}
-				else {
-					$_SESSION['validatePass'] = '<center><font color="#FF88FF">name changed!</font></center>';
-				}
-			}
-			echo $_SESSION['validatePass'];
-		}
 		if (isset ($_POST['editaddress'])){
+			//address change 
 			$name = $_POST['address'];
 			$_SESSION['login'] = 'true';
 			if($name == ''){
@@ -127,7 +133,9 @@ include("../PHPconnectionDB.php");
 			else {
 				$sql = 'update persons set address=\''.$name.'\' where person_id=\''.$_SESSION['person_id'].'\'';
 				$stid = oci_parse($conn, $sql);
-			
+				
+				
+				//checking if able to make change 
 				if ( !@oci_execute($stid) ) {
 					$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as address!</font></center>';
 				}
@@ -135,9 +143,11 @@ include("../PHPconnectionDB.php");
 					$_SESSION['validatePass'] = '<center><font color="#FF88FF">address changed!</font></center>';
 				}
 			}
+			//message based of issues or not 
 			echo $_SESSION['validatePass'];
 		}
 		if (isset ($_POST['editemail'])){
+			//email change 
 			$name = $_POST['email'];
 			$_SESSION['login'] = 'true';
 			if($name == ''){
@@ -146,7 +156,9 @@ include("../PHPconnectionDB.php");
 			else {
 				$sql = 'update persons set email=\''.$name.'\' where person_id=\''.$_SESSION['person_id'].'\'';
 				$stid = oci_parse($conn, $sql);
-			
+				
+				
+				//checking if able to make change 
 				if ( !@oci_execute($stid) ) {
 					$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as email!</font></center>';
 				}
@@ -154,9 +166,11 @@ include("../PHPconnectionDB.php");
 					$_SESSION['validatePass'] = '<center><font color="#FF88FF">email changed!</font></center>';
 				}
 			}
+			//message based of issues or not 
 			echo $_SESSION['validatePass'];
 		}
 		if (isset ($_POST['editphone'])){
+			//phone change 
 			$name = $_POST['phone'];
 			$_SESSION['login'] = 'true';
 			if($name == ''){
@@ -165,7 +179,9 @@ include("../PHPconnectionDB.php");
 			else {
 				$sql = 'update persons set phone=\''.$name.'\' where person_id=\''.$_SESSION['person_id'].'\'';
 				$stid = oci_parse($conn, $sql);
-
+				
+				
+				//checking if able to make change 
 				if ( !@oci_execute($stid) ) {
 					$_SESSION['validatePass'] = '<center><font color="#D00000">can not use as phone number!</font></center>';
 				}
@@ -173,6 +189,7 @@ include("../PHPconnectionDB.php");
 					$_SESSION['validatePass'] = '<center><font color="#FF88FF">phone number changed!</font></center>';
 				}
 			}
+			//message based of issues or not 
 			echo $_SESSION['validatePass'];
 		} else {
 			
@@ -180,6 +197,7 @@ include("../PHPconnectionDB.php");
 		
 		?>
 		
+		//log out button 
 		<form name = "continue" method="post"  action="../OOSLogin.php"> 
 					<h2 class ="continue"> </h2>
 					<center><input type="submit" name="validate" value="continue"></center>
