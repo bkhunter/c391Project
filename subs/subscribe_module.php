@@ -77,9 +77,8 @@ session_start();
 		//this finds the subscribed modules of the user
 		//that is currently logged in
 		$sql = 'select sensors.sensor_id , sensors.sensor_type, sensors.description
-    	from users, subscriptions , sensors
-    	where users.user_name = \''.$_SESSION['username'].'\'
-		and users.person_id = subscriptions.person_id
+    	from subscriptions , sensors
+		where subscriptions.person_id = \''.$_SESSION['person_id'].'\'
 		and subscriptions.sensor_id = sensors.sensor_id';
             
 		$conn = connect();
@@ -131,7 +130,7 @@ session_start();
 				$.post('unsubscribe.php', {id:$(this).attr('id')}, function(data){
 
 
-					alert(data);
+					//alert(data);
 					//refresh page 
 					window.location.replace("subscribe_module.php");
 
@@ -171,9 +170,8 @@ session_start();
 			from sensors, users, subscriptions 
 			where sensors.sensor_id not in (
 			select subscriptions.sensor_id
-			from users, subscriptions
-			where users.person_id = \''.$_SESSION["person_id"].'\'
-			and users.person_id = subscriptions.person_id
+			from subscriptions
+			where subcriptions.person_id = \''.$_SESSION["person_id"].'\'
 			)';
 
                     
