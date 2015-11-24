@@ -163,6 +163,7 @@ function getAudioData($data){
 		file_put_contents('tempAudio'.$audioData['audioID'].'.wav' , $audioData['audio']->load());
 
 
+
 		echo '<tr><td>'.$audioData['audioID'].'</td><td>'.$audioData['sensorID'].'</td>
 		<td>'.$audioData['length'].'</td> <td>'.$audioData['date'].'</td> <td>'.$audioData['description'].'</td>
 		<td> <button class=downloadAudio id = '.$audioData['audioID'].'>Download</button></td></tr>';
