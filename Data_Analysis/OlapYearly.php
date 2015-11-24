@@ -15,7 +15,6 @@ include("../PHPconnectionDB.php");
 	?>
 	<head>
 		<style>
-			
 			table#year {
 				
 				background-color: gray;
@@ -70,72 +69,75 @@ include("../PHPconnectionDB.php");
 	
 	<body>
 		<?php 
-			if (isset($_GET['sid'])) {  	 
-				$sid = $_GET['sid'];
-				session_start();
-				$pID = $_SESSION['pID'];
-				$tableName = $_SESSION['table'];
+		// only display the table if sensor ID has been passed
+		if (isset($_GET['sid'])) {  	 
+			$sid = $_GET['sid'];
+			session_start();
+			$pID = $_SESSION['pID'];
+			$tableName = $_SESSION['table'];
 
-				$conn=connect();
-		
-				if (!$conn) {
-					$e = oci_error();
-					trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-				}
-
-				// get locations attached to subcribed sensors
-				$lQ = 'select location from sensors where sensor_id = \''.$sid.'\' ';
-
-				// prepare
-				$stid = oci_parse($conn, $lQ );
+			$conn=connect();
 	
-				// execute
-				$res=oci_execute($stid);
+			if (!$conn) {
+				$e = oci_error();
+				trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+			}
 
-				// strange because in a loop, but only 1 location per sensor ID
-				while (($row = oci_fetch_array($stid, OCI_ASSOC))) {
-					foreach($row as $item) {
-						$loc = $item;
-					}
+			// get locations attached to subcribed sensors
+			$lQ = 'select location from sensors where sensor_id = \''.$sid.'\' ';
+
+			// prepare
+			$stid = oci_parse($conn, $lQ );
+
+			// execute
+			$res=oci_execute($stid);
+
+			// strange because in a loop, but only 1 location per sensor ID
+			while (($row = oci_fetch_array($stid, OCI_ASSOC))) {
+				foreach($row as $item) {
+					$loc = $item;
 				}
+			}
 
-				?>
+		?>
 
-			<div class ="page">
-				<div class = "page-header">
-				<h1 class ="title"> Olap Analysis</h1>			
-			</div>
-			
-			<div align="right">
-			<form name = "login" method="post"  action="../help.html"> 
-					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+		<div class ="page">
+			<div class = "page-header">
+			<h1 class ="title"> Olap Analysis</h1>			
+		</div>
+		
+		<div align="right">
+		<form name = "login" method="post"  action="../help.html"> 
+				<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
+		</form>
+		</div> 
+		
+		<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
+		<div class="container">
+			<form> 
+				<input type="button" name="back" value="Back" onClick="history.go(-1);return true;"/>
 			</form>
-			</div> 
-			
-			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
-			<div class="container">
-				<form> 
-					<input type="button" name="back" value="Back" onClick="history.go(-1);return true;"/>
-				</form>
-			</div>	
+		</div>	
 
-			<div class="container">
-				<form action= "../OOSLogin.php"> 
-					<input type="submit" name="back" value="Exit"/>
-				</form>
-			</div>	
-			
-			<div class="container">
-				<h4> ID : <?php echo $sid ?> </h4>  
-				<h4>  Location : <?php echo $loc ?> </h4>
-				<table id = "year" border = "1">
-					<th> Year </th>
-					<th> Sum </th>
-					<th> Min </th>
-					<th> Max    </th>
+		<div class="container">
+			<form action= "../OOSLogin.php"> 
+				<input type="submit" name="back" value="Exit"/>
+			</form>
+		</div>	
+		
+		<!-- partially created table that is filled with php echo statements -->
+		<div class="container">
+			<h4> ID : <?php echo $sid ?> </h4>  
+			<h4>  Location : <?php echo $loc ?> </h4>
+			<table id = "year" border = "1">
+				<th> Year </th>
+				<th> Sum </th>
+				<th> Min </th>
+				<th> Max    </th>
 
 			<?php   	 
 
+				// drill down to years
 				$yearRes = 'SELECT extract(year from date_created) as YEAR, SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
 				FROM	'.$tableName.' f
 				WHERE	f.sensor_id = \''.$sid.'\'	
@@ -149,6 +151,7 @@ include("../PHPconnectionDB.php");
 				while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
 					echo '<tr>';
 					foreach($row as $item) {
+						// every 4th item should be a link for drilling down
 						if ($i%4 == 0) {
 
 							echo "<td>"; 
@@ -172,8 +175,9 @@ include("../PHPconnectionDB.php");
 				oci_free_statement($stid1);
 				oci_close($conn);
 			}
-		?>
+			?>
 		</table>
-		</div>
+	</div>
+
 	</body>
 </html>

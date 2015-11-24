@@ -103,83 +103,86 @@ include("../PHPconnectionDB.php");
 
 				?>
 
-			<div class ="page">
-				<div class = "page-header">
-				<h1 class ="title"> Olap Analysis</h1>			
-			</div>
+				<div class ="page">
+					<div class = "page-header">
+					<h1 class ="title"> Olap Analysis</h1>			
+				</div>
 			
-			<div align="right">
-			<form name = "login" method="post"  action="../help.html"> 
-					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
-			</form>
-			</div> 
-
-
-			<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
-			<div class="container">
-				<form> 
-					<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
+				<div align="right">
+				<form name = "login" method="post"  action="../help.html"> 
+						<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
 				</form>
-			</div>	
+				</div> 
+
+
+				<!-- back button from http://www.computerhope.com/issues/ch000317.htm -->
+				<div class="container">
+					<form> 
+						<input type="button" name="back" value="Roll Up" onClick="history.go(-1);return true;"/>
+					</form>
+				</div>	
 			
-			<div class="container">
-				<form action= "../OOSLogin.php"> 
-					<input type="submit" name="back" value="Exit"/>
-				</form>
-			</div>	
+				<div class="container">
+					<form action= "../OOSLogin.php"> 
+						<input type="submit" name="back" value="Exit"/>
+					</form>
+				</div>	
 
-		
-			<div class="container">
-				<h4> ID : <?php echo $sid ?> </h4>  
-				<h4>  Location : <?php echo $loc ?> </h4>
-				<h4>  Year : <?php echo $year ?> </h4>
-				<table id = "Quarter" border = "1">
-					<th> Quarter </th>
-					<th> Sum </th>
-					<th> Min </th>
-					<th> Max </th>
+				<!-- begin constructing output table -->
+				<div class="container">
+					<h4> ID : <?php echo $sid ?> </h4>  
+					<h4>  Location : <?php echo $loc ?> </h4>
+					<h4>  Year : <?php echo $year ?> </h4>
+					<table id = "Quarter" border = "1">
+						<th> Quarter </th>
+						<th> Sum </th>
+						<th> Min </th>
+						<th> Max </th>
 
-			<?php   
+					<?php   
+						//drill down to quarters
+						$quarterRes = 'SELECT f.quarter, SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
+						FROM	'.$tableName.' f
+						WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\'
+						GROUP BY f.quarter';
 
-				$quarterRes = 'SELECT f.quarter, SUM(f.value) as SUM, MIN(f.value) as MIN, MAX(f.value) as MAX
-				FROM	'.$tableName.' f
-				WHERE	f.sensor_id = \''.$sid.'\' and extract(year from date_created) = \''.$year.'\'
-				GROUP BY f.quarter';
+						//prepare
+						$stid1 = oci_parse($conn,$quarterRes);
 
-				//prepare
-				$stid1 = oci_parse($conn,$quarterRes);
+						// execute
+						$res = oci_execute($stid1);
 
-				$res = oci_execute($stid1);
-				$i = 0;
-				while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
-					echo '<tr>';
-					foreach($row as $item) {
-						if ($i%4 == 0) {
+						$i = 0;
+						while (($row = oci_fetch_array($stid1, OCI_ASSOC))) {
+							echo '<tr>';
+							foreach($row as $item) {
+								// every 4th item should be a link to drill down with
+								if ($i%4 == 0) {
 
-							echo "<td>"; 
-							echo "<ul id='Times'>";
-							echo "<li><a href='OlapMonthly.php?sid=$sid&year=$year&quarter=$item'>" .$item. "</a></li>";
-							echo "</ul>";
-							echo "</td>"; 
+									echo "<td>"; 
+									echo "<ul id='Times'>";
+									//http://stackoverflow.com/questions/13102351/passing-a-variable-with-href-in-html
+									echo "<li><a href='OlapMonthly.php?sid=$sid&year=$year&quarter=$item'>" .$item. "</a></li>";
+									echo "</ul>";
+									echo "</td>"; 
 
-						} else {
-							echo "<td>"; 
-							echo "<ul id='Res'>";
-							echo "<li>" .$item. "</li>";
-							echo "</ul>";
-							echo "</td>"; 
+								} else {
+									echo "<td>"; 
+									echo "<ul id='Res'>";
+									echo "<li>" .$item. "</li>";
+									echo "</ul>";
+									echo "</td>"; 
+								}
+								$i++;
+							}
+							echo '</tr>';
 						}
-						$i++;
+
+						oci_free_statement($stid1);
+						oci_close($conn);
 					}
-					echo '</tr>';
-				}
-
-				oci_free_statement($stid1);
-				oci_close($conn);
-
-			}
-		?>
-		</table>
-		</div>
+				?>
+				</table>
+			</div>
 	</body>
 </html>
