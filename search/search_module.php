@@ -2,12 +2,12 @@
 ini_set('session.cache_limiter','public');
 session_cache_limiter(false);
 
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 
 session_start();
 //data curator
 if ($_SESSION['role'] != 's') {
-		header('Location: OOSLogin.php', true, 301);
+		header('Location: ../OOSLogin.php', true, 301);
 		exit();	
 }
 ?>
@@ -44,7 +44,7 @@ if ($_SESSION['role'] != 's') {
 
 	</div>
 
-	<form name = "logout" method="post"  action="logout.php"> 
+	<form name = "logout" method="post"  action="../logout.php"> 
 					<h2 class ="logout"> </h2>
 					<center><input type="submit" name="validate" value="  log out  "></center>
 	</form>
