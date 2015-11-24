@@ -20,7 +20,7 @@ if($_SESSION['login'] != 'true') {
 
 	<title>
 
-		User Validation
+		changing information
 
 	</title>
 
@@ -40,6 +40,10 @@ if($_SESSION['login'] != 'true') {
 	</div> 
 	
 	<?php
+	//based on what the user wants to change display the 
+	//related field 
+	
+	//first name change 
 	if(isset ($_POST['first'])) {
 		echo
 		'<form name = "editInfo" method="post"  action="accountupdate.php"> 
@@ -47,6 +51,8 @@ if($_SESSION['login'] != 'true') {
 						<input type="submit" name="editfirst" value="confirm"></center>
 		</form>';
 	}
+	
+	//last name change 
 	if(isset ($_POST['last'])) {
 		echo
 		'<form name = "editInfo" method="post"  action="accountupdate.php"> 
@@ -54,6 +60,8 @@ if($_SESSION['login'] != 'true') {
 						<input type="submit" name="editlast" value="confirm"></center>
 		</form>';
 	}
+	
+	//address change 
 	if(isset ($_POST['address'])) {
 		echo
 		'<form name = "editInfo" method="post"  action="accountupdate.php"> 
@@ -61,6 +69,8 @@ if($_SESSION['login'] != 'true') {
 						<input type="submit" name="editaddress" value="confirm"></center>
 		</form>';
 	}
+	
+	//email change 
 	if(isset ($_POST['email'])) {
 		echo
 		'<form name = "editInfo" method="post"  action="accountupdate.php"> 
@@ -68,6 +78,8 @@ if($_SESSION['login'] != 'true') {
 						<input type="submit" name="editemail" value="confirm"></center>
 		</form>';
 	}
+	
+	//phone change 
 	if(isset ($_POST['phone'])) {
 		echo
 		'<form name = "editInfo" method="post"  action="accountupdate.php"> 

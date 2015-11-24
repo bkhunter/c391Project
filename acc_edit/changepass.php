@@ -7,6 +7,7 @@ include("../PHPconnectionDB.php");
 
 
 session_start();
+//login check 
 if($_SESSION['login'] != 'true') {
 	header('Location: ../OOS.php', true, 301);
 	exit();	
@@ -20,7 +21,7 @@ if($_SESSION['login'] != 'true') {
 
 	<title>
 
-		User Validation
+		password change 
 
 	</title>
 
@@ -33,12 +34,15 @@ if($_SESSION['login'] != 'true') {
 
 	<center><h1>Ocean Observation System</h1></center>
 	
+	
+	<!--//help button -->
 	<div align="right">
 			<form name = "login" method="post"  action="../help.html"> 
 					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
 			</form>
 	</div> 
 	
+	<!--//password form -->
 	<form name = "editInfo" method="post"  action="accountupdate.php"> 
 					<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
 					<center>Change password: <input type = "password" name = "newpass">
