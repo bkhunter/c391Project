@@ -1,3 +1,14 @@
+all:
+https://eclass.srv.ualberta.ca/pluginfile.php/2405300/mod_resource/content/1/PHP_lab_Cmput_391.pdf
+https://eclass.srv.ualberta.ca/mod/resource/view.php?id=1684323
+
+bootstrap:
+http://getbootstrap.com/getting-started/
+
+upload:
+http://php.net/manual/en/function.imagejpeg.php#89866
+
+
 Data Analysis
 
 - //http://stackoverflow.com/questions/871858/php-pass-variable-to-next-page
