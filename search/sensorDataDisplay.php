@@ -1,5 +1,5 @@
 <?php
-include("PHPconnectionDB.php");
+include("../PHPconnectionDB.php");
 
 session_start();
 ?>
@@ -236,7 +236,7 @@ function getScalarData($data){
 
 	echo '</table>';
 
-	echo '<button class=downloadCSV>Download Scalar Data</button>';
+	echo '<center><button class=downloadCSV style="width: 200px; height: 50px">Download Scalar Data</button></center><br/><br/><br/>';
 
 			$fp = fopen('scalar_data.csv','w');
 				for( $row = 0 ; $row < $index ; $row++){
