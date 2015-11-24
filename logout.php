@@ -11,10 +11,14 @@
 		$pID = (string)$pID;
 		$f = "fact";
 		$tableName = "{$f}{$pID}";
-
+		
+		
+		//on login page have Please login message 
 		$_SESSION['validate'] = '<center><font color="#DF88FD">Please log in</font></center>';
+		//set the login check to be false since they are logged out 
 		$_SESSION['login']   = 'false';
 
+		//from school notes 
 		ini_set('display_errors', 1);
 	
 		error_reporting(E_ALL);
@@ -37,6 +41,8 @@
 		//execute
 		$res=oci_execute($stid);
 
+
+		//send user back to login page 
 		header('Location: OOS.php', true, 301);
 		exit();
 
