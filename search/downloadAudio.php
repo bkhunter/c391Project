@@ -1,6 +1,6 @@
 <?php
 
-	include("PHPconnectionDB.php");
+	include("../PHPconnectionDB.php");
 
 	session_start();
 	echo'plz';
@@ -8,7 +8,7 @@
 	if(isset($_GET['id'])){
 
 
-		$file = 'tempPic'.$_GET['id'].'.jpg';
+		$file = 'tempAudio'.$_GET['id'].'.wav';
 
 	//http://stackoverflow.com/questions/12094080/download-files-from-server-php
 	header('Content-Description: File Transfer');
