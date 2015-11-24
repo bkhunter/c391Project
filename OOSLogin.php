@@ -6,13 +6,14 @@ include("PHPconnectionDB.php");
 
 session_start();
 
+//drops fact table 
 $pID = $_SESSION['person_id'];
 $pID = (string)$pID;
 $f = "fact";
 $tableName = "{$f}{$pID}";
 
+//from school notes 
 ini_set('display_errors', 1);
-	
 error_reporting(E_ALL);
 
 $conn=connect();
@@ -52,7 +53,7 @@ $res=oci_execute($stid);
 <body>
 
 	<center><h1>Ocean Observation System</h1></center>
-	
+		<!-- help button --> 
 		<div align="right">
 			<form name = "login" method="post"  action="help.html"> 
 					<input type="submit" name="validate" value="help" style="width: 125px; height: 50px;">
@@ -77,8 +78,9 @@ $res=oci_execute($stid);
 		oci_fetch($stid);
 
 		
-
+		//if user is log in 
 		if((is_numeric ( oci_result($stid, 'PERSON_ID') )==1)) {
+			//used by other modules, data is kept for the session 
 			$_SESSION['login'] = 'true';
 			$_SESSION['validate'] = 'true';
 			$_SESSION['username'] = $username;
@@ -86,7 +88,7 @@ $res=oci_execute($stid);
 			$_SESSION['role'] = oci_result($stid, 'ROLE');
 		}
 		
-		//if not login in or not an account 
+		//if not login or not an account 
 		if ( $_SESSION['login'] != 'true' ) {
 
 			$_SESSION['validate'] = '<center><font color="#D00000">Wrong username or password!</font></center>';
@@ -95,6 +97,7 @@ $res=oci_execute($stid);
 		}	
 				
 	}
+	//send out of page if not login 
 	if($_SESSION['login'] != 'true') {
 		header('Location: OOS.php', true, 301);
 		exit();	
@@ -119,7 +122,7 @@ $res=oci_execute($stid);
 					</form>';
 		}
 		
-		//administrator
+		//if administrator
 		if($_SESSION['role'] == 'a'){
 
 			echo '<form name = "sensor" method="post"  action="./sensor_and_user_mgmt/sensorModule.php"> 
@@ -143,16 +146,23 @@ $res=oci_execute($stid);
 	
 	?>
 	
+	
+	<!-- buttons -->
+	
+	<!--//logout button-->
 	<form name = "logout" method="post"  action="logout.php"> 
 					<h2 class ="logout"> </h2>
 					<center><input type="submit" name="validate" value="  log out  "></center>
 	</form>
 	
+	<!--//buttons related to account information-->
 	<center><h4 class ="editHeader"> personal account settings you can change: </h4></center>
+	<!--//change password button-->
 	<form name = "editInfo" method="post"  action="./acc_edit/changepass.php"> 
 					<center><input type="submit" name="validate" value="change password"></center>
 	</form>
 	
+	<!--//edit account button -->
 	<form name = "editInfo" method="post"  action="./acc_edit/accountinfo.php"> 
 					<center><input type="submit" name="validateAcc" value="edit account"></center>
 	</form>
@@ -170,3 +180,7 @@ $res=oci_execute($stid);
 
 
 </html>
+
+
+
+

@@ -24,14 +24,20 @@
 		</div>
 		
 		<?php
+		//used to check if a user is sign in or not 
 		session_start();
+		//user is not sign in 
 		if($_SESSION['validate'] != 'true') {
+			//msg based on what event happened
+			//logout or issue signing 
 			echo $_SESSION['validate']; 
 		}
+		//if user is signed send to to another
 		if($_SESSION['login']   == 'true'){
 			header('Location: OOSLogin.php', true, 301);
 			exit();
 		}
+		//if not already log in destroy session 
 		session_destroy();
 		?>
 		
@@ -45,7 +51,7 @@
 
 
 		
-			
+		<!--//login form -->
 		<form name = "login" method="post"  action="OOSLogin.php"> 
 					<h2 class ="loginHeader"> Login </h2>
 					Username: <input type="text" name ="username"><br>

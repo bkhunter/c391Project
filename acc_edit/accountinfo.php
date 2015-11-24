@@ -19,6 +19,7 @@ include("../PHPconnectionDB.php");
 	</head>
 
 	<!-- Latest compiled and minified CSS -->
+	<!-- bootstrapping http://getbootstrap.com/getting-started/-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" 
 	integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" 
 	crossorigin="anonymous">
@@ -53,7 +54,9 @@ include("../PHPconnectionDB.php");
 			$res = oci_execute($stid);
 			oci_fetch($stid);
 			
-			
+			//displaying information about user
+			//rows are displayed as 
+			//information title: information [edit button]
 			echo '<center><table style=width:15%>
 			<th>Account Information:</th>
 						<tr>
