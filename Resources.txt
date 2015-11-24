@@ -7,7 +7,7 @@ http://getbootstrap.com/getting-started/
 
 upload:
 http://php.net/manual/en/function.imagejpeg.php#89866
-
+http://php.net/manual/en/function.oci-new-descriptor.php 
 
 Data Analysis
 
