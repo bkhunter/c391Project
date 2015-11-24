@@ -215,30 +215,35 @@ function getScalarData($data){
 			<th> ID </th> <th> SensorID</th> <th>value</th> <th>date</th><th>Download</th> </tr>
 			</thead><tbody>';
 
+			$index = 0;
 			while(oci_fetch($parsedScalarData)){
-				$scalarData['ID'] = oci_result($parsedScalarData,'ID');
-				$scalar['sensorID'] = oci_result($parsedScalarData, 'SENSOR_ID');
-				$scalarData['value'] = oci_result($parsedScalarData, 'VALUE');
-				$scalarData['date'] = oci_result($parsedScalarData,'DATE_CREATED');
 
-				$fp = fopen('scalar_data'.$scalarData['ID'].'.csv','w');
-					foreach($scalarData as $data){
 
-					fputcsv($fp,$data);				
-					
-				}				
-				fclose($fp);
+				$scalar['ID'] = oci_result($parsedScalarData,'ID');
+				$scalarData[$index]['sensorID'] = oci_result($parsedScalarData, 'SENSOR_ID');
+				$scalarData[$index]['value'] = oci_result($parsedScalarData, 'VALUE');
+				$scalarData[$index]['date'] = oci_result($parsedScalarData,'DATE_CREATED');
+
+
 				
 
-				echo '<tr><td>'.$scalarData['ID'].'</td><td>'.$scalar['sensorID'].'</td> 
-				<td>'.$scalarData['value'].'</td> <td>'.$scalarData['date'].'</td>
-				<td> <button class=downloadCSV id = '.$scalarData['ID'].'>Download</button></td></tr>';
-
+				echo '<tr><td>'.$scalar['ID'].'</td><td>'.$scalarData[$index]['sensorID'].'</td> 
+				<td>'.$scalarData[$index]['value'].'</td> <td>'.$scalarData[$index]['date'].'</td>
+				<td> <button class=downloadCSV id = '.$scalar['ID'].'>Download</button></td></tr>';
+				$index = $index + 1;
 
 			}	
 
 	echo '</table>';
 
+
+
+			$fp = fopen('scalar_data.csv','w');
+				for( $row = 0 ; $row < $index ; $row++){
+					fputcsv($fp,$scalarData[$row]);				
+					
+				}				
+			fclose($fp);			
 
 
 
